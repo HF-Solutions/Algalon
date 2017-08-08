@@ -30,3 +30,25 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+\.idea/
+
+Algalon\.iml
+
+algalona/algalona\.iml
+
+algalona/JSONReplies/\.vscode/launch\.json
+
+app/app\.iml
+
+app/src/main/res/raw/blizzard_key
+
+app/src/main/res/raw/blizzard_secret
+
+gradlew\.bat
+
+gradlew
+
+gradle/wrapper/gradle-wrapper\.properties
+
+gradle/wrapper/gradle-wrapper\.jar
