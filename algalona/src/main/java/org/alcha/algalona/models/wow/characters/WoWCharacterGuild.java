@@ -1,8 +1,9 @@
 package org.alcha.algalona.models.wow.characters;
 
-import org.alcha.algalona.models.wow.WoWBattlegroup;
+import org.alcha.algalona.models.wow.battlegroups.WoWUSBattlegroups;
 import org.alcha.algalona.models.wow.guilds.WoWGuild;
-import org.alcha.algalona.models.wow.realms.WoWRealms;
+import org.alcha.algalona.models.wow.guilds.WoWGuildEmblem;
+import org.alcha.algalona.models.wow.realms.WoWUSRealms;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,12 +36,12 @@ public class WoWCharacterGuild extends WoWCharacterField {
         try {
             WoWGuild guild = WoWGuild.newInstance();
             guild.setName(jsonObject.getString("name"));
-            guild.setRealm(WoWRealms.fromString(jsonObject.getString("realm")));
-            guild.setBattleGroup(WoWBattlegroup.valueOf(jsonObject.getString("battlegroup")));
+            guild.setRealm(WoWUSRealms.fromString(jsonObject.getString("realm")));
+            guild.setBattleGroup(WoWUSBattlegroups.valueOf(jsonObject.getString("battlegroup")));
             guild.setLevel(0);
             guild.setSide(0);
             guild.setAchievementPoints(0);
-            guild.setEmblem(new WoWGuild.Emblem());
+            guild.setEmblem(WoWGuildEmblem.fromJSON(jsonObject));
         } catch (JSONException ex) {
             ex.printStackTrace();
         }

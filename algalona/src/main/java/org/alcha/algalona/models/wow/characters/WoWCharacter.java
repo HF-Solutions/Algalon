@@ -2,11 +2,11 @@ package org.alcha.algalona.models.wow.characters;
 
 import android.util.Log;
 
-import org.alcha.algalona.models.wow.WoWBattlegroup;
+import org.alcha.algalona.models.wow.battlegroups.WoWUSBattlegroups;
 import org.alcha.algalona.models.wow.WoWCharacterClass;
 import org.alcha.algalona.models.wow.WoWFaction;
 import org.alcha.algalona.models.wow.WoWRace;
-import org.alcha.algalona.models.wow.realms.WoWRealms;
+import org.alcha.algalona.models.wow.realms.WoWUSRealms;
 import org.alcha.algalona.models.wow.guilds.WoWGuild;
 
 import org.json.JSONException;
@@ -22,8 +22,8 @@ public class WoWCharacter {
     private static final String LOG_TAG = "WoWCharacter";
     private int mLastModified;
     private String mName;
-    private WoWRealms mRealm;
-    private WoWBattlegroup mBattlegroup;
+    private WoWUSRealms mRealm;
+    private WoWUSBattlegroups mBattlegroup;
     private WoWCharacterClass mCharacterClass;
     private WoWRace mRace;
     private int mGender;
@@ -33,7 +33,7 @@ public class WoWCharacter {
     private String mCalcClass;
     private WoWFaction mFaction;
     private int mTotalHonorableKills;
-    private SortedMap<WoWCharacterField.Type, WoWCharacterField> mFieldMap;
+    private SortedMap<WoWCharacterField.Name, WoWCharacterField> mFieldMap;
 
     private WoWCharacter() {
 
@@ -46,8 +46,8 @@ public class WoWCharacter {
             // Required parameters
             character.setLastModified(characterJson.getInt("lastModified"));
             character.setName(characterJson.getString("name"));
-            character.setRealm(WoWRealms.fromString(characterJson.getString("realm")));
-            character.setBattlegroup(WoWBattlegroup.valueOf(characterJson.getString("battlegroup")));
+            character.setRealm(WoWUSRealms.fromString(characterJson.getString("realm")));
+            character.setBattlegroup(WoWUSBattlegroups.valueOf(characterJson.getString("battlegroup")));
             character.setCharacterClass(WoWCharacterClass.fromId(characterJson.getInt("class")));
             character.setRace(WoWRace.fromId(characterJson.getInt("race")));
             character.setGender(characterJson.getInt("gender"));
@@ -158,7 +158,7 @@ public class WoWCharacter {
         return mTotalHonorableKills;
     }
 
-    public void setTotalHonorableKills(int totalHonorableKills) {
+    private void setTotalHonorableKills(int totalHonorableKills) {
         mTotalHonorableKills = totalHonorableKills;
     }
 
@@ -166,7 +166,7 @@ public class WoWCharacter {
         return mCalcClass;
     }
 
-    public void setCalcClass(String calcClass) {
+    private void setCalcClass(String calcClass) {
         mCalcClass = calcClass;
     }
 
@@ -174,7 +174,7 @@ public class WoWCharacter {
         return mFaction;
     }
 
-    public void setFaction(WoWFaction faction) {
+    private void setFaction(WoWFaction faction) {
         mFaction = faction;
     }
 
@@ -182,7 +182,7 @@ public class WoWCharacter {
         return mLastModified;
     }
 
-    public void setLastModified(int lastModified) {
+    private void setLastModified(int lastModified) {
         mLastModified = lastModified;
     }
 
@@ -190,23 +190,23 @@ public class WoWCharacter {
         return mName;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         mName = name;
     }
 
-    public WoWRealms getRealm() {
+    public WoWUSRealms getRealm() {
         return mRealm;
     }
 
-    public void setRealm(WoWRealms realm) {
+    private void setRealm(WoWUSRealms realm) {
         mRealm = realm;
     }
 
-    public WoWBattlegroup getBattlegroup() {
+    public WoWUSBattlegroups getBattlegroup() {
         return mBattlegroup;
     }
 
-    public void setBattlegroup(WoWBattlegroup battlegroup) {
+    private void setBattlegroup(WoWUSBattlegroups battlegroup) {
         mBattlegroup = battlegroup;
     }
 
@@ -214,7 +214,7 @@ public class WoWCharacter {
         return mCharacterClass;
     }
 
-    public void setCharacterClass(WoWCharacterClass characterClass) {
+    private void setCharacterClass(WoWCharacterClass characterClass) {
         mCharacterClass = characterClass;
     }
 
@@ -222,7 +222,7 @@ public class WoWCharacter {
         return mRace;
     }
 
-    public void setRace(WoWRace race) {
+    private void setRace(WoWRace race) {
         mRace = race;
     }
 
@@ -230,7 +230,7 @@ public class WoWCharacter {
         return mGender;
     }
 
-    public void setGender(int gender) {
+    private void setGender(int gender) {
         mGender = gender;
     }
 
@@ -238,7 +238,7 @@ public class WoWCharacter {
         return mLevel;
     }
 
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         mLevel = level;
     }
 
@@ -246,7 +246,7 @@ public class WoWCharacter {
         return mAchievementPoints;
     }
 
-    public void setAchievementPoints(int achievementPoints) {
+    private void setAchievementPoints(int achievementPoints) {
         mAchievementPoints = achievementPoints;
     }
 
@@ -254,7 +254,7 @@ public class WoWCharacter {
         return mThumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    private void setThumbnail(String thumbnail) {
         mThumbnail = thumbnail;
     }
 }

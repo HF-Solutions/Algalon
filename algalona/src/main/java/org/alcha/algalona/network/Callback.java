@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public abstract class Callback implements OnTaskCompleted {
     @Override
-    public void onTaskCompleted(JSONObject result) {
+    public void onTaskCompleted(JSONObject response) {
 
     }
 }
