@@ -17,7 +17,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
             mAchievementsCriteriaCreated;
 
     private WoWCharacterAchievements() {
-        setFieldType(WoWCharacterField.Type.Achievements);
+        setFieldName(Name.Achievements);
     }
 
     public static WoWCharacterAchievements newInstanceFromJSON(JSONObject object) throws JSONException {

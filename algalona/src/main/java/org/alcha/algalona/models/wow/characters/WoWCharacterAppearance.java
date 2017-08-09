@@ -19,7 +19,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
     private int[] mCustomDisplayOptions;
 
     private WoWCharacterAppearance() {
-        setFieldType(WoWCharacterField.Type.Achievements);
+        setFieldName(Name.Achievements);
     }
 
     public static WoWCharacterAppearance newInstance() {

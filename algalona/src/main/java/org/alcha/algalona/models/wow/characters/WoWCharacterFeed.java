@@ -12,7 +12,7 @@ public class WoWCharacterFeed extends WoWCharacterField {
     private HashMap<Integer, WoWCharacterFeedEntry> mFeedMap;
 
     private WoWCharacterFeed() {
-        setFieldType(Type.Feed);
+        setFieldName(Name.Feed);
     }
 
     public static WoWCharacterFeed newInstance() {

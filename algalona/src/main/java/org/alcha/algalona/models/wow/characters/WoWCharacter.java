@@ -146,11 +146,11 @@ public class WoWCharacter {
         return character;
     }
 
-    public void addField(WoWCharacterField characterField) {
-        mFieldMap.put(characterField.getFieldType(), characterField);
+    private void addField(WoWCharacterField characterField) {
+        mFieldMap.put(characterField.getFieldName(), characterField);
     }
 
-    public WoWCharacterField getField(WoWCharacterField.Type characterField) {
+    public WoWCharacterField getField(WoWCharacterField.Name characterField) {
         return mFieldMap.get(characterField.toString());
     }
 

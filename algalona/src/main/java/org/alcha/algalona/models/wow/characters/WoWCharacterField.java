@@ -1,6 +1,6 @@
 package org.alcha.algalona.models.wow.characters;
 
-import android.util.Log;
+import org.alcha.algalona.interfaces.FieldName;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
@@ -9,7 +9,7 @@ import android.util.Log;
 public class WoWCharacterField {
     private static final String LOG_TAG = "WoWCharacterField";
 
-    public enum Type {
+    public enum Name implements FieldName {
         Achievements,
         Appearance,
         Feed,
@@ -21,7 +21,7 @@ public class WoWCharacterField {
         Pet_Slots,
         Professions,
         Progression,
-        PVP,
+        PvP,
         Quests,
         Reputation,
         Statistics,
@@ -30,8 +30,9 @@ public class WoWCharacterField {
         Titles,
         Audit;
 
+        @Override
         public String getSlug() {
-            String temp = super.toString().substring(0, 1).toLowerCase() + super.toString().substring(1);
+            String temp = name().substring(0, 1).toLowerCase() + name().substring(1);
             return temp.replace("_", "");
         }
 
@@ -41,24 +42,23 @@ public class WoWCharacterField {
         }
     }
 
-    private Type mFieldType;
+    private Name mFieldName;
 
-    void setFieldType(Type fieldType) {
-        mFieldType = fieldType;
+    void setFieldName(Name fieldName) {
+        mFieldName = fieldName;
     }
 
-    Type getFieldType() {
-        return mFieldType;
+    Name getFieldName() {
+        return mFieldName;
     }
 
-    public static String slugifyFields(WoWCharacterField.Type[] fields) {
-        StringBuilder builder = new StringBuilder();
+    public static String slugifyFieldNames(WoWCharacterField.Name[] fieldNames) {
+        String temp = "";
 
-        for (WoWCharacterField.Type field : fields) {
-            builder.append(field.getSlug());
-            builder.append("%2C");
+        for (WoWCharacterField.Name field : fieldNames) {
+            temp += field.getSlug() + "%2C";
         }
 
-        return builder.toString();
+        return temp;
     }
 }
