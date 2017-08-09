@@ -1,5 +1,7 @@
 package org.alcha.algalona.models.wow.realms;
 
+import java.util.Locale;
+
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
  * Enum that represents a given realm in WoW. All servers as of the date of file creation are added
@@ -9,7 +11,7 @@ package org.alcha.algalona.models.wow.realms;
  * a url.
  */
 
-public enum WoWRealms {
+public enum WoWUSRealms implements WoWRealm {
     Aegwynn("Aegwynn"),
     Aerie_Peak("Aerie Peak"),
     Agamaggan("Agamaggan"),
@@ -259,20 +261,20 @@ public enum WoWRealms {
     Unknown("Unknown");
     private String name;
 
-    WoWRealms(String name) {
+    WoWUSRealms(String name) {
         this.name = name;
     }
 
     /**
-     * Attempts to find a matching {@link WoWRealms} value for the provided realm name. If no match
-     * is found, the {@link WoWRealms#Unknown} realm is returned as opposed to null.
+     * Attempts to find a matching {@link WoWUSRealms} value for the provided realm name. If no match
+     * is found, the {@link WoWUSRealms#Unknown} realm is returned as opposed to null.
      *
      * @param name
      *
      * @return
      */
-    public static WoWRealms fromString(String name) {
-        for (WoWRealms realm : WoWRealms.values()) {
+    public static WoWUSRealms fromString(String name) {
+        for (WoWUSRealms realm : WoWUSRealms.values()) {
             if (realm.name.equalsIgnoreCase(name)) {
                 return realm;
             }
@@ -282,12 +284,22 @@ public enum WoWRealms {
     }
 
     /**
-     * Returns the slug representation of the given {@link WoWRealms realm name} to be used in
+     * Returns the slug representation of the given {@link WoWUSRealms realm name} to be used in
      * a url request.
      *
      * @return Server name without spaces or apostrophes
      */
+    @Override
     public String getSlug() {
         return this.toString().toLowerCase().replace('_', '-');
+    }
+
+    @Override
+    public String getRelativeUrl() {
+        if (name.contains("\'")) {
+            return name.toLowerCase(Locale.US).replace("_", "%20");
+        } else {
+            return this.toString().toLowerCase(Locale.US).replace("_", "%20");
+        }
     }
 }
