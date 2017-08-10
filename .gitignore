@@ -52,3 +52,13 @@ gradlew
 gradle/wrapper/gradle-wrapper\.properties
 
 gradle/wrapper/gradle-wrapper\.jar
+
+\.project
+
+\.settings/
+
+\.vscode/
+
+algalona/\.classpath
+
+app/\.classpath

@@ -102,7 +102,7 @@ public class WoWGuild {
         return mLastModified;
     }
 
-    public void setLastModified(long lastModified) {
+    private void setLastModified(long lastModified) {
         mLastModified = lastModified;
     }
 
@@ -110,7 +110,7 @@ public class WoWGuild {
         return mName;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         mName = name;
     }
 
@@ -118,7 +118,7 @@ public class WoWGuild {
         return mRealm;
     }
 
-    public void setRealm(WoWRealm realm) {
+    private void setRealm(WoWRealm realm) {
         mRealm = realm;
     }
 
@@ -126,7 +126,7 @@ public class WoWGuild {
         return mLevel;
     }
 
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         mLevel = level;
     }
 
@@ -134,7 +134,7 @@ public class WoWGuild {
         return mSide;
     }
 
-    public void setSide(int side) {
+    private void setSide(int side) {
         mSide = side;
     }
 
@@ -142,7 +142,7 @@ public class WoWGuild {
         return mAchievementPoints;
     }
 
-    public void setAchievementPoints(int achievementPoints) {
+    private void setAchievementPoints(int achievementPoints) {
         mAchievementPoints = achievementPoints;
     }
 
@@ -150,7 +150,7 @@ public class WoWGuild {
         return mBattlegroup;
     }
 
-    public void setBattleGroup(WoWBattlegroup battleGroup) {
+    private void setBattleGroup(WoWBattlegroup battleGroup) {
         mBattlegroup = battleGroup;
     }
 
@@ -158,7 +158,7 @@ public class WoWGuild {
         return mEmblem;
     }
 
-    public void setEmblem(WoWGuildEmblem emblem) {
+    private void setEmblem(WoWGuildEmblem emblem) {
         mEmblem = emblem;
     }
 }
