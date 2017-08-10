@@ -22,7 +22,7 @@ objects. It is also used to convert the Java objects to their JSON form if the u
 To use the library, first instantiate an AlgalonClient as this will be used to execute GameRequests.
 For example, if you wish to get the basic character profile for a user, you'd use something like so:
 
-```Java
+```java
 AlgalonClient algalon = AlgalonClient.newUSInstance("apikey");
 
 algalon.executeRequest(WoWRequest.getCharacterProfile(WoWUSRealms.Alterac_Mountains, "Alcha"), new Callback() {
@@ -37,7 +37,7 @@ algalon.executeRequest(WoWRequest.getCharacterProfile(WoWUSRealms.Alterac_Mounta
 If you want to retrieve _more_ information regarding a character, pass an Array of FieldNames to the
 `WoWRequest.getCharacterProfileFields()` method.
 
-```Java
+```java
 WoWCharacterField.Name[] characterFields = new WoWCharacterField.Name[]{
         WoWCharacterField.Name.Achievements,
         WoWCharacterField.Name.Appearance,
@@ -55,7 +55,7 @@ algalon.executeRequest(WoWRequest.getCharacterProfileFields(WoWUSRealms.Kiljaede
 If you want to execute more then one request, create an Array of Requests and pass it to the
 `executeRequests()` method:
 
-```Java
+```java
 WoWGuildField.Name[] guildFields = new WoWGuildField.Name[]{
         WoWGuildField.Name.News,
         WoWGuildField.Name.Members,
