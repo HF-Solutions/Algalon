@@ -1,14 +1,15 @@
-package com.alcha.models.achievements;
+package org.alcha.algalonj.models.wow.achievements;
 
 
 /**
- * Created by Alcha on 8/1/2017.
+ * <p>Created by Alcha on 8/1/2017.</p>
  * Stores the criteria for a {@link WoWAchievement} that must be completed in order to gain said
  * achievement. Implements {@link Comparable} to allow sorting by the order index, and overrides the
  * toString method to output the stored data.
  */
 
 public class WoWAchievementCriteria implements Comparable<WoWAchievementCriteria> {
+    private static final String LOG_TAG = "WoWAchievementCriteria";
     private String mDescription;
     private int mId,
             mOrderIndex,

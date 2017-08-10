@@ -62,3 +62,7 @@ gradle/wrapper/gradle-wrapper\.jar
 algalona/\.classpath
 
 app/\.classpath
+
+algalonj/\.classpath
+
+algalonj/algalonj\.iml

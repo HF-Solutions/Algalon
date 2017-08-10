@@ -1,4 +1,4 @@
-package org.alcha.algalona.models;
+package org.alcha.algalonj.models;
 
 /**
  * <p>Created by Alcha on 8/6/2017.</p>

@@ -1,15 +1,18 @@
-package com.alcha.models;
+package org.alcha.algalonj.models.wow;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.TimeZone;
+
 /**
- * Created by Alcha on 8/1/2017.
+ * <p>Created by Alcha on 8/1/2017.</p>
  */
 
 public class WoWServerRealm {
+    private static final String LOG_TAG = WoWServerRealm.class.getSimpleName();
     private String[] mConnectedRealms;
     private String mBattlegroup;
 
@@ -22,7 +25,7 @@ public class WoWServerRealm {
     }
 
     private Population mPopulation;
-    private String mTimezone;
+    private TimeZone mTimezone;
     private boolean mStatus;
     private boolean mQueue;
     private String mLocale;
@@ -70,7 +73,7 @@ public class WoWServerRealm {
                 realm.setLocale(realmObj.getString("locale"));
                 realm.setConnectedRealms(realmObj.getJSONArray("connected_realms"));
                 realm.setPopulation(realmObj.getString("population"));
-                realm.setTimezone(realmObj.getString("timezone"));
+                realm.setTimezone(TimeZone.getTimeZone(realmObj.getString("timezone")));
 
                 tempRealms[x] = realm;
             }
@@ -174,11 +177,11 @@ public class WoWServerRealm {
         }
     }
 
-    public String getTimezone() {
+    public TimeZone getTimezone() {
         return mTimezone;
     }
 
-    public void setTimezone(String timezone) {
+    public void setTimezone(TimeZone timezone) {
         mTimezone = timezone;
     }
 

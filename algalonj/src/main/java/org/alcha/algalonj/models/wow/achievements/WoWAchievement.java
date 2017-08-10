@@ -1,7 +1,7 @@
-package com.alcha.models.achievements;
+package org.alcha.algalonj.models.wow.achievements;
 
-import com.alcha.models.WoWRewardItem;
 
+import org.alcha.algalonj.models.wow.WoWRewardItem;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by Alcha on 8/1/2017.
+ * <p>Created by Alcha on 8/1/2017.</p>
  * Stores all information related to an Achievement in WoW.
  */
-
 public class WoWAchievement implements Comparable<WoWAchievement> {
+    private static final String LOG_TAG = "WoWAchievement";
     private int mId;
     private String mTitle;
     private int mPoints;
@@ -70,7 +70,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         }
     }
 
-    public static Map<Integer, WoWAchievementCriteria> parseAchievementCriteria(JSONArray criteria) throws JSONException {
+    private static Map<Integer, WoWAchievementCriteria> parseAchievementCriteria(JSONArray criteria) throws JSONException {
         Map<Integer, WoWAchievementCriteria> tempMap = new TreeMap<>();
 
         for (int x = 0; x < criteria.length(); x++) {
@@ -84,9 +84,6 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         }
 
         return tempMap;
-    }
-
-    public WoWAchievement() {
     }
 
     public String getDescription() {

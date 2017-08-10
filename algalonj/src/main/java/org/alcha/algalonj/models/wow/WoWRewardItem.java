@@ -1,10 +1,11 @@
-package com.alcha.models;
+package org.alcha.algalonj.models.wow;
 
 /**
- * Created by Alcha on 8/1/2017.
+ * <p>Created by Alcha on 8/1/2017.</p>
  */
 
 public class WoWRewardItem {
+    private static final String LOG_TAG = "WoWRewardItem";
     private String[] bonusLists,
             stats,
             artifactTraits,
