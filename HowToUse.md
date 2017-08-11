@@ -1,5 +1,6 @@
+![Algalon_Icon](./Algalon_Icon-100x100.jpg "Algalon")
+
 | [Home](./README.md) | [How to Use](./HowToUse.md) |
-|:-------------------:|:---------------------------:|
 
 # How to Use
 
