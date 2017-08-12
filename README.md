@@ -29,12 +29,12 @@ objects. It is also used to convert the Java objects to their JSON form if the u
     - [ ] Add data models for API responses for AlgalonA
     - [ ] Add data models for API responses for AlgalonJ
 - [ ] Add support for SC2 API calls
-    - [x] Add network calls to SC2Request for AlgalonA
+    - [ ] Add network calls to SC2Request for AlgalonA
     - [ ] Add network calls to SC2Request for AlgalonJ
     - [ ] Add data models for API responses for AlgalonA
     - [ ] Add data models for API responses for AlgalonJ
 - [ ] Add support for D3 API calls
-    - [x] Add network calls to D3Request for AlgalonA
+    - [ ] Add network calls to D3Request for AlgalonA
     - [ ] Add network calls to D3Request for AlgalonJ
     - [ ] Add data models for API responses for AlgalonA
     - [ ] Add data models for API responses for AlgalonJ
