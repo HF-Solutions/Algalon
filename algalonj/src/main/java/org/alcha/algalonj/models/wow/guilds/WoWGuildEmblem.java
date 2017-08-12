@@ -1,7 +1,6 @@
 package org.alcha.algalonj.models.wow.guilds;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 /**
  * <p>Created by Alcha on 8/8/2017.</p>
@@ -33,50 +32,50 @@ public class WoWGuildEmblem {
                 "BackgroundColorId = " + mBackgroundColorId + ";";
     }
 
-    public static WoWGuildEmblem fromJSON(JSONObject jsonObject) throws JSONException {
+    public static WoWGuildEmblem fromJSON(JsonObject jsonObject)  {
         WoWGuildEmblem emblem = new WoWGuildEmblem();
 
-        emblem.setIconColor(jsonObject.getString("iconColor"));
-        emblem.setBorderColor(jsonObject.getString("borderColor"));
-        emblem.setBackgroundColor(jsonObject.getString("backgroundColor"));
-        emblem.setIcon(jsonObject.getInt("icon"));
-        emblem.setIconId(jsonObject.getInt("iconColorId"));
-        emblem.setBorder(jsonObject.getInt("border"));
-        emblem.setBorderColorId(jsonObject.getInt("borderColorId"));
-        emblem.setBackgroundColorId(jsonObject.getInt("backgroundColorId"));
+        emblem.setIconColor(jsonObject.get("iconColor").getAsString());
+        emblem.setBorderColor(jsonObject.get("borderColor").getAsString());
+        emblem.setBackgroundColor(jsonObject.get("backgroundColor").getAsString());
+        emblem.setIcon(jsonObject.get("icon").getAsInt());
+        emblem.setIconId(jsonObject.get("iconColorId").getAsInt());
+        emblem.setBorder(jsonObject.get("border").getAsInt());
+        emblem.setBorderColorId(jsonObject.get("borderColorId").getAsInt());
+        emblem.setBackgroundColorId(jsonObject.get("backgroundColorId").getAsInt());
 
         return emblem;
     }
 
-    public void setIconColor(String iconColor) {
+    void setIconColor(String iconColor) {
         mIconColor = iconColor;
     }
 
-    public void setBorderColor(String borderColor) {
+    void setBorderColor(String borderColor) {
         mBorderColor = borderColor;
     }
 
-    public void setBackgroundColor(String backgroundColor) {
+    void setBackgroundColor(String backgroundColor) {
         mBackgroundColor = backgroundColor;
     }
 
-    public void setIcon(int icon) {
+    void setIcon(int icon) {
         mIcon = icon;
     }
 
-    public void setIconId(int iconId) {
+    void setIconId(int iconId) {
         mIconColorId = iconId;
     }
 
-    public void setBorder(int border) {
+    void setBorder(int border) {
         mBorder = border;
     }
 
-    public void setBorderColorId(int borderId) {
+    void setBorderColorId(int borderId) {
         mBorderColorId = borderId;
     }
 
-    public void setBackgroundColorId(int backgroundColorId) {
+    void setBackgroundColorId(int backgroundColorId) {
         mBackgroundColorId = backgroundColorId;
     }
 

@@ -266,27 +266,8 @@ public enum WoWEURealms implements WoWRealm {
 
     private String name;
 
-
     WoWEURealms(String name) {
         this.name = name;
-    }
-
-    /**
-     * Attempts to find a matching {@link WoWEURealms} value for the provided realm name. If no match
-     * is found, the {@link WoWEURealms#Unknown} realm is returned as opposed to null.
-     *
-     * @param name
-     *
-     * @return
-     */
-    public static WoWEURealms fromString(String name) {
-        for (WoWEURealms realm : WoWEURealms.values()) {
-            if (realm.name.equalsIgnoreCase(name)) {
-                return realm;
-            }
-        }
-
-        return Unknown;
     }
 
     /**
@@ -307,5 +288,28 @@ public enum WoWEURealms implements WoWRealm {
         } else {
             return this.toString().toLowerCase(Locale.US).replace("_", "%20");
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    /**
+     * Attempts to find a matching {@link WoWEURealms} value for the provided realm name. If no match
+     * is found, the {@link WoWEURealms#Unknown} realm is returned as opposed to null.
+     *
+     * @param name
+     *
+     * @return
+     */
+    public static WoWEURealms fromString(String name) {
+        for (WoWEURealms realm : WoWEURealms.values()) {
+            if (realm.name.equalsIgnoreCase(name)) {
+                return realm;
+            }
+        }
+
+        return Unknown;
     }
 }

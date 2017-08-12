@@ -2,7 +2,6 @@ package org.alcha.algalonj.models.wow.characters;
 
 import org.alcha.algalonj.models.wow.WoWRewardItem;
 import org.alcha.algalonj.models.wow.achievements.WoWAchievementCriteria;
-import org.json.JSONObject;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>

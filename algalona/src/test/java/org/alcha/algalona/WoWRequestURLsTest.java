@@ -1,3 +1,5 @@
+package org.alcha.algalona;
+
 import org.alcha.algalona.models.wow.characters.WoWCharacterField;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
 import org.alcha.algalona.network.WoWRequest;
@@ -10,7 +12,7 @@ import static org.alcha.algalona.models.wow.realms.WoWUSRealms.Alterac_Mountains
  * <p>Created by Alcha on 8/9/2017.</p>
  * Used to test the {@link WoWRequest} class and verify it works as intended.
  */
-public class WoWRequestTest {
+public class WoWRequestURLsTest {
     /**
      * Test the {@link WoWRequest#getAchievement(int)} method to verify it returns a valid URL to
      * execute.

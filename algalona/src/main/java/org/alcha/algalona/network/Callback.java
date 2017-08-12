@@ -1,7 +1,8 @@
 package org.alcha.algalona.network;
 
+import com.google.gson.JsonObject;
+
 import org.alcha.algalona.interfaces.OnTaskCompleted;
-import org.json.JSONObject;
 
 /**
  * <p>Created by Alcha on 8/6/2017.</p>
@@ -9,7 +10,7 @@ import org.json.JSONObject;
 
 public abstract class Callback implements OnTaskCompleted {
     @Override
-    public void onTaskCompleted(JSONObject response) {
+    public void onTaskCompleted(JsonObject response) {
 
     }
 }

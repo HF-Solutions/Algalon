@@ -1,7 +1,7 @@
 package org.alcha.algalonj.network;
 
 import org.alcha.algalonj.interfaces.OnTaskCompleted;
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 /**
  * <p>Created by Alcha on 8/6/2017.</p>

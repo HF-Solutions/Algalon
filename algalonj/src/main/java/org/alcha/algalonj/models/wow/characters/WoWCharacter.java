@@ -2,15 +2,14 @@ package org.alcha.algalonj.models.wow.characters;
 
 import android.util.Log;
 
-import org.alcha.algalonj.models.wow.battlegroups.WoWUSBattlegroups;
+import com.google.gson.JsonObject;
+
 import org.alcha.algalonj.models.wow.WoWCharacterClass;
 import org.alcha.algalonj.models.wow.WoWFaction;
 import org.alcha.algalonj.models.wow.WoWRace;
-import org.alcha.algalonj.models.wow.realms.WoWUSRealms;
+import org.alcha.algalonj.models.wow.battlegroups.WoWUSBattlegroups;
 import org.alcha.algalonj.models.wow.guilds.WoWGuild;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.alcha.algalonj.models.wow.realms.WoWUSRealms;
 
 import java.util.SortedMap;
 
@@ -39,36 +38,37 @@ public class WoWCharacter {
 
     }
 
-    public static WoWCharacter newInstanceFromJSON(JSONObject characterJson) {
+    @Override
+    public String toString() {
+        return "Character = " + mName + "; Realm = " + mRealm.toString() + "; Battlegroup = " + mBattlegroup.toString();
+    }
+
+    public static WoWCharacter newInstanceFromJSON(JsonObject characterJson) {
         WoWCharacter character = new WoWCharacter();
 
-        try {
-            // Required parameters
-            character.setLastModified(characterJson.getInt("lastModified"));
-            character.setName(characterJson.getString("name"));
-            character.setRealm(WoWUSRealms.fromString(characterJson.getString("realm")));
-            character.setBattlegroup(WoWUSBattlegroups.valueOf(characterJson.getString("battlegroup")));
-            character.setCharacterClass(WoWCharacterClass.fromId(characterJson.getInt("class")));
-            character.setRace(WoWRace.fromId(characterJson.getInt("race")));
-            character.setGender(characterJson.getInt("gender"));
-            character.setLevel(characterJson.getInt("level"));
-            character.setAchievementPoints(characterJson.getInt("achievementPoints"));
-            character.setThumbnail(characterJson.getString("thumbnail"));
-            character.setCalcClass(characterJson.getString("calcClass"));
-            character.setFaction(WoWFaction.fromId(characterJson.getInt("faction")));
-            character.setTotalHonorableKills(characterJson.getInt("totalHonorableKills"));
+        // Required parameters
+        character.setLastModified(characterJson.get("lastModified").getAsInt());
+        character.setName(characterJson.get("name").getAsString());
+        character.setRealm(WoWUSRealms.fromString(characterJson.get("realm").getAsString()));
+        character.setBattlegroup(WoWUSBattlegroups.valueOf(characterJson.get("battlegroup").getAsString()));
+        character.setCharacterClass(WoWCharacterClass.fromId(characterJson.get("class").getAsInt()));
+        character.setRace(WoWRace.fromId(characterJson.get("race").getAsInt()));
+        character.setGender(characterJson.get("gender").getAsInt());
+        character.setLevel(characterJson.get("level").getAsInt());
+        character.setAchievementPoints(characterJson.get("achievementPoints").getAsInt());
+        character.setThumbnail(characterJson.get("thumbnail").getAsString());
+        character.setCalcClass(characterJson.get("calcClass").getAsString());
+        character.setFaction(WoWFaction.fromId(characterJson.get("faction").getAsInt()));
+        character.setTotalHonorableKills(characterJson.get("totalHonorableKills").getAsInt());
 
-            // Optional parameters
-            character = parseOptionalCharacterFields(character, characterJson);
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
+        // Optional parameters
+        character = parseOptionalCharacterFields(character, characterJson);
 
         return character;
     }
 
     /**
-     * Parses the given {@link JSONObject} for any possible
+     * Parses the given {@link JsonObject} for any possible
      * {@link WoWCharacterField WoWCharacterFields} that may be present. If one is located, it is
      * passed to the <code>newInstanceFromJSON(jsonObject)</code> method in the objects
      * representative class (e.g. {@link WoWCharacterAppearance},
@@ -81,7 +81,7 @@ public class WoWCharacter {
      *
      * @return the provided class with any modifications if any are made
      */
-    private static WoWCharacter parseOptionalCharacterFields(WoWCharacter character, JSONObject characterJson) {
+    private static WoWCharacter parseOptionalCharacterFields(WoWCharacter character, JsonObject characterJson) {
         /*
          * There is a try/catch as is required because I'm accessing the JSONObject. That being
          * said, there are two ways this would ever occur within this portion. Since I verify the
@@ -94,54 +94,49 @@ public class WoWCharacter {
          *
          * The second way is if I simply type one of the fields incorrectly below..
          */
-        try {
-            if (characterJson.has("achievements"))
-                character.addField(WoWCharacterAchievements.newInstanceFromJSON(characterJson.getJSONObject("achievements")));
+        if (characterJson.has("achievements"))
+            character.addField(WoWCharacterAchievements.newInstanceFromJSON(characterJson.getAsJsonObject("achievements")));
 
-            if (characterJson.has("appearance"))
-                character.addField(WoWCharacterAppearance.newInstanceFromJSON(characterJson.getJSONObject("appearance")));
+        if (characterJson.has("appearance"))
+            character.addField(WoWCharacterAppearance.newInstanceFromJSON(characterJson.getAsJsonObject("appearance")));
 
-            if (characterJson.has("feed"))
-                character.addField(WoWCharacterFeed.newInstanceFromJSON(characterJson.getJSONObject("feed")));
+        if (characterJson.has("feed"))
+            character.addField(WoWCharacterFeed.newInstanceFromJSON(characterJson.getAsJsonObject("feed")));
 
-            if (characterJson.has("guild"))
-                character.addField(WoWCharacterGuild.newInstanceFromJSON(characterJson.getJSONObject("guild")));
+        if (characterJson.has("guild"))
+            character.addField(WoWCharacterGuild.newInstanceFromJSON(characterJson.getAsJsonObject("guild")));
 
-            if (characterJson.has("hunterPets"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: hunterPets != null");
+        if (characterJson.has("hunterPets"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: hunterPets != null");
 
-            if (characterJson.has("items"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: items != null");
-            if (characterJson.has("mounts"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: mounts != null");
-            if (characterJson.has("pets"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: pets != null");
-            if (characterJson.has("petSlots"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: petSlots != null");
-            if (characterJson.has("professions"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: professions != null");
-            if (characterJson.has("progression"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: progression != null");
-            if (characterJson.has("pvp"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: pvp != null");
-            if (characterJson.has("quests"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: quests != null");
-            if (characterJson.has("reputation"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: reputation != null");
-            if (characterJson.has("statistics"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: statistics != null");
-            if (characterJson.has("stats"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: stats != null");
-            if (characterJson.has("talents"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: talents != null");
-            if (characterJson.has("titles"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: titles != null");
-            if (characterJson.has("audit"))
-                Log.d(LOG_TAG, "newInstanceFromJSON: audit != null");
-
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
+        if (characterJson.has("items"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: items != null");
+        if (characterJson.has("mounts"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: mounts != null");
+        if (characterJson.has("pets"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: pets != null");
+        if (characterJson.has("petSlots"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: petSlots != null");
+        if (characterJson.has("professions"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: professions != null");
+        if (characterJson.has("progression"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: progression != null");
+        if (characterJson.has("pvp"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: pvp != null");
+        if (characterJson.has("quests"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: quests != null");
+        if (characterJson.has("reputation"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: reputation != null");
+        if (characterJson.has("statistics"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: statistics != null");
+        if (characterJson.has("stats"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: stats != null");
+        if (characterJson.has("talents"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: talents != null");
+        if (characterJson.has("titles"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: titles != null");
+        if (characterJson.has("audit"))
+            Log.d(LOG_TAG, "newInstanceFromJSON: audit != null");
 
         return character;
     }

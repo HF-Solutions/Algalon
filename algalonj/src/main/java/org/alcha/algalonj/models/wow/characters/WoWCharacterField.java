@@ -32,13 +32,12 @@ public class WoWCharacterField {
 
         @Override
         public String getSlug() {
-            String temp = name().substring(0, 1).toLowerCase() + name().substring(1);
-            return temp.replace("_", "");
+            return name().substring(0, 1).toLowerCase() + name().substring(1).replace("_", "");
         }
 
         @Override
         public String toString() {
-            return super.toString().replace('_', ' ');
+            return name().replace('_', ' ');
         }
     }
 
@@ -48,17 +47,7 @@ public class WoWCharacterField {
         mFieldName = fieldName;
     }
 
-    Name getFieldName() {
+    public Name getFieldName() {
         return mFieldName;
-    }
-
-    public static String slugifyFieldNames(WoWCharacterField.Name[] fieldNames) {
-        String temp = "";
-
-        for (WoWCharacterField.Name field : fieldNames) {
-            temp += field.getSlug() + "%2C";
-        }
-
-        return temp;
     }
 }

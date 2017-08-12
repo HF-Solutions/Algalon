@@ -1,10 +1,10 @@
 package org.alcha.algalonj.models.wow.achievements;
 
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import org.alcha.algalonj.models.wow.WoWRewardItem;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -13,6 +13,7 @@ import java.util.TreeMap;
  * <p>Created by Alcha on 8/1/2017.</p>
  * Stores all information related to an Achievement in WoW.
  */
+
 public class WoWAchievement implements Comparable<WoWAchievement> {
     private static final String LOG_TAG = "WoWAchievement";
     private int mId;
@@ -25,6 +26,10 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
     private Map<Integer, WoWAchievementCriteria> mCriteria;
     private boolean mAccountWide;
     private int mFactionId;
+
+    private WoWAchievement() {
+
+    }
 
     @Override
     public int compareTo(WoWAchievement o) {
@@ -47,38 +52,38 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
     }
 
     /**
-     * Accepts a {@link JSONObject} that is the response from <code>/wow/achievement/:id</code> and
+     * Accepts a {@link JsonObject} that is the response from <code>/wow/achievement/:id</code> and
      * populates the available fields.
      *
      * @param json <code>/wow/achievement/:id</code> response
      */
-    public WoWAchievement(JSONObject json) {
-        try {
-            JSONArray criteria = json.getJSONArray("criteria");
+    public WoWAchievement newInstanceFromJSON(JsonObject json) {
+        WoWAchievement achievement = new WoWAchievement();
 
-            mId = json.getInt("id");
-            mTitle = json.getString("title");
-            mPoints = json.getInt("points");
-            mDescription = json.getString("description");
-            mReward = json.getString("reward");
-            mIcon = json.getString("icon");
-            mCriteria = parseAchievementCriteria(criteria);
-            mAccountWide = json.getBoolean("accountWide");
-            mFactionId = json.getInt("factionId");
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
+        achievement.setId(json.get("id").getAsInt());
+        achievement.setTitle(json.get("title").getAsString());
+        achievement.setPoints(json.get("points").getAsInt());
+        achievement.setDescription(json.get("description").getAsString());
+        achievement.setReward(json.get("reward").getAsString());
+        achievement.setIcon(json.get("icon").getAsString());
+        achievement.setCriteria(parseAchievementCriteria(json.getAsJsonArray("criteria")));
+        achievement.setAccountWide(json.get("accountWide").getAsBoolean());
+        achievement.setFactionId(json.get("factionId").getAsInt());
+
+        return achievement;
     }
 
-    private static Map<Integer, WoWAchievementCriteria> parseAchievementCriteria(JSONArray criteria) throws JSONException {
+    private static Map<Integer, WoWAchievementCriteria> parseAchievementCriteria(JsonArray criteria) {
         Map<Integer, WoWAchievementCriteria> tempMap = new TreeMap<>();
 
-        for (int x = 0; x < criteria.length(); x++) {
+        for (int x = 0; x < criteria.size(); x++) {
             WoWAchievementCriteria achievementCriteria = new WoWAchievementCriteria();
-            achievementCriteria.setId(criteria.getJSONObject(x).getInt("id"));
-            achievementCriteria.setDescription(criteria.getJSONObject(x).getString("description"));
-            achievementCriteria.setOrderIndex(criteria.getJSONObject(x).getInt("orderIndex"));
-            achievementCriteria.setMax(criteria.getJSONObject(x).getInt("max"));
+            JsonObject jsonObject = criteria.get(x).getAsJsonObject();
+
+            achievementCriteria.setId(jsonObject.get("id").getAsInt());
+            achievementCriteria.setDescription(jsonObject.get("description").getAsString());
+            achievementCriteria.setOrderIndex(jsonObject.get("orderIndex").getAsInt());
+            achievementCriteria.setMax(jsonObject.get("max").getAsInt());
 
             tempMap.put(achievementCriteria.getId(), achievementCriteria);
         }
@@ -90,7 +95,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mDescription;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         mDescription = description;
     }
 
@@ -98,7 +103,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mId;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         mId = id;
     }
 
@@ -106,7 +111,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mTitle;
     }
 
-    public void setTitle(String title) {
+    void setTitle(String title) {
         mTitle = title;
     }
 
@@ -114,7 +119,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mPoints;
     }
 
-    public void setPoints(int points) {
+    void setPoints(int points) {
         mPoints = points;
     }
 
@@ -122,7 +127,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mReward;
     }
 
-    public void setReward(String reward) {
+    void setReward(String reward) {
         mReward = reward;
     }
 
@@ -130,7 +135,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mRewardItems;
     }
 
-    public void setRewardItems(WoWRewardItem[] rewardItems) {
+    void setRewardItems(WoWRewardItem[] rewardItems) {
         mRewardItems = rewardItems;
     }
 
@@ -138,7 +143,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mCriteria;
     }
 
-    public void setCriteria(Map<Integer, WoWAchievementCriteria> criteria) {
+    void setCriteria(Map<Integer, WoWAchievementCriteria> criteria) {
         mCriteria = criteria;
     }
 
@@ -146,7 +151,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mAccountWide;
     }
 
-    public void setAccountWide(boolean accountWide) {
+    void setAccountWide(boolean accountWide) {
         mAccountWide = accountWide;
     }
 
@@ -154,7 +159,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mFactionId;
     }
 
-    public void setFactionId(int factionId) {
+    void setFactionId(int factionId) {
         mFactionId = factionId;
     }
 
@@ -162,7 +167,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return mIcon;
     }
 
-    public void setIcon(String icon) {
+    void setIcon(String icon) {
         mIcon = icon;
     }
 }

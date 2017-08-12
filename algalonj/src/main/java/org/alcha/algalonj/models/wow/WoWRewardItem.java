@@ -26,7 +26,7 @@ public class WoWRewardItem {
         return bonusLists;
     }
 
-    public void setBonusLists(String[] bonusLists) {
+    void setBonusLists(String[] bonusLists) {
         this.bonusLists = bonusLists;
     }
 
@@ -34,7 +34,7 @@ public class WoWRewardItem {
         return stats;
     }
 
-    public void setStats(String[] stats) {
+    void setStats(String[] stats) {
         this.stats = stats;
     }
 
@@ -42,7 +42,7 @@ public class WoWRewardItem {
         return artifactTraits;
     }
 
-    public void setArtifactTraits(String[] artifactTraits) {
+    void setArtifactTraits(String[] artifactTraits) {
         this.artifactTraits = artifactTraits;
     }
 
@@ -50,7 +50,7 @@ public class WoWRewardItem {
         return relics;
     }
 
-    public void setRelics(String[] relics) {
+    void setRelics(String[] relics) {
         this.relics = relics;
     }
 
@@ -58,7 +58,7 @@ public class WoWRewardItem {
         return appearance;
     }
 
-    public void setAppearance(String[] appearance) {
+    void setAppearance(String[] appearance) {
         this.appearance = appearance;
     }
 
@@ -66,7 +66,7 @@ public class WoWRewardItem {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -74,7 +74,7 @@ public class WoWRewardItem {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    void setIcon(String icon) {
         this.icon = icon;
     }
 
@@ -82,7 +82,7 @@ public class WoWRewardItem {
         return context;
     }
 
-    public void setContext(String context) {
+    void setContext(String context) {
         this.context = context;
     }
 
@@ -90,7 +90,7 @@ public class WoWRewardItem {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
@@ -98,7 +98,7 @@ public class WoWRewardItem {
         return artifactId;
     }
 
-    public void setArtifactId(int artifactId) {
+    void setArtifactId(int artifactId) {
         this.artifactId = artifactId;
     }
 
@@ -106,7 +106,7 @@ public class WoWRewardItem {
         return quality;
     }
 
-    public void setQuality(int quality) {
+    void setQuality(int quality) {
         this.quality = quality;
     }
 
@@ -114,7 +114,7 @@ public class WoWRewardItem {
         return itemLevel;
     }
 
-    public void setItemLevel(int itemLevel) {
+    void setItemLevel(int itemLevel) {
         this.itemLevel = itemLevel;
     }
 
@@ -122,7 +122,7 @@ public class WoWRewardItem {
         return armor;
     }
 
-    public void setArmor(int armor) {
+    void setArmor(int armor) {
         this.armor = armor;
     }
 
@@ -130,7 +130,7 @@ public class WoWRewardItem {
         return displayInfoId;
     }
 
-    public void setDisplayInfoId(int displayInfoId) {
+    void setDisplayInfoId(int displayInfoId) {
         this.displayInfoId = displayInfoId;
     }
 
@@ -138,7 +138,7 @@ public class WoWRewardItem {
         return artifactAppearanceId;
     }
 
-    public void setArtifactAppearanceId(int artifactAppearanceId) {
+    void setArtifactAppearanceId(int artifactAppearanceId) {
         this.artifactAppearanceId = artifactAppearanceId;
     }
 }

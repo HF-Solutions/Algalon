@@ -1,24 +1,23 @@
 package org.alcha.algalona.models.wow.guilds;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 /**
  * <p>Created by Alcha on 8/8/2017.</p>
  */
 
 public class WoWGuildEmblem {
-    public String mIconColor,
+    private String mIconColor,
             mBorderColor,
             mBackgroundColor;
 
-    public int mIcon,
+    private int mIcon,
             mIconColorId,
             mBorder,
             mBorderColorId,
             mBackgroundColorId;
 
-    public WoWGuildEmblem() {
+    private WoWGuildEmblem() {
     }
 
     @Override
@@ -33,50 +32,65 @@ public class WoWGuildEmblem {
                 "BackgroundColorId = " + mBackgroundColorId + ";";
     }
 
-    public static WoWGuildEmblem fromJSON(JSONObject jsonObject) throws JSONException {
+    public static WoWGuildEmblem newInstanceFromJSON(JsonObject jsonObject) {
         WoWGuildEmblem emblem = new WoWGuildEmblem();
 
-        emblem.setIconColor(jsonObject.getString("iconColor"));
-        emblem.setBorderColor(jsonObject.getString("borderColor"));
-        emblem.setBackgroundColor(jsonObject.getString("backgroundColor"));
-        emblem.setIcon(jsonObject.getInt("icon"));
-        emblem.setIconId(jsonObject.getInt("iconColorId"));
-        emblem.setBorder(jsonObject.getInt("border"));
-        emblem.setBorderColorId(jsonObject.getInt("borderColorId"));
-        emblem.setBackgroundColorId(jsonObject.getInt("backgroundColorId"));
+        if (jsonObject.has("iconColor"))
+            emblem.setIconColor(jsonObject.get("iconColor").getAsString());
+
+        if (jsonObject.has("borderColor"))
+            emblem.setBorderColor(jsonObject.get("borderColor").getAsString());
+
+        if (jsonObject.has("backgroundColor"))
+            emblem.setBackgroundColor(jsonObject.get("backgroundColor").getAsString());
+
+        if (jsonObject.has("icon"))
+            emblem.setIcon(jsonObject.get("icon").getAsInt());
+
+        if (jsonObject.has("iconColorId"))
+            emblem.setIconId(jsonObject.get("iconColorId").getAsInt());
+
+        if (jsonObject.has("border"))
+            emblem.setBorder(jsonObject.get("border").getAsInt());
+
+        if (jsonObject.has("borderColorId"))
+            emblem.setBorderColorId(jsonObject.get("borderColorId").getAsInt());
+
+        if (jsonObject.has("backgroundColorId"))
+            emblem.setBackgroundColorId(jsonObject.get("backgroundColorId").getAsInt());
 
         return emblem;
     }
 
-    public void setIconColor(String iconColor) {
+    void setIconColor(String iconColor) {
         mIconColor = iconColor;
     }
 
-    public void setBorderColor(String borderColor) {
+    void setBorderColor(String borderColor) {
         mBorderColor = borderColor;
     }
 
-    public void setBackgroundColor(String backgroundColor) {
+    void setBackgroundColor(String backgroundColor) {
         mBackgroundColor = backgroundColor;
     }
 
-    public void setIcon(int icon) {
+    void setIcon(int icon) {
         mIcon = icon;
     }
 
-    public void setIconId(int iconId) {
+    void setIconId(int iconId) {
         mIconColorId = iconId;
     }
 
-    public void setBorder(int border) {
+    void setBorder(int border) {
         mBorder = border;
     }
 
-    public void setBorderColorId(int borderId) {
+    void setBorderColorId(int borderId) {
         mBorderColorId = borderId;
     }
 
-    public void setBackgroundColorId(int backgroundColorId) {
+    void setBackgroundColorId(int backgroundColorId) {
         mBackgroundColorId = backgroundColorId;
     }
 

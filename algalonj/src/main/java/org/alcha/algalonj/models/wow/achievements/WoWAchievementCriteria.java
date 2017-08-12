@@ -1,13 +1,11 @@
 package org.alcha.algalonj.models.wow.achievements;
 
-
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
  * Stores the criteria for a {@link WoWAchievement} that must be completed in order to gain said
  * achievement. Implements {@link Comparable} to allow sorting by the order index, and overrides the
  * toString method to output the stored data.
  */
-
 public class WoWAchievementCriteria implements Comparable<WoWAchievementCriteria> {
     private static final String LOG_TAG = "WoWAchievementCriteria";
     private String mDescription;
@@ -44,7 +42,7 @@ public class WoWAchievementCriteria implements Comparable<WoWAchievementCriteria
         else return 0;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         mDescription = description;
     }
 
@@ -52,7 +50,7 @@ public class WoWAchievementCriteria implements Comparable<WoWAchievementCriteria
         return mDescription;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         mId = id;
     }
 
@@ -60,7 +58,7 @@ public class WoWAchievementCriteria implements Comparable<WoWAchievementCriteria
         return mId;
     }
 
-    public void setOrderIndex(int orderIndex) {
+    void setOrderIndex(int orderIndex) {
         mOrderIndex = orderIndex;
     }
 
@@ -68,7 +66,7 @@ public class WoWAchievementCriteria implements Comparable<WoWAchievementCriteria
         return mOrderIndex;
     }
 
-    public void setMax(int max) {
+    void setMax(int max) {
         mMax = max;
     }
 

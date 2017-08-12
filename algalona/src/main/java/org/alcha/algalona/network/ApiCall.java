@@ -4,9 +4,9 @@ package org.alcha.algalona.network;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonParser;
+
 import org.alcha.algalona.interfaces.OnTaskCompleted;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class ApiCall extends AsyncTask<URL, Object, String> {
     protected String doInBackground(URL[] params) {
         StringBuilder resultBuilder = new StringBuilder();
 
-        for(URL url : params) {
+        for (URL url : params) {
             try {
                 // Read all the text returned by the server
                 InputStreamReader reader = new InputStreamReader(url.openStream());
@@ -40,25 +40,23 @@ public class ApiCall extends AsyncTask<URL, Object, String> {
                 }
                 in.close();
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, "doInBackground: MalformedURLException - ", e);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, "doInBackground: IOException - ", e);
             }
             // if cancel() is called, leave the loop early
             if (isCancelled()) {
                 break;
             }
         }
+
         // return the result
         return resultBuilder.toString();
     }
 
     @Override
     protected void onPostExecute(String str) {
-        try {
-            mListener.onTaskCompleted(new JSONObject(str));
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
+        JsonParser parser = new JsonParser();
+        mListener.onTaskCompleted(parser.parse(str).getAsJsonObject());
     }
 }

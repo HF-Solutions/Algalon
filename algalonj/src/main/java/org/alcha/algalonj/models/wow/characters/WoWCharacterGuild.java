@@ -1,11 +1,8 @@
 package org.alcha.algalonj.models.wow.characters;
 
-import org.alcha.algalonj.models.wow.battlegroups.WoWUSBattlegroups;
+import com.google.gson.JsonObject;
+
 import org.alcha.algalonj.models.wow.guilds.WoWGuild;
-import org.alcha.algalonj.models.wow.guilds.WoWGuildEmblem;
-import org.alcha.algalonj.models.wow.realms.WoWUSRealms;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
@@ -30,10 +27,10 @@ public class WoWCharacterGuild extends WoWCharacterField {
         return new WoWCharacterGuild(guild);
     }
 
-    public static WoWCharacterGuild newInstanceFromJSON(JSONObject jsonObject) {
+    public static WoWCharacterGuild newInstanceFromJSON(JsonObject jsonObject) {
         WoWCharacterGuild characterGuild = new WoWCharacterGuild();
 
-        try {
+        /*try {
             WoWGuild guild = WoWGuild.newInstance();
             guild.setName(jsonObject.getString("name"));
             guild.setRealm(WoWUSRealms.fromString(jsonObject.getString("realm")));
@@ -44,7 +41,7 @@ public class WoWCharacterGuild extends WoWCharacterField {
             guild.setEmblem(WoWGuildEmblem.fromJSON(jsonObject));
         } catch (JSONException ex) {
             ex.printStackTrace();
-        }
+        }*/
 
         return characterGuild;
     }

@@ -1,6 +1,6 @@
 package org.alcha.algalonj.models.wow.characters;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
@@ -19,18 +19,18 @@ public class WoWCharacterFeed extends WoWCharacterField {
         return new WoWCharacterFeed();
     }
 
-    public static WoWCharacterFeed newInstanceFromJSON(JSONObject jsonObject) {
+    public static WoWCharacterFeed newInstanceFromJSON(JsonObject jsonObject) {
         WoWCharacterFeed characterFeed = new WoWCharacterFeed();
 
         return characterFeed;
     }
 
-    public void addFeedEntry(WoWCharacterFeedEntry feedEntry) {
+    void addFeedEntry(WoWCharacterFeedEntry feedEntry) {
         int key = mFeedMap.size();
         mFeedMap.put(key, feedEntry);
     }
 
-    public void insertFeedEntry(int location, WoWCharacterFeedEntry feedEntry) {
+    void insertFeedEntry(int location, WoWCharacterFeedEntry feedEntry) {
 
     }
 }

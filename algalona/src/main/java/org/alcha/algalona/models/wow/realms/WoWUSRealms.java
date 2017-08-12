@@ -302,4 +302,9 @@ public enum WoWUSRealms implements WoWRealm {
             return this.toString().toLowerCase(Locale.US).replace("_", "%20");
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -1,8 +1,7 @@
 package org.alcha.algalonj.models.wow.characters;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
@@ -20,38 +19,38 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         setFieldName(Name.Achievements);
     }
 
-    public static WoWCharacterAchievements newInstanceFromJSON(JSONObject object) throws JSONException {
+    public static WoWCharacterAchievements newInstanceFromJSON(JsonObject object) {
         WoWCharacterAchievements achievements = new WoWCharacterAchievements();
 
-        achievements.setAchievementsCompleted(parseAchievementsCompleted(object.getJSONArray("achievementsCompleted")));
-        achievements.setAchievementsCriteria(parseAchievementsCriteria(object.getJSONArray("achievementsCriteria")));
-        achievements.setAchievementsCriteriaQuantity(parseAchievementCriteriaQuantity(object.getJSONArray("achievementCriteriaQuantity")));
-        achievements.setAchievementsCompletedTimeStamp(parseAchievementsCompletedTimeStamp(object.getJSONArray("achievementsCompletedTimeStamp")));
-        achievements.setAchievementsCriteriaCreated(parseAchievementsCriteriaCreated(object.getJSONArray("achievementsCriteriaCreated")));
+        achievements.setAchievementsCompleted(parseAchievementsCompleted(object.getAsJsonArray("achievementsCompleted")));
+        achievements.setAchievementsCriteria(parseAchievementsCriteria(object.getAsJsonArray("achievementsCriteria")));
+        achievements.setAchievementsCriteriaQuantity(parseAchievementCriteriaQuantity(object.getAsJsonArray("achievementCriteriaQuantity")));
+        achievements.setAchievementsCompletedTimeStamp(parseAchievementsCompletedTimeStamp(object.getAsJsonArray("achievementsCompletedTimeStamp")));
+        achievements.setAchievementsCriteriaCreated(parseAchievementsCriteriaCreated(object.getAsJsonArray("achievementsCriteriaCreated")));
 
         return achievements;
     }
 
-    private static long[] parseAchievementsCriteriaCreated(JSONArray criteriaCreated) {
+    private static long[] parseAchievementsCriteriaCreated(JsonArray criteriaCreated) {
         return new long[0];
     }
 
-    private static int[] parseAchievementCriteriaQuantity(JSONArray criteriaQuantity) {
+    private static int[] parseAchievementCriteriaQuantity(JsonArray criteriaQuantity) {
 
         return new int[0];
     }
 
-    private static int[] parseAchievementsCriteria(JSONArray criteria) {
+    private static int[] parseAchievementsCriteria(JsonArray criteria) {
 
         return new int[0];
     }
 
-    public static int[] parseAchievementsCompleted(JSONArray array) throws JSONException {
+    public static int[] parseAchievementsCompleted(JsonArray array)  {
 
         return new int[0];
     }
 
-    public static long[] parseAchievementsCompletedTimeStamp(JSONArray array) throws JSONException {
+    public static long[] parseAchievementsCompletedTimeStamp(JsonArray array)  {
 
         return new long[0];
     }
@@ -60,7 +59,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return new WoWCharacterAchievements();
     }
 
-    public void setAchievementsCompleted(int[] achievementsCompleted) {
+    void setAchievementsCompleted(int[] achievementsCompleted) {
         mAchievementsCompleted = achievementsCompleted;
     }
 
@@ -68,7 +67,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return mAchievementsCompleted;
     }
 
-    public void setAchievementsCompletedTimeStamp(long[] achievementsCompletedTimeStamp) {
+    void setAchievementsCompletedTimeStamp(long[] achievementsCompletedTimeStamp) {
         mAchievementsCompletedTimeStamp = achievementsCompletedTimeStamp;
     }
 
@@ -76,7 +75,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return mAchievementsCompletedTimeStamp;
     }
 
-    public void setAchievementsCriteria(int[] achievementsCriteria) {
+    void setAchievementsCriteria(int[] achievementsCriteria) {
         mAchievementsCriteria = achievementsCriteria;
     }
 
@@ -84,7 +83,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return mAchievementsCriteria;
     }
 
-    public void setAchievementsCriteriaQuantity(int[] achievementsCriteriaQuatity) {
+    void setAchievementsCriteriaQuantity(int[] achievementsCriteriaQuatity) {
         mAchievementCriteriaQuantity = achievementsCriteriaQuatity;
     }
 
@@ -96,7 +95,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return mAchievementsCriteriaCreated;
     }
 
-    public void setAchievementsCriteriaCreated(long[] achievementsCriteriaCreated) {
+    void setAchievementsCriteriaCreated(long[] achievementsCriteriaCreated) {
         mAchievementsCriteriaCreated = achievementsCriteriaCreated;
     }
 }

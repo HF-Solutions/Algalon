@@ -1,6 +1,6 @@
 package org.alcha.algalona.models.wow.characters;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
@@ -13,7 +13,7 @@ public class WoWCharacterFeedBossKill extends WoWCharacterFeedEntry {
 
     public WoWCharacterFeedBossKill newInstance() { return new WoWCharacterFeedBossKill();}
 
-    public WoWCharacterFeedBossKill newInstanceFromJSON(JSONObject jsonObject) {
+    public static WoWCharacterFeedBossKill newInstanceFromJson(JsonObject jsonObject) {
         WoWCharacterFeedBossKill bossKill = new WoWCharacterFeedBossKill();
 
         return bossKill;

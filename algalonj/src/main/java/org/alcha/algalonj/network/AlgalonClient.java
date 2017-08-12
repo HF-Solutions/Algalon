@@ -1,6 +1,5 @@
 package org.alcha.algalonj.network;
 
-import android.util.Log;
 
 import org.alcha.algalonj.models.wow.Locale;
 import org.alcha.algalonj.models.wow.Region;
@@ -46,13 +45,12 @@ public class AlgalonClient {
     public static void get(String strUrl, Callback callback) {
         URL url = null;
         try {
-            Log.d(LOG_TAG, "get: url = " + strUrl);
             url = new URL(strUrl);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        new ApiCall(callback).execute(url);
+        new ApiCall().execute(url);
     }
 
     private String getAbsoluteUrl(String relativeUrl) {

@@ -17,7 +17,7 @@ public class WoWSpell {
         return mId;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         mId = id;
     }
 
@@ -25,7 +25,7 @@ public class WoWSpell {
         return mName;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         mName = name;
     }
 
@@ -33,7 +33,7 @@ public class WoWSpell {
         return mSubtext;
     }
 
-    public void setSubtext(String subtext) {
+    void setSubtext(String subtext) {
         mSubtext = subtext;
     }
 
@@ -41,7 +41,7 @@ public class WoWSpell {
         return mIcon;
     }
 
-    public void setIcon(String icon) {
+    void setIcon(String icon) {
         mIcon = icon;
     }
 
@@ -49,7 +49,7 @@ public class WoWSpell {
         return mDescription;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.mDescription = description;
     }
 
@@ -57,7 +57,7 @@ public class WoWSpell {
         return mCastTime;
     }
 
-    public void setCastTime(String castTime) {
+    void setCastTime(String castTime) {
         mCastTime = castTime;
     }
 
@@ -65,7 +65,7 @@ public class WoWSpell {
         return mCooldown;
     }
 
-    public void setCooldown(String cooldown) {
+    void setCooldown(String cooldown) {
         mCooldown = cooldown;
     }
 }

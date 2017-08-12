@@ -1,9 +1,8 @@
 package org.alcha.algalona.models.wow;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.TimeZone;
 
@@ -39,14 +38,11 @@ public class WoWServerRealm {
         mServerName = serverName;
     }
 
-    public WoWServerRealm(JSONObject realmData) {
-        try {
-            JSONArray connectedRealms = realmData.getJSONArray("connected_realms");
-            for (int x = 0; x < connectedRealms.length(); x++) {
-                System.out.println(connectedRealms);
-            }
-        } catch (JSONException ex) {
-            ex.printStackTrace();
+    public WoWServerRealm(JsonObject realmData) {
+        JsonArray connectedRealms = realmData.getAsJsonArray("connected_realms");
+
+        for (int x = 0; x < connectedRealms.size(); x++) {
+            System.out.println(connectedRealms);
         }
     }
 
@@ -58,29 +54,25 @@ public class WoWServerRealm {
             return "";
     }
 
-    public static WoWServerRealm[] convertJSONArray(JSONArray array) {
-        WoWServerRealm[] tempRealms = new WoWServerRealm[array.length()];
+    public static WoWServerRealm[] convertJSONArray(JsonArray array) {
+        WoWServerRealm[] tempRealms = new WoWServerRealm[array.size()];
 
-        try {
-            for (int x = 0; x < array.length(); x++) {
-                JSONObject realmObj = array.getJSONObject(x);
-                WoWServerRealm realm = new WoWServerRealm(realmObj.getString("name"));
+            for (int x = 0; x < array.size(); x++) {
+                JsonObject realmObj = array.get(x).getAsJsonObject();
+                WoWServerRealm realm = new WoWServerRealm(realmObj.get("name").getAsString());
 
-                realm.setBattlegroup(realmObj.getString("battlegroup"));
-                realm.setType(realmObj.getString("type"));
-                realm.setQueue(Boolean.getBoolean(realmObj.getString("queue")));
-                realm.setStatus(Boolean.getBoolean(realmObj.getString("status")));
-                realm.setLocale(realmObj.getString("locale"));
-                realm.setConnectedRealms(realmObj.getJSONArray("connected_realms"));
-                realm.setPopulation(realmObj.getString("population"));
-                realm.setTimezone(TimeZone.getTimeZone(realmObj.getString("timezone")));
+                realm.setBattlegroup(realmObj.get("battlegroup").getAsString());
+                realm.setType(realmObj.get("type").getAsString());
+                realm.setQueue(Boolean.getBoolean(realmObj.get("queue").getAsString()));
+                realm.setStatus(Boolean.getBoolean(realmObj.get("status").getAsString()));
+                realm.setLocale(realmObj.get("locale").getAsString());
+                realm.setConnectedRealms(realmObj.getAsJsonArray("connected_realms"));
+                realm.setPopulation(realmObj.get("population").getAsString());
+                realm.setTimezone(TimeZone.getTimeZone(realmObj.get("timezone").getAsString()));
 
                 tempRealms[x] = realm;
             }
 
-        } catch (JSONException ex) {
-            ex.printStackTrace();
-        }
 
         return tempRealms;
     }
@@ -99,22 +91,18 @@ public class WoWServerRealm {
         return mConnectedRealms;
     }
 
-    public void setConnectedRealms(JSONArray array) {
-        mConnectedRealms = new String[array.length()];
+    void setConnectedRealms(JsonArray array) {
+        mConnectedRealms = new String[array.size()];
 
-        for (int x = 0; x < array.length(); x++) {
-            try {
-                String input = array.getString(x);
-                String serverName = cleanServerName(input);
+        for (int x = 0; x < array.size(); x++) {
+            String input = array.get(x).getAsString();
+            String serverName = cleanServerName(input);
 
-                mConnectedRealms[x] = serverName;
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
+            mConnectedRealms[x] = serverName;
         }
     }
 
-    public void setConnectedRealms(String[] connectedRealms) {
+    void setConnectedRealms(String[] connectedRealms) {
         if (connectedRealms != null) {
             mConnectedRealms = connectedRealms;
         }
@@ -140,7 +128,7 @@ public class WoWServerRealm {
         return mBattlegroup;
     }
 
-    public void setBattlegroup(String battlegroup) {
+    void setBattlegroup(String battlegroup) {
         mBattlegroup = battlegroup;
     }
 
@@ -148,7 +136,7 @@ public class WoWServerRealm {
         return mPopulation;
     }
 
-    public void setPopulation(String population) {
+    void setPopulation(String population) {
         switch (population.toLowerCase()) {
             case "low": {
                 mPopulation = Population.Low;
@@ -181,7 +169,7 @@ public class WoWServerRealm {
         return mTimezone;
     }
 
-    public void setTimezone(TimeZone timezone) {
+    void setTimezone(TimeZone timezone) {
         mTimezone = timezone;
     }
 
@@ -189,7 +177,7 @@ public class WoWServerRealm {
         return mStatus;
     }
 
-    public void setStatus(boolean status) {
+    void setStatus(boolean status) {
         mStatus = status;
     }
 
@@ -197,7 +185,7 @@ public class WoWServerRealm {
         return mQueue;
     }
 
-    public void setQueue(boolean queue) {
+    void setQueue(boolean queue) {
         mQueue = queue;
     }
 
@@ -205,7 +193,7 @@ public class WoWServerRealm {
         return mLocale;
     }
 
-    public void setLocale(String locale) {
+    void setLocale(String locale) {
         mLocale = locale;
     }
 
@@ -213,7 +201,7 @@ public class WoWServerRealm {
         return mServerName;
     }
 
-    public void setServerName(String serverName) {
+    void setServerName(String serverName) {
         mServerName = serverName;
     }
 
@@ -221,7 +209,7 @@ public class WoWServerRealm {
         return mType;
     }
 
-    public void setType(String type) {
+    void setType(String type) {
         mType = type;
     }
 }

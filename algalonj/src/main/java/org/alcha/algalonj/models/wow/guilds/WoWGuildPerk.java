@@ -19,7 +19,7 @@ public class WoWGuildPerk {
         return mGuildLevel;
     }
 
-    public void setGuildLevel(int guildLevel) {
+    void setGuildLevel(int guildLevel) {
         mGuildLevel = guildLevel;
     }
 }

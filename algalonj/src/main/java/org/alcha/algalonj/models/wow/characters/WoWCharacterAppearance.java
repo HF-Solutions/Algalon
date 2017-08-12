@@ -1,8 +1,7 @@
 package org.alcha.algalonj.models.wow.characters;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
@@ -26,21 +25,21 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return new WoWCharacterAppearance();
     }
 
-    public static WoWCharacterAppearance newInstanceFromJSON(JSONObject object) throws JSONException {
+    public static WoWCharacterAppearance newInstanceFromJSON(JsonObject object) {
         WoWCharacterAppearance appearance = new WoWCharacterAppearance();
-        appearance.setFaceVariation(object.getInt("faceVariation"));
-        appearance.setSkinColor(object.getInt("skinColor"));
-        appearance.setHairVariation(object.getInt("hairVariation"));
-        appearance.setHairColor(object.getInt("hairColor"));
-        appearance.setFeatureVariation(object.getInt("featureVariation"));
-        appearance.setShowHelm(object.getBoolean("showHelm"));
-        appearance.setShowCloak(object.getBoolean("showCloak"));
-        appearance.setCustomDisplayOptions(parseCustomDisplayOptions(object.getJSONArray("customDisplayOptions")));
+        appearance.setFaceVariation(object.get("faceVariation").getAsInt());
+        appearance.setSkinColor(object.get("skinColor").getAsInt());
+        appearance.setHairVariation(object.get("hairVariation").getAsInt());
+        appearance.setHairColor(object.get("hairColor").getAsInt());
+        appearance.setFeatureVariation(object.get("featureVariation").getAsInt());
+        appearance.setShowHelm(object.get("showHelm").getAsBoolean());
+        appearance.setShowCloak(object.get("showCloak").getAsBoolean());
+        appearance.setCustomDisplayOptions(parseCustomDisplayOptions(object.getAsJsonArray("customDisplayOptions")));
         return appearance;
     }
 
-    private static int[] parseCustomDisplayOptions(JSONArray object) throws JSONException {
-        int[] temp = new int[object.length()];
+    private static int[] parseCustomDisplayOptions(JsonArray object) {
+        int[] temp = new int[object.size()];
 
         for (int x = 0; x < temp.length; x++) {
             temp[x] = Integer.parseInt(object.get(x).toString());
@@ -53,7 +52,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mCustomDisplayOptions;
     }
 
-    public void setCustomDisplayOptions(int[] customDisplayOptions) {
+    void setCustomDisplayOptions(int[] customDisplayOptions) {
         mCustomDisplayOptions = customDisplayOptions;
     }
 
@@ -61,7 +60,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mShowCloak;
     }
 
-    public void setShowCloak(boolean showCloak) {
+    void setShowCloak(boolean showCloak) {
         mShowCloak = showCloak;
     }
 
@@ -69,7 +68,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mShowHelm;
     }
 
-    public void setShowHelm(boolean showHelm) {
+    void setShowHelm(boolean showHelm) {
         mShowHelm = showHelm;
     }
 
@@ -77,7 +76,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mFeatureVariation;
     }
 
-    public void setFeatureVariation(int featureVariation) {
+    void setFeatureVariation(int featureVariation) {
         this.mFeatureVariation = featureVariation;
     }
 
@@ -85,7 +84,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mHairColor;
     }
 
-    public void setHairColor(int hairColor) {
+    void setHairColor(int hairColor) {
         mHairColor = hairColor;
     }
 
@@ -93,7 +92,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mHairVariation;
     }
 
-    public void setHairVariation(int hairVariation) {
+    void setHairVariation(int hairVariation) {
         mHairVariation = hairVariation;
     }
 
@@ -101,7 +100,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mSkinColor;
     }
 
-    public void setSkinColor(int skinColor) {
+    void setSkinColor(int skinColor) {
         mSkinColor = skinColor;
     }
 
@@ -109,7 +108,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
         return mFaceVariation;
     }
 
-    public void setFaceVariation(int faceVariation) {
+    void setFaceVariation(int faceVariation) {
         mFaceVariation = faceVariation;
     }
 }

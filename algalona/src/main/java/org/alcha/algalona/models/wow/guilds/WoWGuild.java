@@ -1,17 +1,14 @@
 package org.alcha.algalona.models.wow.guilds;
 
-import android.util.Log;
+import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.characters.WoWCharacterField;
 import org.alcha.algalona.models.wow.battlegroups.WoWBattlegroup;
-import org.alcha.algalona.models.wow.battlegroups.WoWUSBattlegroups;
 import org.alcha.algalona.models.wow.battlegroups.WoWEUBattlegroups;
+import org.alcha.algalona.models.wow.battlegroups.WoWUSBattlegroups;
+import org.alcha.algalona.models.wow.characters.WoWCharacterField;
 import org.alcha.algalona.models.wow.realms.WoWEURealms;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
 import org.alcha.algalona.models.wow.realms.WoWUSRealms;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
@@ -58,43 +55,41 @@ public class WoWGuild {
         return new WoWGuild();
     }
 
-    public static WoWGuild newInstanceFromJSON(JSONObject jsonObject) {
+    public static WoWGuild newInstanceFromJson(JsonObject jsonObject) {
         WoWGuild guild = new WoWGuild();
-        try {
-            guild.setLastModified(jsonObject.getLong("lastModified"));
-            guild.setName(jsonObject.getString("name"));
-            guild.setRealm(parseGuildRealm(jsonObject));
-            guild.setBattleGroup(parseGuildBattlegroup(jsonObject));
-            guild.setSide(jsonObject.getInt("side"));
-            guild.setAchievementPoints(jsonObject.getInt("achievementPoints"));
-            guild.setEmblem(WoWGuildEmblem.fromJSON(jsonObject.getJSONObject("emblem")));
-        } catch (JSONException ex) {
-            Log.e(LOG_TAG, "newInstanceFromJSON: ", ex);
-        }
+
+        guild.setLastModified(jsonObject.get("lastModified").getAsLong());
+        guild.setName(jsonObject.get("name").getAsString());
+        guild.setRealm(parseGuildRealm(jsonObject));
+        guild.setBattleGroup(parseGuildBattlegroup(jsonObject));
+        guild.setSide(jsonObject.get("side").getAsInt());
+        guild.setAchievementPoints(jsonObject.get("achievementPoints").getAsInt());
+        guild.setEmblem(WoWGuildEmblem.newInstanceFromJSON(jsonObject.getAsJsonObject("emblem")));
+
         return guild;
     }
 
-    private static WoWBattlegroup parseGuildBattlegroup(JSONObject jsonObject) throws JSONException {
-        if (WoWUSBattlegroups.fromString(jsonObject.getString("battlegroup")).equals(WoWUSRealms.Unknown)) {
-            if (WoWEURealms.fromString(jsonObject.getString("battlegroup")).equals(WoWEURealms.Unknown)) {
+    private static WoWBattlegroup parseGuildBattlegroup(JsonObject jsonObject) {
+        if (WoWUSBattlegroups.fromString(jsonObject.get("battlegroup").getAsString()).equals(WoWUSBattlegroups.Unknown)) {
+            if (WoWEURealms.fromString(jsonObject.get("battlegroup").getAsString()).equals(WoWEURealms.Unknown)) {
                 return WoWUSBattlegroups.Unknown;
             } else {
-                return WoWEUBattlegroups.fromString(jsonObject.getString("battlegroup"));
+                return WoWEUBattlegroups.fromString(jsonObject.get("battlegroup").getAsString());
             }
         } else {
-            return WoWUSBattlegroups.fromString(jsonObject.getString("battlegroup"));
+            return WoWUSBattlegroups.fromString(jsonObject.get("battlegroup").getAsString());
         }
     }
 
-    private static WoWRealm parseGuildRealm(JSONObject jsonObject) throws JSONException {
-        if (WoWUSRealms.fromString(jsonObject.getString("realm")).equals(WoWUSRealms.Unknown)) {
-            if (WoWEURealms.fromString(jsonObject.getString("realm")).equals(WoWEURealms.Unknown)) {
+    private static WoWRealm parseGuildRealm(JsonObject jsonObject) {
+        if (WoWUSRealms.fromString(jsonObject.get("realm").getAsString()).equals(WoWUSRealms.Unknown)) {
+            if (WoWEURealms.fromString(jsonObject.get("realm").getAsString()).equals(WoWEURealms.Unknown)) {
                 return WoWUSRealms.Unknown;
             } else {
-                return WoWEURealms.fromString(jsonObject.getString("realm"));
+                return WoWEURealms.fromString(jsonObject.get("realm").getAsString());
             }
         } else {
-            return WoWUSRealms.fromString(jsonObject.getString("realm"));
+            return WoWUSRealms.fromString(jsonObject.get("realm").getAsString());
         }
     }
 

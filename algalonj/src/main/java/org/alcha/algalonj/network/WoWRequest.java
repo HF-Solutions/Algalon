@@ -1,16 +1,16 @@
 package org.alcha.algalonj.network;
 
+import com.google.gson.JsonObject;
+
 import org.alcha.algalonj.interfaces.FieldName;
 import org.alcha.algalonj.models.wow.WoWAuctionData;
 import org.alcha.algalonj.models.wow.WoWPvPBrackets;
+import org.alcha.algalonj.models.wow.characters.WoWCharacter;
 import org.alcha.algalonj.models.wow.characters.WoWCharacterField;
 import org.alcha.algalonj.models.wow.guilds.WoWGuildField;
 import org.alcha.algalonj.models.wow.realms.WoWEURealms;
 import org.alcha.algalonj.models.wow.realms.WoWRealm;
 import org.alcha.algalonj.models.wow.realms.WoWUSRealms;
-import org.alcha.algalonj.models.wow.characters.WoWCharacter;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import static org.alcha.algalonj.network.AlgalonClient.get;
 
@@ -135,7 +135,7 @@ public class WoWRequest implements GameRequest {
      * url to the file that contains the latest auction data in JSON.</p>
      *
      * <p>In order to obtain the actual auction data for the realm of interest, you must execute this
-     * request and pass the response to {@link WoWRequest#getAuctionData(JSONObject, Callback)}. The
+     * request and pass the response to {@link WoWRequest#getAuctionData(JsonObject, Callback)}. The
      * getAuctionData(JSONObject, Callback) method will return the auction data as an instance of
      * {@link WoWAuctionData}.</p>
      *
@@ -151,7 +151,7 @@ public class WoWRequest implements GameRequest {
     }
 
     /**
-     * <p>Uses the provided {@link JSONObject} to retrieve the latest auction index file which contains
+     * <p>Uses the provided {@link JsonObject} to retrieve the latest auction index file which contains
      * the latest auctions available on the queried realm and connected realms.</p>
      *
      * TODO: Parse the JSON Object for the proper URL and execute it
@@ -160,15 +160,11 @@ public class WoWRequest implements GameRequest {
      *
      * @return A WoWRequest to be executed for the actual auction data for the queried realm
      */
-    public static void getAuctionData(JSONObject auctionIndex, Callback callback) {
-        try {
-            String url = ((JSONObject) auctionIndex.getJSONArray("files").get(0)).getString("url");
-            Log.d(LOG_TAG, "getAuctionData: url = " + url);
+    public static void getAuctionData(JsonObject auctionIndex, Callback callback) {
+        String url = ((JsonObject) auctionIndex.getAsJsonArray("files").get(0)).get("url").getAsString();
+        System.out.println("url = " + url);
 
-            get(url, callback);
-        } catch (JSONException ex) {
-            Log.e(LOG_TAG, "getAuctionData: JSONException", ex);
-        }
+        get(url, callback);
     }
 
     /**

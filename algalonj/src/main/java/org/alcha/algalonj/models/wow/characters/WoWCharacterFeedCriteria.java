@@ -1,7 +1,5 @@
 package org.alcha.algalonj.models.wow.characters;
 
-import org.json.JSONObject;
-
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
  */
