@@ -10,10 +10,11 @@ writing this (**WoW, D3, SC2**) with WoW being the first.
 
 The Android and Java flavors of Algalon function _exactly_ the same, with the only difference being
 which packages are used for handling network connections. For example, the Android version uses an
-AsyncTask for handling API calls in the background. This is the only difference, as both versions
-use the same dependency for JSON object processing,
+AsyncTask for handling API calls in the background and the Java flavor uses an ExecutorService. This
+is the only difference, as both versions use the same dependency for JSON object processing,
 [com.google.code.gson](https://mvnrepository.com/artifact/com.google.code.gson/gson/2.8.1),
-which is the **only** external dependency used by the library.
+which is the **only** external dependency used by the library at this point (I don't plan to add
+more in the future, but it _may_ become necessary).
 
 ## Sole Dependency (Gson)
 
