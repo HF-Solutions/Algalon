@@ -23,6 +23,45 @@ objects. It is also used to convert the Java objects to their JSON form if the u
 
 ## TODO
 
-- [] Finish adding supoort for WoW API Calls
-- [] Add support for SC2 API calls
-- [] Add support for D3 API calls
+- [ ] Finish adding support for WoW API Calls
+    - [x] Add network calls to WoWRequest for AlgalonA
+    - [ ] Add network calls to WoWRequest for AlgalonJ
+    - [ ] Add data models for API responses for AlgalonA
+    - [ ] Add data models for API responses for AlgalonJ
+- [ ] Add support for SC2 API calls
+    - [x] Add network calls to SC2Request for AlgalonA
+    - [ ] Add network calls to SC2Request for AlgalonJ
+    - [ ] Add data models for API responses for AlgalonA
+    - [ ] Add data models for API responses for AlgalonJ
+- [ ] Add support for D3 API calls
+    - [x] Add network calls to D3Request for AlgalonA
+    - [ ] Add network calls to D3Request for AlgalonJ
+    - [ ] Add data models for API responses for AlgalonA
+    - [ ] Add data models for API responses for AlgalonJ
+- [ ] Add support for OAuth2
+
+## Licensing
+
+Algalon is shared under the [MIT License](https://choosealicense.com/licenses/mit/), which means the
+only requirement for using the code or packaged artifacts is to attribute credit to the original
+developers [Paranoid Devs](https://github.com/Paranoid-Devs).
+
+Copyright (c) 2017 Alcha/ParanoidDevs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
