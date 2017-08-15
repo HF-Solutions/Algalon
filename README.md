@@ -1,6 +1,6 @@
 ![Algalon_Icon](./Algalon_Icon-100x100.jpg "Algalon")
 
-| [Home](./README.md) | [How to Use](./HowToUse.md) | [Licensing](./LICENSE.md) |
+| [Home](./README.md) | [How to Use](./HowToUse.md) | [License](./LICENSE.md) |
 
 # Purpose
 
@@ -19,7 +19,7 @@ more in the future, but it _may_ become necessary).
 ## Sole Dependency (Gson)
 
 As stated in the previous paragraph, the `com.google.code.gson` library is the sole dependency used
-by the library and it is used to convert JSON data that is returned from the API requests dinto Java
+by the library and it is used to convert JSON data that is returned from the API requests into Java
 objects. It is also used to convert the Java objects to their JSON form if the user desires.
 
 ## TODO
@@ -47,4 +47,4 @@ Algalon is shared under the [MIT License](https://choosealicense.com/licenses/mi
 only requirement for using the code or packaged artifacts is to attribute credit to the original
 developers [Paranoid Devs](https://paranoiddevs.com).
 
-Full licensing information is available in [LICENSING.md](./LICENSE.md).
+Full licensing information is available in [LICENSE.md](./LICENSE.md).
