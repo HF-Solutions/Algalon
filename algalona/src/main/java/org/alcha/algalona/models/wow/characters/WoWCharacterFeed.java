@@ -3,17 +3,18 @@ package org.alcha.algalona.models.wow.characters;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
  */
 
 public class WoWCharacterFeed extends WoWCharacterField {
-    private HashMap<Integer, WoWCharacterFeedEntry> mFeedMap;
+    private TreeMap<Integer, WoWCharacterFeedEntry> mFeedMap;
 
     private WoWCharacterFeed() {
         setFieldName(Name.Feed);
+        mFeedMap = new TreeMap<>();
     }
 
     public static WoWCharacterFeed newInstance() {

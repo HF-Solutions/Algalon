@@ -16,8 +16,9 @@ import static org.alcha.algalona.network.AlgalonClient.getClientRegion;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
+ * <p>Stores the information related to the guild that a {@link WoWCharacter WoWCharacters} is
+ * in.</p>
  */
-
 public class WoWCharacterGuild extends WoWCharacterField {
     private static final String LOG_TAG = "WoWCharacterGuild";
     private long mLastModified;
@@ -25,16 +26,18 @@ public class WoWCharacterGuild extends WoWCharacterField {
     private WoWRealm mRealm;
     private WoWBattlegroup mBattlegroup;
     private int mLevel;
-    private WoWFaction mFaction;
+    private WoWFaction mFaction = WoWFaction.UNKNOWN;
     private int mAchievementPoints;
     private WoWGuildEmblem mEmblem;
 
     private WoWCharacterGuild() {
-
+        setFieldName(Name.Guild);
     }
 
-    public static WoWCharacterGuild newInstance() {
-        return new WoWCharacterGuild();
+    @Override
+    public String toString() {
+        return "Name = " + mName + "; Realm = " + mRealm + "; Battlegroup = " + mBattlegroup + "; Level = " + mLevel +
+                "; Faction = " + mFaction.toString() + "; AchievementPoints = " + mAchievementPoints + ";";
     }
 
     public static WoWCharacterGuild newInstanceFromJson(JsonObject jsonObject) {
@@ -62,6 +65,9 @@ public class WoWCharacterGuild extends WoWCharacterField {
                 characterGuild.setBattlegroup(WoWEUBattlegroups.fromString(jsonObject.get("battlegroup").getAsString()));
             }
         }
+
+        WoWCharacter character = WoWCharacter.newInstanceFromJson(new JsonObject());
+        character.setBattlegroup(WoWUSBattlegroups.Aunz_Battle_Group);
 
         if (jsonObject.has("level"))
             characterGuild.setLevel(jsonObject.get("level").getAsInt());
@@ -98,7 +104,7 @@ public class WoWCharacterGuild extends WoWCharacterField {
         return mName;
     }
 
-    <T extends WoWRealm> void setRealm(T realm) {
+    void setRealm(WoWRealm realm) {
         mRealm = realm;
     }
 
@@ -106,7 +112,7 @@ public class WoWCharacterGuild extends WoWCharacterField {
         return mRealm;
     }
 
-    <T extends WoWBattlegroup> void setBattlegroup(T battlegroup) {
+    void setBattlegroup(WoWBattlegroup battlegroup) {
         mBattlegroup = battlegroup;
     }
 

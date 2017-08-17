@@ -4,9 +4,9 @@ import org.alcha.algalona.interfaces.FieldName;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
+ * Represents a WoWCharacterField within a {@link WoWCharacter}
  */
-
-public class WoWCharacterField {
+public abstract class WoWCharacterField {
     private static final String LOG_TAG = "WoWCharacterField";
 
     public enum Name implements FieldName {

@@ -7,11 +7,13 @@ import com.google.gson.JsonObject;
 import org.alcha.algalona.models.wow.WoWCharacterClass;
 import org.alcha.algalona.models.wow.WoWFaction;
 import org.alcha.algalona.models.wow.WoWRace;
+import org.alcha.algalona.models.wow.battlegroups.WoWBattlegroup;
 import org.alcha.algalona.models.wow.battlegroups.WoWUSBattlegroups;
 import org.alcha.algalona.models.wow.guilds.WoWGuild;
+import org.alcha.algalona.models.wow.realms.WoWRealm;
 import org.alcha.algalona.models.wow.realms.WoWUSRealms;
 
-import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
@@ -21,8 +23,8 @@ public class WoWCharacter {
     private static final String LOG_TAG = "WoWCharacter";
     private int mLastModified;
     private String mName;
-    private WoWUSRealms mRealm;
-    private WoWUSBattlegroups mBattlegroup;
+    private WoWRealm mRealm;
+    private WoWBattlegroup mBattlegroup;
     private WoWCharacterClass mCharacterClass;
     private WoWRace mRace;
     private int mGender;
@@ -32,10 +34,10 @@ public class WoWCharacter {
     private String mCalcClass;
     private WoWFaction mFaction;
     private int mTotalHonorableKills;
-    private SortedMap<WoWCharacterField.Name, WoWCharacterField> mFieldMap;
+    private TreeMap<WoWCharacterField.Name, WoWCharacterField> mFieldMap;
 
     private WoWCharacter() {
-
+        mFieldMap = new TreeMap<>();
     }
 
     @Override
@@ -49,28 +51,40 @@ public class WoWCharacter {
         // Required parameters
         if (characterJson.has("lastModified"))
             character.setLastModified(characterJson.get("lastModified").getAsInt());
+
         if (characterJson.has("name"))
             character.setName(characterJson.get("name").getAsString());
+
         if (characterJson.has("realm"))
             character.setRealm(WoWUSRealms.fromString(characterJson.get("realm").getAsString()));
+
         if (characterJson.has("battlegroup"))
             character.setBattlegroup(WoWUSBattlegroups.valueOf(characterJson.get("battlegroup").getAsString()));
+
         if (characterJson.has("class"))
             character.setCharacterClass(WoWCharacterClass.fromId(characterJson.get("class").getAsInt()));
+
         if (characterJson.has("race"))
             character.setRace(WoWRace.fromId(characterJson.get("race").getAsInt()));
+
         if (characterJson.has("gender"))
             character.setGender(characterJson.get("gender").getAsInt());
+
         if (characterJson.has("level"))
             character.setLevel(characterJson.get("level").getAsInt());
+
         if (characterJson.has("achievementPoints"))
             character.setAchievementPoints(characterJson.get("achievementPoints").getAsInt());
+
         if (characterJson.has("thumbnail"))
             character.setThumbnail(characterJson.get("thumbnail").getAsString());
+
         if (characterJson.has("calcClass"))
             character.setCalcClass(characterJson.get("calcClass").getAsString());
+
         if (characterJson.has("faction"))
             character.setFaction(WoWFaction.fromId(characterJson.get("faction").getAsInt()));
+
         if (characterJson.has("totalHonorableKills"))
             character.setTotalHonorableKills(characterJson.get("totalHonorableKills").getAsInt());
 
@@ -147,6 +161,9 @@ public class WoWCharacter {
     }
 
     private void addField(WoWCharacterField characterField) {
+        Log.d(LOG_TAG, "addField: characterField.getFieldName() = " + characterField.getFieldName());
+        Log.d(LOG_TAG, "addField: characterField = " + characterField);
+
         mFieldMap.put(characterField.getFieldName(), characterField);
     }
 
@@ -158,7 +175,7 @@ public class WoWCharacter {
         return mTotalHonorableKills;
     }
 
-    private void setTotalHonorableKills(int totalHonorableKills) {
+    void setTotalHonorableKills(int totalHonorableKills) {
         mTotalHonorableKills = totalHonorableKills;
     }
 
@@ -166,7 +183,7 @@ public class WoWCharacter {
         return mCalcClass;
     }
 
-    private void setCalcClass(String calcClass) {
+    void setCalcClass(String calcClass) {
         mCalcClass = calcClass;
     }
 
@@ -174,7 +191,7 @@ public class WoWCharacter {
         return mFaction;
     }
 
-    private void setFaction(WoWFaction faction) {
+    void setFaction(WoWFaction faction) {
         mFaction = faction;
     }
 
@@ -182,7 +199,7 @@ public class WoWCharacter {
         return mLastModified;
     }
 
-    private void setLastModified(int lastModified) {
+    void setLastModified(int lastModified) {
         mLastModified = lastModified;
     }
 
@@ -190,23 +207,23 @@ public class WoWCharacter {
         return mName;
     }
 
-    private void setName(String name) {
+    void setName(String name) {
         mName = name;
     }
 
-    public WoWUSRealms getRealm() {
+    public WoWRealm getRealm() {
         return mRealm;
     }
 
-    private void setRealm(WoWUSRealms realm) {
+    void setRealm(WoWRealm realm) {
         mRealm = realm;
     }
 
-    public WoWUSBattlegroups getBattlegroup() {
+    public WoWBattlegroup getBattlegroup() {
         return mBattlegroup;
     }
 
-    private void setBattlegroup(WoWUSBattlegroups battlegroup) {
+    void setBattlegroup(WoWBattlegroup battlegroup) {
         mBattlegroup = battlegroup;
     }
 
@@ -214,7 +231,7 @@ public class WoWCharacter {
         return mCharacterClass;
     }
 
-    private void setCharacterClass(WoWCharacterClass characterClass) {
+    void setCharacterClass(WoWCharacterClass characterClass) {
         mCharacterClass = characterClass;
     }
 
@@ -222,7 +239,7 @@ public class WoWCharacter {
         return mRace;
     }
 
-    private void setRace(WoWRace race) {
+    void setRace(WoWRace race) {
         mRace = race;
     }
 
@@ -230,7 +247,7 @@ public class WoWCharacter {
         return mGender;
     }
 
-    private void setGender(int gender) {
+    void setGender(int gender) {
         mGender = gender;
     }
 
@@ -238,7 +255,7 @@ public class WoWCharacter {
         return mLevel;
     }
 
-    private void setLevel(int level) {
+    void setLevel(int level) {
         mLevel = level;
     }
 
@@ -246,7 +263,7 @@ public class WoWCharacter {
         return mAchievementPoints;
     }
 
-    private void setAchievementPoints(int achievementPoints) {
+    void setAchievementPoints(int achievementPoints) {
         mAchievementPoints = achievementPoints;
     }
 
@@ -254,7 +271,7 @@ public class WoWCharacter {
         return mThumbnail;
     }
 
-    private void setThumbnail(String thumbnail) {
+    void setThumbnail(String thumbnail) {
         mThumbnail = thumbnail;
     }
 }

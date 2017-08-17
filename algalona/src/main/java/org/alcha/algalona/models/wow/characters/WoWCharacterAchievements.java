@@ -24,16 +24,31 @@ public class WoWCharacterAchievements extends WoWCharacterField {
 
         if (object.has("achievementsCompleted"))
             achievements.setAchievementsCompleted(parseAchievementsCompleted(object.getAsJsonArray("achievementsCompleted")));
+
         if (object.has("achievementsCriteria"))
             achievements.setAchievementsCriteria(parseAchievementsCriteria(object.getAsJsonArray("achievementsCriteria")));
+
         if (object.has("achievementCriteriaQuantity"))
             achievements.setAchievementsCriteriaQuantity(parseAchievementCriteriaQuantity(object.getAsJsonArray("achievementCriteriaQuantity")));
+
         if (object.has("achievementsCompletedTimeStamp"))
             achievements.setAchievementsCompletedTimeStamp(parseAchievementsCompletedTimeStamp(object.getAsJsonArray("achievementsCompletedTimeStamp")));
+
         if (object.has("achievementsCriteriaCreated"))
             achievements.setAchievementsCriteriaCreated(parseAchievementsCriteriaCreated(object.getAsJsonArray("achievementsCriteriaCreated")));
 
         return achievements;
+    }
+
+    @Override
+    public String toString() {
+        String tempStr = "Achievements Completed = ";
+
+        for (int achievementId : mAchievementsCompleted) {
+            tempStr += "; " + achievementId;
+        }
+
+        return tempStr;
     }
 
     private static long[] parseAchievementsCriteriaCreated(JsonArray criteriaCreated) {
@@ -49,7 +64,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
     private static int[] parseAchievementCriteriaQuantity(JsonArray criteriaQuantity) {
         int[] tempArray = new int[criteriaQuantity.size()];
 
-        for(int x = 0; x < criteriaQuantity.size(); x++) {
+        for (int x = 0; x < criteriaQuantity.size(); x++) {
             tempArray[x] = criteriaQuantity.get(x).getAsInt();
         }
 
@@ -59,7 +74,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
     private static int[] parseAchievementsCriteria(JsonArray criteria) {
         int[] tempArray = new int[criteria.size()];
 
-        for(int x = 0; x < criteria.size(); x++) {
+        for (int x = 0; x < criteria.size(); x++) {
             tempArray[x] = criteria.get(x).getAsInt();
         }
 
@@ -69,7 +84,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
     public static int[] parseAchievementsCompleted(JsonArray array) {
         int[] tempArray = new int[array.size()];
 
-        for(int x = 0; x < array.size(); x++) {
+        for (int x = 0; x < array.size(); x++) {
             tempArray[x] = array.get(x).getAsInt();
         }
 
@@ -79,7 +94,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
     public static long[] parseAchievementsCompletedTimeStamp(JsonArray array) {
         long[] tempArray = new long[array.size()];
 
-        for(int x = 0; x < array.size(); x++) {
+        for (int x = 0; x < array.size(); x++) {
             tempArray[x] = array.get(x).getAsInt();
         }
 

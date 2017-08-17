@@ -8,7 +8,9 @@ import org.alcha.algalona.models.wow.WoWRewardItem;
 
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
- * Stores all information related to an Achievement in WoW.
+ * <p>Stores all information related to an Achievement in WoW. Contains the
+ * {@link #newInstanceFromJson(JsonObject)} method to parse a response from
+ * <code>/wow/achievement/:id</code> into a usable {@link WoWAchievement} object.</p>
  */
 public class WoWAchievement implements Comparable<WoWAchievement> {
     private static final String LOG_TAG = "WoWAchievement";
@@ -48,8 +50,8 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
     }
 
     /**
-     * Accepts a {@link JsonObject} that is the response from <code>/wow/achievement/:id</code> and
-     * populates the available fields.
+     * <p>Accepts a {@link JsonObject} that is the response from <code>/wow/achievement/:id</code> and
+     * populates the available fields.</p>
      *
      * @param json <code>/wow/achievement/:id</code> response
      */
@@ -70,25 +72,56 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         return achievement;
     }
 
+    /**
+     * <p>Returns the description of the current {@link WoWAchievement} as specified by the
+     * Battle.net API.</p>
+     *
+     * @return the description of the current Achievement
+     */
     public String getDescription() {
         return mDescription;
     }
 
+    /**
+     * <p>Sets the description for the current {@link WoWAchievement}, however it is package private
+     * to prevent users from corrupting an objects state or inserting invalid information.</p>
+     *
+     * @param description String of the description for the Achievement
+     */
     void setDescription(String description) {
         mDescription = description;
     }
 
+    /**
+     * <p>Returns the ID of the current {@link WoWAchievement} as specified by the Battle.net
+     * API.</p>
+     *
+     * @return the id of the current Achievement
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * <p>Sets the ID of the current {@link WoWAchievement}, however it is package private to
+     * prevent users from corrupt the object state or inserting invalid information.</p>
+     *
+     * @param id int of the Achievement ID
+     */
     void setId(int id) {
         mId = id;
     }
 
+    /**
+     * <p>Returns the title of the current {@link WoWAchievement} as specified by the Battle.net
+     * API.</p>
+     *
+     * @return
+     */
     public String getTitle() {
         return mTitle;
     }
+
 
     void setTitle(String title) {
         mTitle = title;

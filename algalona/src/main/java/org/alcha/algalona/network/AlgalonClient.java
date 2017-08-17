@@ -13,31 +13,48 @@ import java.net.URL;
 public class AlgalonClient {
     private static final String LOG_TAG = "AlgalonClient";
     private static String mApiKey;
+    private static String mClientSecret;
+    private static OAuthToken mAuthToken;
     private static Locale mLocale = Locale.en_US;
     private static Region mRegion = Region.US;
     private static String mBaseUrl = "https://" + mRegion + ".api.battle.net";
 
-    private AlgalonClient(String apiKey, Locale locale, Region region) {
+    private AlgalonClient(String apiKey, String clientSecret, Locale locale, Region region) {
         mApiKey = apiKey;
         mLocale = locale;
         mRegion = region;
     }
 
-    public static AlgalonClient newInstance(String apiKey, Locale locale, Region region) {
-        return new AlgalonClient(apiKey, locale, region);
+    public static AlgalonClient newInstance(String apiKey, String clientSecret, Locale locale, Region region) {
+        return new AlgalonClient(apiKey, clientSecret, locale, region);
+    }
+
+    public static AlgalonClient newUSInstance(String apiKey, String clientSecret) {
+        return new AlgalonClient(apiKey, clientSecret, Locale.en_US, Region.US);
     }
 
     public static AlgalonClient newUSInstance(String apiKey) {
-        return new AlgalonClient(apiKey, Locale.en_US, Region.US);
+        return new AlgalonClient(apiKey, null, Locale.en_US, Region.US);
     }
 
-    public void executeRequest(GameRequest request, Callback callback) {
-        get(getAbsoluteUrl(request.getRelativeUrl()), callback);
+    private static String generateOAuthUrl(String apiKey, String clientSecret) {
+        String url = "https://" + mRegion.toString() + ".battle.net/oauth/token";
+        url += "?grant_type=client_credentials&client_id=" + apiKey;
+        url += "&client_secret=" + clientSecret;
+        return url;
     }
 
-    public void executeRequests(GameRequest[] requests, Callback callback) {
-        for (GameRequest request : requests) {
+    public void executeRequest(APIRequest request, Callback callback) {
+        if (request instanceof WoWCommunityRequest) {
             get(getAbsoluteUrl(request.getRelativeUrl()), callback);
+        }
+    }
+
+    public void executeRequests(APIRequest[] requests, Callback callback) {
+        for (APIRequest request : requests) {
+            if (request instanceof WoWCommunityRequest) {
+                get(getAbsoluteUrl(request.getRelativeUrl()), callback);
+            }
         }
     }
 

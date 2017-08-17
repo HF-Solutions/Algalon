@@ -1,7 +1,7 @@
 package org.alcha.algalona.models.wow.guilds;
 
 import org.alcha.algalona.interfaces.FieldName;
-import org.alcha.algalona.network.WoWRequest;
+import org.alcha.algalona.network.WoWCommunityRequest;
 
 /**
  * <p>Created by Alcha on 8/8/2017.</p>
@@ -11,7 +11,7 @@ import org.alcha.algalona.network.WoWRequest;
  *
  * <p>For example, when requesting information on a particular guild, if you want their
  * achievements, guild news, or member list, you must append a field to the end of the URL. Instead
- * of manually doing this, {@link WoWGuildField} can be combined with a {@link WoWRequest} object
+ * of manually doing this, {@link WoWGuildField} can be combined with a {@link WoWCommunityRequest} object
  * to help generate the proper query.</p>
  */
 public class WoWGuildField {

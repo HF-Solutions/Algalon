@@ -4,6 +4,7 @@ package org.alcha.algalona.network;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.alcha.algalona.interfaces.OnTaskCompleted;
@@ -57,6 +58,10 @@ public class ApiCall extends AsyncTask<URL, Object, String> {
     @Override
     protected void onPostExecute(String str) {
         JsonParser parser = new JsonParser();
-        mListener.onTaskCompleted(parser.parse(str).getAsJsonObject());
+        if (parser.parse(str) instanceof JsonObject) {
+            mListener.onTaskCompleted(parser.parse(str).getAsJsonObject());
+        } else {
+            Log.d(LOG_TAG, "onPostExecute: str = " + str);
+        }
     }
 }

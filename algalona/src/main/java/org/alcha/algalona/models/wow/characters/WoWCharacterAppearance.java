@@ -5,8 +5,12 @@ import com.google.gson.JsonObject;
 
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
+ * <p>Stores the values associated with a {@link WoWCharacter WoWCharacter's} appearance. All fields
+ * are private and can only bet set from within the AlgalonA package, to prevent library users from
+ * corrupting any data. A new object can be initialized by using
+ * {@link #newInstanceFromJson(JsonObject)} which will parse the given {@link JsonObject} into a
+ * {@link WoWCharacterAppearance} object.</p>
  */
-
 public class WoWCharacterAppearance extends WoWCharacterField {
     /** Stores the integer for the face variation of a {@link WoWCharacter} **/
     private int mFaceVariation;
@@ -41,6 +45,27 @@ public class WoWCharacterAppearance extends WoWCharacterField {
      */
     private WoWCharacterAppearance() {
         setFieldName(Name.Achievements);
+    }
+
+    /**
+     * <p>Overrides the {@link Object#toString()} method in order to provide a more useful output when
+     * toString() is called instead of the object id being output. Currently, the FaceVariation,
+     * SkinColor, HairVariation, HairColor, FeatureVariation, ShowHelm, ShowCloak, and
+     * CustomDisplayOptions are displayed.</p>
+     *
+     * @return a String representation of the above mentioned fields
+     */
+    @Override
+    public String toString() {
+        String temp = "FaceVariation = " + mFaceVariation + "; SkinColor = " + mSkinColor + "; HairVariation = " + mHairVariation +
+                "; HairColor = " + mHairColor + "; FeatureVariation = " + mFeatureVariation + "; ShowHelm = " + mShowHelm +
+                "; ShowCloak = " + mShowCloak + "; CustomDisplayOptions = ";
+
+        for (int option : mCustomDisplayOptions) {
+            temp += option + ", ";
+        }
+
+        return temp;
     }
 
     /**
@@ -101,7 +126,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
     }
 
     /**
-     * Gets currently stored custom display options and returns them as an int array.
+     * <p>Gets currently stored custom display options and returns them as an int array.</p>
      *
      * @return an int array containing the WoWCharacterAppearances custom display options
      */
