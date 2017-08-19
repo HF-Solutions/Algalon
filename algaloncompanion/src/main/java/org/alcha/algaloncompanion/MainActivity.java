@@ -1,7 +1,9 @@
 package org.alcha.algaloncompanion;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String API_KEY = "asauqh5pmb6ppsjs5c4ff3d8wsmtq4js";
     private List<String> mListHeaders;
     private HashMap<String, List<String>> mListChildren;
     private ListAdapter mAdapter;
@@ -26,6 +29,22 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ListAdapter(this, mListHeaders, mListChildren);
 
         mListView.setAdapter(mAdapter);
+
+        mListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                switch (mAdapter.getChild(groupPosition, childPosition).toString()) {
+                    case "Achievements":
+                        startActivity(new Intent(getApplicationContext(), AchievementActivity.class));
+                        break;
+                    case "Auction":
+                        break;
+                    case "Boss":
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private void prepareListData() {
