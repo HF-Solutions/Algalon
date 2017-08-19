@@ -1,4 +1,4 @@
-package org.alcha.algalon;
+package org.alcha.algaloncompanion;
 
 import org.junit.Test;
 

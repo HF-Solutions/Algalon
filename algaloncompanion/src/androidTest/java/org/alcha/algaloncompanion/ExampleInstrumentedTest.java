@@ -1,4 +1,4 @@
-package org.alcha.algalon;
+package org.alcha.algaloncompanion;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("org.alcha.algalon", appContext.getPackageName());
+        assertEquals("org.alcha.algaloncompanion", appContext.getPackageName());
     }
 }
