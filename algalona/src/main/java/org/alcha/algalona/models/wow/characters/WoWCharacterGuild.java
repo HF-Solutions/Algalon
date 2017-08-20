@@ -88,6 +88,10 @@ public class WoWCharacterGuild extends WoWCharacterField {
         mEmblem = emblem;
     }
 
+    public WoWGuildEmblem getEmblem() {
+        return mEmblem;
+    }
+
     void setLastModified(long lastModified) {
         mLastModified = lastModified;
     }
