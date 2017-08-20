@@ -4,7 +4,7 @@ package org.alcha.algalona.network;
  * <p>Created by Alcha on 8/9/2017.</p>
  */
 
-public class WoWDataResources implements GameRequest {
+public class WoWDataResources implements APIRequest {
     private static final String LOG_TAG = "WoWDataResources";
     private String relativeUrl = "/wow/data";
 
@@ -22,7 +22,7 @@ public class WoWDataResources implements GameRequest {
      *
      * @param parameter String typed parameter
      *
-     * @return The current WoWRequest object with the provided parameter appended
+     * @return The current WoWCommunityRequest object with the provided parameter appended
      */
     public WoWDataResources appendParameter(String parameter) {
         relativeUrl += "/" + parameter.replace(" ", "%20").replace(",", "%2C");

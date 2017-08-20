@@ -5,20 +5,23 @@ import com.google.gson.JsonObject;
 
 import java.util.TreeMap;
 
+import static org.alcha.algalona.models.wow.characters.WoWCharacterField.Name.Feed;
+
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
+ * <p>Represents the feed for a particular character in WoW. The feed can contain multiple entries
+ * of four types, a boss kill, achievement, loot, or criteria (for achievements).</p>
+ *
+ * <p>Pass the {@link #newInstanceFromJson(JsonArray)} method the JsonArray from the Character
+ * Profile API and it will return a {@link WoWCharacterFeed} object with all the feed entries
+ * added.</p>
  */
-
 public class WoWCharacterFeed extends WoWCharacterField {
     private TreeMap<Integer, WoWCharacterFeedEntry> mFeedMap;
 
     private WoWCharacterFeed() {
-        setFieldName(Name.Feed);
+        setFieldName(Feed);
         mFeedMap = new TreeMap<>();
-    }
-
-    public static WoWCharacterFeed newInstance() {
-        return new WoWCharacterFeed();
     }
 
     public static WoWCharacterFeed newInstanceFromJson(JsonArray jsonArray) {

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.JsonObject;
 
+import org.alcha.algalona.models.wow.WoWFaction;
 import org.alcha.algalona.models.wow.WoWRewardItem;
 
 /**
@@ -23,7 +24,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
     private String mIcon;
     private WoWAchievementCriteria[] mCriteria;
     private boolean mAccountWide;
-    private int mFactionId;
+    private WoWFaction mFaction;
 
     private WoWAchievement() {
 
@@ -38,15 +39,15 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
 
     @Override
     public String toString() {
-        return "id = " + mId + "; " +
-                "title = " + mTitle + "; " +
+        return "id = " + mId + ";" +
+                "title = " + mTitle + ";" +
                 "points = " + mPoints + ";\n" +
-                "description = " + mDescription + "; " +
+                "description = " + mDescription + ";" +
                 "reward = " + mReward + "; " +
                 "icon = " + mIcon + ";\n" +
-                "criteria.length = " + mCriteria.length + "; " +
-                "accountWide = " + mAccountWide + "; " +
-                "factionId = " + mFactionId + ";";
+                "criteria.length = " + mCriteria.length + ";" +
+                "accountWide = " + mAccountWide + ";" +
+                "faction = " + mFaction.toString() + ";";
     }
 
     /**
@@ -67,7 +68,7 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         achievement.setIcon(json.get("icon").getAsString());
         achievement.setCriteria(WoWAchievementCriteria.parseCriteriaToArray(json.getAsJsonArray("criteria")));
         achievement.setAccountWide(json.get("accountWide").getAsBoolean());
-        achievement.setFactionId(json.get("factionId").getAsInt());
+        achievement.setFaction(json.get("factionId").getAsInt());
 
         return achievement;
     }
@@ -116,17 +117,28 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
      * <p>Returns the title of the current {@link WoWAchievement} as specified by the Battle.net
      * API.</p>
      *
-     * @return
+     * @return the title of the current Achievement
      */
     public String getTitle() {
         return mTitle;
     }
 
-
+    /**
+     * <p>Sets the title of the current {@link WoWAchievement}, and it is package private to prevent
+     * users from corrupting the object state or inserting invalid information.</p>
+     *
+     * @param title String of the Achievement title
+     */
     void setTitle(String title) {
         mTitle = title;
     }
 
+    /**
+     * <p>Returns the amount of points received for the current {@link WoWAchievement} as specified
+     * by the Battle.net API.</p>
+     *
+     * @return the achievement points of the current Achievement
+     */
     public int getPoints() {
         return mPoints;
     }
@@ -135,6 +147,16 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         mPoints = points;
     }
 
+    /**
+     * <p>Returns the reward of the current {@link WoWAchievement} as specified by the Battle.net
+     * API.</p>
+     *
+     * <p><b>NOTE: I believe this is generally used as a reward title that is displayed in the
+     * achievement whereas the {@link #getRewardItems()} method has more information about the
+     * individual rewards retrieved.</b></p>
+     *
+     * @return the reward of the current Achievement
+     */
     public String getReward() {
         return mReward;
     }
@@ -143,6 +165,11 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         mReward = reward;
     }
 
+    /**
+     * <p>Returns the {@link WoWRewardItem} of the current {@link WoWAchievement} as an array.</p>
+     *
+     * @return the WoWRewardItem[] of the current Achievement
+     */
     public WoWRewardItem[] getRewardItems() {
         return mRewardItems;
     }
@@ -151,6 +178,12 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         mRewardItems = rewardItems;
     }
 
+    /**
+     * <p>Returns the {@link WoWAchievementCriteria} of the current {@link WoWAchievement} as an
+     * array.</p>
+     *
+     * @return the WoWAchievementCriteria[] of the current Achievement
+     */
     public WoWAchievementCriteria[] getCriteria() {
         return mCriteria;
     }
@@ -159,6 +192,12 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         mCriteria = criteria;
     }
 
+    /**
+     * <p>Returns true or false if the current {@link WoWAchievement} is account wide as specified
+     * by the Battle.net API.</p>
+     *
+     * @return the account wide boolean of the current Achievement
+     */
     public boolean isAccountWide() {
         return mAccountWide;
     }
@@ -167,14 +206,29 @@ public class WoWAchievement implements Comparable<WoWAchievement> {
         mAccountWide = accountWide;
     }
 
-    public int getFactionId() {
-        return mFactionId;
+    /**
+     * <p>Returns the {@link WoWFaction} of the current {@link WoWAchievement} as specified by the
+     * Battle.net API.</p>
+     *
+     * <p><b>NOTE: The Battle.net API returns the faction as an int, 0, 1, or 2. This is converted
+     * to the WoWFaction enum as it's more useful than a simple int.</b></p>
+     *
+     * @return the faction  of the current Achievement
+     */
+    public WoWFaction getFaction() {
+        return mFaction;
     }
 
-    void setFactionId(int factionId) {
-        mFactionId = factionId;
+    void setFaction(int factionId) {
+        mFaction = WoWFaction.fromId(factionId);
     }
 
+    /**
+     * <p>Returns the icon of the current {@link WoWAchievement} as specified by the Battle.net
+     * API.</p>
+     *
+     * @return the icon of the current Achievement
+     */
     public String getIcon() {
         return mIcon;
     }

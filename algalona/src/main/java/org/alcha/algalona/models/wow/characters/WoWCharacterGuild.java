@@ -12,6 +12,7 @@ import org.alcha.algalona.models.wow.realms.WoWEURealms;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
 import org.alcha.algalona.models.wow.realms.WoWUSRealms;
 
+import static org.alcha.algalona.models.wow.characters.WoWCharacterField.Name.Guild;
 import static org.alcha.algalona.network.AlgalonClient.getClientRegion;
 
 /**
@@ -31,13 +32,17 @@ public class WoWCharacterGuild extends WoWCharacterField {
     private WoWGuildEmblem mEmblem;
 
     private WoWCharacterGuild() {
-        setFieldName(Name.Guild);
+        setFieldName(Guild);
     }
 
     @Override
     public String toString() {
-        return "Name = " + mName + "; Realm = " + mRealm + "; Battlegroup = " + mBattlegroup + "; Level = " + mLevel +
-                "; Faction = " + mFaction.toString() + "; AchievementPoints = " + mAchievementPoints + ";";
+        return "Name = " + mName +
+                ";Realm = " + mRealm +
+                ";Battlegroup = " + mBattlegroup +
+                ";Level = " + mLevel +
+                ";Faction = " + mFaction.toString() +
+                ";AchievementPoints = " + mAchievementPoints + ";";
     }
 
     public static WoWCharacterGuild newInstanceFromJson(JsonObject jsonObject) {
