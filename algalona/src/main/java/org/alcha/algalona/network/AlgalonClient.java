@@ -18,11 +18,13 @@ public class AlgalonClient {
     private static Locale mLocale = Locale.en_US;
     private static Region mRegion = Region.US;
     private static String mBaseUrl = "https://" + mRegion + ".api.battle.net";
+    private static boolean mInitialized = false;
 
     private AlgalonClient(String apiKey, String clientSecret, Locale locale, Region region) {
         mApiKey = apiKey;
         mLocale = locale;
         mRegion = region;
+        mInitialized = true;
     }
 
     public static AlgalonClient newInstance(String apiKey, String clientSecret, Locale locale, Region region) {
@@ -78,5 +80,9 @@ public class AlgalonClient {
 
     public static Region getClientRegion() {
         return mRegion;
+    }
+
+    public boolean isInitialized() {
+        return mInitialized;
     }
 }
