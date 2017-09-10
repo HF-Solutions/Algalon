@@ -10,9 +10,9 @@ import android.widget.ListView;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.achievements.WoWAchievement;
+import org.alcha.algalona.interfaces.RequestCallback;
+import org.alcha.algalona.models.wow.Achievement;
 import org.alcha.algalona.network.AlgalonClient;
-import org.alcha.algalona.network.Callback;
 import org.alcha.algalona.network.WoWCommunityRequest;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class AchievementActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int achievementId = Integer.parseInt(mAchievementId.getText().toString());
 
-                algalon.executeRequest(WoWCommunityRequest.getAchievement(achievementId), new Callback() {
+                algalon.executeRequest(WoWCommunityRequest.getAchievement(achievementId), new RequestCallback() {
                     @Override
                     public void onTaskCompleted(JsonObject response) {
                         populateList(response);
@@ -61,7 +61,7 @@ public class AchievementActivity extends AppCompatActivity {
     }
 
     private void populateList(JsonObject response) {
-        WoWAchievement achievement = WoWAchievement.newInstanceFromJson(response);
+        Achievement achievement = Achievement.newInstanceFromJson(response);
         List<String> listItems = new ArrayList<>();
 
         for (String result : achievement.toString().split(";")) {
