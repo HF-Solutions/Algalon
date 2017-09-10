@@ -3,21 +3,16 @@ package org.alcha.algalona.models.wow.guilds;
 import com.google.gson.JsonObject;
 
 import org.alcha.algalona.models.wow.battlegroups.WoWBattlegroup;
-import org.alcha.algalona.models.wow.battlegroups.WoWEUBattlegroups;
-import org.alcha.algalona.models.wow.battlegroups.WoWUSBattlegroups;
 import org.alcha.algalona.models.wow.characters.CharacterField;
-import org.alcha.algalona.models.wow.realms.WoWEURealms;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
-import org.alcha.algalona.models.wow.realms.WoWUSRealms;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
- * Represents a guild in WoW and stores the fields available from the Battle.net API as of file
- * creation.
+ * Represents a guild in WoW and stores the fields available from the Battle.net API.
  */
-public class WoWGuild {
+public class Guild {
     /** A log tag to be used for debugging and error logs **/
-    private static final String LOG_TAG = "WoWGuild";
+    private static final String LOG_TAG = "Guild";
 
     /**
      * Stores the Unix timestamp for when the stored guild info was last modified on the battle.net
@@ -37,7 +32,7 @@ public class WoWGuild {
     private WoWBattlegroup mBattlegroup;
 
     /** Stores the guilds custom emblem information **/
-    private WoWGuildEmblem mEmblem;
+    private GuildEmblem mEmblem;
 
     /** Stores the guild level **/
     private int mLevel;
@@ -48,56 +43,48 @@ public class WoWGuild {
     /** Stores the amount of achievement points the guild has earned **/
     private int mAchievementPoints;
 
-    private WoWGuild() {
+    private Guild() {
     }
 
-    public static WoWGuild newInstance() {
-        return new WoWGuild();
-    }
+    public static Guild newInstanceFromJson(JsonObject jsonObject) {
+        Guild guild = new Guild();
 
-    public static WoWGuild newInstanceFromJson(JsonObject jsonObject) {
-        WoWGuild guild = new WoWGuild();
+        if (jsonObject.has("lastModified"))
+            guild.setLastModified(jsonObject.get("lastModified").getAsLong());
+        else guild.setLastModified(-1);
 
-        guild.setLastModified(jsonObject.get("lastModified").getAsLong());
-        guild.setName(jsonObject.get("name").getAsString());
-        guild.setRealm(parseGuildRealm(jsonObject));
-        guild.setBattleGroup(parseGuildBattlegroup(jsonObject));
-        guild.setSide(jsonObject.get("side").getAsInt());
-        guild.setAchievementPoints(jsonObject.get("achievementPoints").getAsInt());
-        guild.setEmblem(WoWGuildEmblem.newInstanceFromJSON(jsonObject.getAsJsonObject("emblem")));
+        if (jsonObject.has("name"))
+            guild.setName(jsonObject.get("name").getAsString());
+        else guild.setName("");
+
+        if (jsonObject.has("realm"))
+            guild.setRealm(WoWRealm.newInstanceFromJson(jsonObject));
+        else guild.setRealm(WoWRealm.newInstanceFromJson(new JsonObject()));
+
+        if (jsonObject.has("battlegroup"))
+            guild.setBattleGroup(WoWBattlegroup.newInstanceFromJson(jsonObject));
+        else guild.setBattleGroup(WoWBattlegroup.newInstanceFromJson(new JsonObject()));
+
+        if (jsonObject.has("side"))
+            guild.setSide(jsonObject.get("side").getAsInt());
+        else guild.setSide(-1);
+
+        if (jsonObject.has("achievementPoints"))
+            guild.setAchievementPoints(jsonObject.get("achievementPoints").getAsInt());
+        else guild.setAchievementPoints(-1);
+
+        if (jsonObject.has("emblem"))
+            guild.setEmblem(GuildEmblem.newInstanceFromJson(jsonObject.getAsJsonObject("emblem")));
+        else guild.setEmblem(GuildEmblem.newInstanceFromJson(new JsonObject()));
 
         return guild;
-    }
-
-    private static WoWBattlegroup parseGuildBattlegroup(JsonObject jsonObject) {
-        if (WoWUSBattlegroups.fromString(jsonObject.get("battlegroup").getAsString()).equals(WoWUSBattlegroups.Unknown)) {
-            if (WoWEURealms.fromString(jsonObject.get("battlegroup").getAsString()).equals(WoWEURealms.Unknown)) {
-                return WoWUSBattlegroups.Unknown;
-            } else {
-                return WoWEUBattlegroups.fromString(jsonObject.get("battlegroup").getAsString());
-            }
-        } else {
-            return WoWUSBattlegroups.fromString(jsonObject.get("battlegroup").getAsString());
-        }
-    }
-
-    private static WoWRealm parseGuildRealm(JsonObject jsonObject) {
-        if (WoWUSRealms.fromString(jsonObject.get("realm").getAsString()).equals(WoWUSRealms.Unknown)) {
-            if (WoWEURealms.fromString(jsonObject.get("realm").getAsString()).equals(WoWEURealms.Unknown)) {
-                return WoWUSRealms.Unknown;
-            } else {
-                return WoWEURealms.fromString(jsonObject.get("realm").getAsString());
-            }
-        } else {
-            return WoWUSRealms.fromString(jsonObject.get("realm").getAsString());
-        }
     }
 
     public long getLastModified() {
         return mLastModified;
     }
 
-    private void setLastModified(long lastModified) {
+    public void setLastModified(long lastModified) {
         mLastModified = lastModified;
     }
 
@@ -105,7 +92,7 @@ public class WoWGuild {
         return mName;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         mName = name;
     }
 
@@ -113,7 +100,7 @@ public class WoWGuild {
         return mRealm;
     }
 
-    private void setRealm(WoWRealm realm) {
+    public void setRealm(WoWRealm realm) {
         mRealm = realm;
     }
 
@@ -121,7 +108,7 @@ public class WoWGuild {
         return mLevel;
     }
 
-    private void setLevel(int level) {
+    public void setLevel(int level) {
         mLevel = level;
     }
 
@@ -129,7 +116,7 @@ public class WoWGuild {
         return mSide;
     }
 
-    private void setSide(int side) {
+    public void setSide(int side) {
         mSide = side;
     }
 
@@ -137,7 +124,7 @@ public class WoWGuild {
         return mAchievementPoints;
     }
 
-    private void setAchievementPoints(int achievementPoints) {
+    public void setAchievementPoints(int achievementPoints) {
         mAchievementPoints = achievementPoints;
     }
 
@@ -145,15 +132,15 @@ public class WoWGuild {
         return mBattlegroup;
     }
 
-    private void setBattleGroup(WoWBattlegroup battleGroup) {
+    public void setBattleGroup(WoWBattlegroup battleGroup) {
         mBattlegroup = battleGroup;
     }
 
-    public WoWGuildEmblem getEmblem() {
+    public GuildEmblem getEmblem() {
         return mEmblem;
     }
 
-    private void setEmblem(WoWGuildEmblem emblem) {
+    public void setEmblem(GuildEmblem emblem) {
         mEmblem = emblem;
     }
 }

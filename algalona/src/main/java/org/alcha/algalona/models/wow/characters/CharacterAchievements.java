@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
  */
-public class WoWCharacterAchievements extends WoWCharacterField {
+public class CharacterAchievements extends CharacterField {
     private List<Integer> mAchievementsCompleted;
     private List<Long> mAchievementsCompletedTimestamp;
 
@@ -18,7 +18,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
     private List<Long> mAchievementsCriteriaTimestamp;
     private List<Long> mAchievementsCriteriaCreated;
 
-    private WoWCharacterAchievements() {
+    public CharacterAchievements() {
         setFieldName(Name.Achievements);
     }
 
@@ -33,8 +33,8 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return tempStr;
     }
 
-    public static WoWCharacterAchievements newInstanceFromJson(JsonObject object) {
-        WoWCharacterAchievements achievements = new WoWCharacterAchievements();
+    public static CharacterAchievements newInstanceFromJson(JsonObject object) {
+        CharacterAchievements achievements = new CharacterAchievements();
 
         if (object.has("achievementsCompleted"))
             achievements.setAchievementsCompleted(parseAchievementsCompleted(object.getAsJsonArray("achievementsCompleted")));
@@ -63,7 +63,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return achievements;
     }
 
-    private static List<Long> parseAchievementsCriteriaCreated(JsonArray criteriaCreated) {
+    public static List<Long> parseAchievementsCriteriaCreated(JsonArray criteriaCreated) {
         List<Long> tempList = new ArrayList<>();
 
         for (int x = 0; x < criteriaCreated.size(); x++) {
@@ -73,7 +73,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return tempList;
     }
 
-    private static List<Integer> parseAchievementCriteriaQuantity(JsonArray criteriaQuantity) {
+    public static List<Integer> parseAchievementCriteriaQuantity(JsonArray criteriaQuantity) {
         List<Integer> tempList = new ArrayList<>();
 
         for (int x = 0; x < criteriaQuantity.size(); x++) {
@@ -83,7 +83,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return tempList;
     }
 
-    private static List<Integer> parseAchievementsCriteria(JsonArray criteria) {
+    public static List<Integer> parseAchievementsCriteria(JsonArray criteria) {
         List<Integer> tempList = new ArrayList<>();
 
         for (int x = 0; x < criteria.size(); x++) {
@@ -113,8 +113,8 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return tempList;
     }
 
-    public static WoWCharacterAchievements newInstanceFromJson() {
-        return new WoWCharacterAchievements();
+    public static CharacterAchievements newInstanceFromJson() {
+        return new CharacterAchievements();
     }
 
     public void setAchievementsCompleted(List<Integer> achievementsCompleted) {

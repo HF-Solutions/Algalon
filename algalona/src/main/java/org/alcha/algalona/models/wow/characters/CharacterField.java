@@ -4,10 +4,10 @@ import org.alcha.algalona.interfaces.FieldName;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
- * Represents a WoWCharacterField within a {@link Character}
+ * Represents a CharacterField within a {@link Character}
  */
-public abstract class WoWCharacterField {
-    private static final String LOG_TAG = "WoWCharacterField";
+public abstract class CharacterField {
+    private static final String LOG_TAG = "CharacterField";
 
     public enum Name implements FieldName {
         Achievements,

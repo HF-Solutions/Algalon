@@ -6,13 +6,14 @@ import org.alcha.algalona.models.wow.Criteria;
 import org.alcha.algalona.models.wow.Faction;
 import org.alcha.algalona.models.wow.RewardItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
  */
 
-public class WoWCharacterFeedAchievement extends WoWCharacterFeedEntry {
+public class CharacterFeedAchievement extends CharacterFeedEntry {
     private int mId, mPoints;
     private String mTitle, mDescription, mIcon;
     private List<RewardItem> mRewardItems;
@@ -20,31 +21,56 @@ public class WoWCharacterFeedAchievement extends WoWCharacterFeedEntry {
     private boolean mAccountWide;
     private Faction mFaction;
 
-    private WoWCharacterFeedAchievement() {
+    public CharacterFeedAchievement() {
         setEntryType(Type.ACHIEVEMENT);
     }
 
-    public static WoWCharacterFeedAchievement newInstanceFromJson(JsonObject jsonObject) {
-        WoWCharacterFeedAchievement achievement = new WoWCharacterFeedAchievement();
+    public static CharacterFeedAchievement newInstanceFromJson(JsonObject jsonObject) {
+        CharacterFeedAchievement achievement = new CharacterFeedAchievement();
+
+        if (jsonObject.has("timestamp"))
+            achievement.setTimestamp(jsonObject.get("timestamp").getAsLong());
+        else achievement.setTimestamp(-1);
+
+        if (jsonObject.has("featOfStrength"))
+            achievement.setFeatOfStrength(jsonObject.get("featOfStrength").getAsBoolean());
+        else achievement.setFeatOfStrength(false);
 
         if (jsonObject.has("id"))
             achievement.setId(jsonObject.get("id").getAsInt());
+        else achievement.setId(-1);
+
         if (jsonObject.has("title"))
             achievement.setTitle(jsonObject.get("title").getAsString());
+        else achievement.setTitle("");
+
         if (jsonObject.has("points"))
             achievement.setPoints(jsonObject.get("points").getAsInt());
+        else achievement.setPoints(-1);
+
         if (jsonObject.has("description"))
             achievement.setDescription(jsonObject.get("description").getAsString());
+        else achievement.setDescription("");
+
         if (jsonObject.has("rewardItems"))
             achievement.setRewardItems(RewardItem.parseRewardItems(jsonObject.getAsJsonArray("rewardItems")));
+        else achievement.setRewardItems(new ArrayList<RewardItem>());
+
         if (jsonObject.has("icon"))
             achievement.setIcon(jsonObject.get("icon").getAsString());
+        else achievement.setIcon("");
+
         if (jsonObject.has("criteria"))
             achievement.setCriteria(Criteria.parseJsonArray(jsonObject.getAsJsonArray("criteria")));
+        else achievement.setCriteria(new ArrayList<Criteria>());
+
         if (jsonObject.has("accountWide"))
             achievement.setAccountWide(jsonObject.get("accountWide").getAsBoolean());
+        else achievement.setAccountWide(false);
+
         if (jsonObject.has("factionId"))
             achievement.setFaction(Faction.fromId(jsonObject.get("factionId").getAsInt()));
+        else achievement.setFaction(Faction.UNKNOWN);
 
         return achievement;
     }

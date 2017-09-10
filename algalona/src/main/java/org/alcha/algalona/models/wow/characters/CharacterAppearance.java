@@ -9,9 +9,9 @@ import com.google.gson.JsonObject;
  * are private and can only bet set from within the AlgalonA package, to prevent library users from
  * corrupting any data. A new object can be initialized by using
  * {@link #newInstanceFromJson(JsonObject)} which will parse the given {@link JsonObject} into a
- * {@link WoWCharacterAppearance} object.</p>
+ * {@link CharacterAppearance} object.</p>
  */
-public class WoWCharacterAppearance extends WoWCharacterField {
+public class CharacterAppearance extends CharacterField {
     /** Stores the integer for the face variation of a {@link Character} **/
     private int mFaceVariation;
 
@@ -37,13 +37,13 @@ public class WoWCharacterAppearance extends WoWCharacterField {
     private int[] mCustomDisplayOptions;
 
     /**
-     * <p>Private constructor for building a {@link WoWCharacterAppearance}. When calling this
+     * <p>Private constructor for building a {@link CharacterAppearance}. When calling this
      * constructor, {@link #setFieldName(Name)} is called and the value is set to Achievements.</p>
      *
      * <p>Generally, this is called within the {@link #newInstanceFromJson(JsonObject)} method
      * when setting up an object to be returned.</p>
      */
-    private WoWCharacterAppearance() {
+    public CharacterAppearance() {
         setFieldName(Name.Achievements);
     }
 
@@ -70,15 +70,15 @@ public class WoWCharacterAppearance extends WoWCharacterField {
 
     /**
      * <p>Parses the provided {@link JsonObject} to determine if it has the properties available for a
-     * {@link WoWCharacterAppearance}. If any of the fields are present, they're extracted and
+     * {@link CharacterAppearance}. If any of the fields are present, they're extracted and
      * stored in the object before it is returned.</p>
      *
-     * @param object JsonObject containing the WoWCharacterAppearance
+     * @param object JsonObject containing the CharacterAppearance
      *
-     * @return a WoWCharacterAppearance object with populated fields
+     * @return a CharacterAppearance object with populated fields
      */
-    public static WoWCharacterAppearance newInstanceFromJson(JsonObject object) {
-        WoWCharacterAppearance appearance = new WoWCharacterAppearance();
+    public static CharacterAppearance newInstanceFromJson(JsonObject object) {
+        CharacterAppearance appearance = new CharacterAppearance();
 
         if (object.has("faceVariation"))
             appearance.setFaceVariation(object.get("faceVariation").getAsInt());
@@ -123,7 +123,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
      *
      * @return an int array with the custom display options
      */
-    private static int[] parseCustomDisplayOptions(JsonArray object) {
+    public static int[] parseCustomDisplayOptions(JsonArray object) {
         int[] temp = new int[object.size()];
 
         for (int x = 0; x < temp.length; x++) {
@@ -143,7 +143,7 @@ public class WoWCharacterAppearance extends WoWCharacterField {
     }
 
     /**
-     * <p>Sets the custom display options for the current {@link WoWCharacterAppearance} to the
+     * <p>Sets the custom display options for the current {@link CharacterAppearance} to the
      * provided values.</p>
      *
      * @param customDisplayOptions an int array containing the custom display options

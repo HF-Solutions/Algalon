@@ -9,16 +9,16 @@ import org.alcha.algalona.models.wow.Criteria;
  * <p>Created by Alcha on 8/4/2017.</p>
  */
 
-public class WoWCharacterFeedCriteria extends WoWCharacterFeedEntry {
+public class CharacterFeedCriteria extends CharacterFeedEntry {
     private Achievement mAchievement;
     private Criteria mCriteria;
 
-    private WoWCharacterFeedCriteria() {
+    public CharacterFeedCriteria() {
         setEntryType(Type.CRITERIA);
     }
 
-    public static WoWCharacterFeedCriteria newInstanceFromJson(JsonObject jsonObject) {
-        WoWCharacterFeedCriteria feedCriteria = new WoWCharacterFeedCriteria();
+    public static CharacterFeedCriteria newInstanceFromJson(JsonObject jsonObject) {
+        CharacterFeedCriteria feedCriteria = new CharacterFeedCriteria();
 
         if(jsonObject.has("timestamp"))
             feedCriteria.setTimestamp(jsonObject.get("timestamp").getAsLong());

@@ -8,36 +8,33 @@ import org.alcha.algalona.util.JsonAid;
  * <p>Created by Alcha on 8/4/2017.</p>
  */
 
-public class WoWCharacterFeedLoot extends WoWCharacterFeedEntry {
+public class CharacterFeedLoot extends CharacterFeedEntry {
     private int mItemId;
     private String mContext;
     private int[] mBonusLists;
 
-    private WoWCharacterFeedLoot() {
+    public CharacterFeedLoot() {
         setEntryType(Type.LOOT);
     }
 
-    public WoWCharacterFeedLoot newInstance() {
-        return new WoWCharacterFeedLoot();
-    }
+    public static CharacterFeedLoot newInstanceFromJson(JsonObject jsonObject) {
+        CharacterFeedLoot feedLoot = new CharacterFeedLoot();
 
-    public static WoWCharacterFeedLoot newInstanceFromJson(JsonObject jsonObject) {
-        WoWCharacterFeedLoot feedLoot = new WoWCharacterFeedLoot();
-
-        if(jsonObject.has("timestamp"))
+        if (jsonObject.has("timestamp"))
             feedLoot.setTimestamp(jsonObject.get("timestamp").getAsLong());
         else feedLoot.setTimestamp(-1);
 
-        if(jsonObject.has("itemId"))
+        if (jsonObject.has("itemId"))
             feedLoot.setItemId(jsonObject.get("itemId").getAsInt());
         else feedLoot.setItemId(-1);
 
-        if(jsonObject.has("context"))
+        if (jsonObject.has("context"))
             feedLoot.setContext(jsonObject.get("context").getAsString());
         else feedLoot.setContext("");
 
-        if(jsonObject.has("bonusLists"))
+        if (jsonObject.has("bonusLists"))
             feedLoot.setBonusLists(JsonAid.jsonArrayToIntArray(jsonObject.getAsJsonArray("bonusLists")));
+        else feedLoot.setBonusLists(new int[0]);
 
         return feedLoot;
     }

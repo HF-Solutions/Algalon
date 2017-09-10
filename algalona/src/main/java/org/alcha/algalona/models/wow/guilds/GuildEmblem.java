@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
  * <p>Created by Alcha on 8/8/2017.</p>
  */
 
-public class WoWGuildEmblem {
+public class GuildEmblem {
     private String mIconColor,
             mBorderColor,
             mBackgroundColor;
@@ -17,7 +17,7 @@ public class WoWGuildEmblem {
             mBorderColorId,
             mBackgroundColorId;
 
-    private WoWGuildEmblem() {
+    private GuildEmblem() {
     }
 
     @Override
@@ -32,8 +32,8 @@ public class WoWGuildEmblem {
                 "BackgroundColorId = " + mBackgroundColorId + ";";
     }
 
-    public static WoWGuildEmblem newInstanceFromJSON(JsonObject jsonObject) {
-        WoWGuildEmblem emblem = new WoWGuildEmblem();
+    public static GuildEmblem newInstanceFromJson(JsonObject jsonObject) {
+        GuildEmblem emblem = new GuildEmblem();
 
         if (jsonObject.has("iconColor"))
             emblem.setIconColor(jsonObject.get("iconColor").getAsString());

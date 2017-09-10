@@ -4,7 +4,7 @@ package org.alcha.algalona.models.wow.characters;
  * <p>Created by Alcha on 8/3/2017.</p>
  */
 
-public abstract class WoWCharacterFeedEntry {
+public abstract class CharacterFeedEntry {
     public enum Type {
         ACHIEVEMENT,
         CRITERIA,
