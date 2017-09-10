@@ -1,7 +1,7 @@
 package org.alcha.algalona.models.wow.guilds;
 
 
-import org.alcha.algalona.models.wow.WoWSpell;
+import org.alcha.algalona.models.wow.Spell;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
@@ -9,9 +9,9 @@ import org.alcha.algalona.models.wow.WoWSpell;
 
 public class WoWGuildPerk {
     private int mGuildLevel = 1;
-    private WoWSpell mGuildSpell;
+    private Spell mGuildSpell;
 
-    public WoWGuildPerk (WoWSpell guildSpell) {
+    public WoWGuildPerk (Spell guildSpell) {
         mGuildSpell = guildSpell;
     }
 

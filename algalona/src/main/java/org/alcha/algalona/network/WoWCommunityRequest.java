@@ -1,13 +1,17 @@
 package org.alcha.algalona.network;
 
 import com.google.gson.JsonObject;
+import com.squareup.okhttp.Request;
 
+import org.alcha.algalona.interfaces.APIRequest;
+import org.alcha.algalona.interfaces.RequestCallback;
 import org.alcha.algalona.interfaces.FieldName;
-import org.alcha.algalona.models.wow.WoWAuctionData;
-import org.alcha.algalona.models.wow.WoWAuctionIndex;
-import org.alcha.algalona.models.wow.WoWPvPBrackets;
-import org.alcha.algalona.models.wow.characters.WoWCharacter;
-import org.alcha.algalona.models.wow.characters.WoWCharacterField;
+import org.alcha.algalona.models.wow.Achievement;
+import org.alcha.algalona.models.wow.AuctionData;
+import org.alcha.algalona.models.wow.AuctionIndex;
+import org.alcha.algalona.models.wow.PvPBrackets;
+import org.alcha.algalona.models.wow.characters.Character;
+import org.alcha.algalona.models.wow.characters.CharacterField;
 import org.alcha.algalona.models.wow.guilds.WoWGuildField;
 import org.alcha.algalona.models.wow.realms.WoWEURealms;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
@@ -20,7 +24,8 @@ import static org.alcha.algalona.network.AlgalonClient.get;
  */
 public class WoWCommunityRequest implements APIRequest {
     private static final String LOG_TAG = "WoWCommunityRequest";
-    private String relativeUrl = "/wow";
+    private String mRelativeUrl = "/wow";
+    private Request mRequest;
 
     /**
      * <p>Empty constructor used for building a custom {@link WoWCommunityRequest}.</p>
@@ -44,7 +49,7 @@ public class WoWCommunityRequest implements APIRequest {
      * &#9;     .appendParameter("RealmName")<br/>
      * &#9;     .appendParameter("CharacterName");<br/><br/>
      *
-     * algalon.executeRequest(request, new Callback() {<br/>
+     * algalon.executeRequest(request, new RequestCallback() {<br/>
      * &#9;@Override<br/>
      * &#9;public void onTaskCompleted(JSONObject response) {<br/>
      * &#9;&#9;Log.d(LOG_TAG, "response = " + response.toString());<br/>
@@ -52,7 +57,7 @@ public class WoWCommunityRequest implements APIRequest {
      * });
      * </code>
      */
-    public WoWCommunityRequest() {
+    private WoWCommunityRequest() {
     }
 
     /**
@@ -64,8 +69,15 @@ public class WoWCommunityRequest implements APIRequest {
      */
     @Override
     public String getRelativeUrl() {
-        return relativeUrl;
+        return mRelativeUrl;
     }
+
+    public Achievement getAchievement() {
+        Achievement achievement = Achievement.newInstanceFromJson(new JsonObject());
+
+        return achievement;
+    }
+
 
     /**
      * <p>Appends a type safe {@link FieldName} to the current {@link WoWCommunityRequest} and returns it.</p>
@@ -75,10 +87,10 @@ public class WoWCommunityRequest implements APIRequest {
      * @return The current WoWCommunityRequest object with the provided field appended
      */
     public WoWCommunityRequest appendField(FieldName fieldName) {
-        if (relativeUrl.contains("?")) {
-            relativeUrl += "%2C" + fieldName.getSlug();
+        if (mRelativeUrl.contains("?")) {
+            mRelativeUrl += "%2C" + fieldName.getSlug();
         } else {
-            relativeUrl += "?fields=" + fieldName.getSlug();
+            mRelativeUrl += "?fields=" + fieldName.getSlug();
         }
 
         return this;
@@ -95,10 +107,10 @@ public class WoWCommunityRequest implements APIRequest {
      * @return The current WoWCommunityRequest object with the provided field name appended
      */
     public WoWCommunityRequest appendField(String fieldName) {
-        if (relativeUrl.contains("?")) {
-            relativeUrl += "%2C" + fieldName.toLowerCase();
+        if (mRelativeUrl.contains("?")) {
+            mRelativeUrl += "%2C" + fieldName.toLowerCase();
         } else {
-            relativeUrl += "?fields=" + fieldName.toLowerCase();
+            mRelativeUrl += "?fields=" + fieldName.toLowerCase();
         }
 
         return this;
@@ -113,7 +125,7 @@ public class WoWCommunityRequest implements APIRequest {
      * @return The current WoWCommunityRequest object with the provided parameter appended
      */
     public WoWCommunityRequest appendParameter(String parameter) {
-        relativeUrl += "/" + parameter.replace(" ", "%20").replace(",", "%2C");
+        mRelativeUrl += "/" + parameter.replace(" ", "%20").replace(",", "%2C");
         return this;
     }
 
@@ -136,9 +148,9 @@ public class WoWCommunityRequest implements APIRequest {
      * url to the file that contains the latest auction data in JSON.</p>
      *
      * <p>In order to obtain the actual auction data for the realm of interest, you must execute this
-     * request and pass the response to {@link #getAuctionData(WoWAuctionIndex, Callback)}. The
-     * getAuctionData(JSONObject, Callback) method will return the auction data as an instance of
-     * {@link WoWAuctionData}.</p>
+     * request and pass the response to {@link #getAuctionData(AuctionIndex, RequestCallback)}. The
+     * getAuctionData(JSONObject, RequestCallback) method will return the auction data as an instance of
+     * {@link AuctionData}.</p>
      *
      * @param realm WoWRealm you wish to retrieve the index file for
      *
@@ -151,8 +163,8 @@ public class WoWCommunityRequest implements APIRequest {
                 .appendParameter(realm.getRelativeUrl());
     }
 
-    public static void getAuctionDataFile(WoWAuctionIndex auctionIndex, Callback callback) {
-        get(auctionIndex.getUrl(), callback);
+    public static void getAuctionDataFile(AuctionIndex auctionIndex, RequestCallback requestCallback) {
+        get(auctionIndex.getUrl(), requestCallback);
     }
 
     /**
@@ -163,8 +175,8 @@ public class WoWCommunityRequest implements APIRequest {
      *
      * @param auctionIndex result of executing {@link #getAuctionIndexFile(WoWRealm)}
      */
-    public static void getAuctionData(WoWAuctionIndex auctionIndex, Callback callback) {
-        get(auctionIndex.getUrl(), callback);
+    public static void getAuctionData(AuctionIndex auctionIndex, RequestCallback requestCallback) {
+        get(auctionIndex.getUrl(), requestCallback);
     }
 
     /**
@@ -192,12 +204,12 @@ public class WoWCommunityRequest implements APIRequest {
     }
 
     /**
-     * <p>Gets a basic dataset for a {@link WoWCharacter} on the provided {@link WoWRealm}.</p>
+     * <p>Gets a basic dataset for a {@link Character} on the provided {@link WoWRealm}.</p>
      *
      * <p>To access further information about a character, utilize the
-     * {@link #getCharacterProfileFields(WoWRealm, String, WoWCharacterField.Name[])
+     * {@link #getCharacterProfileFields(WoWRealm, String, CharacterField.Name[])
      * getCharacterProfileFields()} method and provide the an array of
-     * {@link WoWCharacterField.Name} for the fields you want to retrieve.</p>
+     * {@link CharacterField.Name} for the fields you want to retrieve.</p>
      *
      * @param realm         WoWRealm where the character is located
      * @param characterName name of the character you wish to retrieve
@@ -211,12 +223,16 @@ public class WoWCommunityRequest implements APIRequest {
                 .appendParameter(characterName);
     }
 
-    public static WoWCommunityRequest getCharacterProfileFields(WoWRealm realm, String characterName, WoWCharacterField.Name[] fieldNames) {
+    public static WoWCommunityRequest getCharacterProfileFields(WoWRealm realm, String characterName, CharacterField.Name[] fieldNames) {
         WoWCommunityRequest request = WoWCommunityRequest.getCharacterProfile(realm, characterName);
 
-        for (WoWCharacterField.Name fieldName : fieldNames) {
+        System.out.println("RelativeUrl A = " + request.getRelativeUrl());
+
+        for (CharacterField.Name fieldName : fieldNames) {
             request.appendField(fieldName);
         }
+
+        System.out.println("RelativeUrl B = " + request.getRelativeUrl());
 
         return request;
     }
@@ -280,7 +296,7 @@ public class WoWCommunityRequest implements APIRequest {
                 .appendParameter(String.valueOf(speciesId));
     }
 
-    public static WoWCommunityRequest getPvPLeaderboards(WoWPvPBrackets bracket) {
+    public static WoWCommunityRequest getPvPLeaderboards(PvPBrackets bracket) {
         return new WoWCommunityRequest().appendParameter(bracket.getName());
     }
 

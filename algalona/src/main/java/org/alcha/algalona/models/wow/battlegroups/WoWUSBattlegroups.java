@@ -9,44 +9,37 @@ import org.alcha.algalona.network.WoWDataResources;
  * <p>Created by Alcha on 8/4/2017.</p>
  */
 
-public enum WoWUSBattlegroups implements WoWBattlegroup {
-    Aunz_Battle_Group("AU/NZ Battle Group"),
-    Bloodlust("Bloodlust"),
-    Cataclysm("Cataclysm"),
-    Cyclone("Cyclone"),
-    Emberstorm("Emberstorm"),
-    Frenzy("Frenzy"),
-    Nightfall("Nightfall"),
-    Rampage("Rampage"),
-    Reckoning("Reckoning"),
-    Retaliation("Retaliation"),
-    Ruin("Ruin"),
-    Shadowburn("Shadowburn"),
-    Stormstrike("Stormstrike"),
-    Unknown("Unknown"),
-    Vengeance("Vengeance"),
-    Vindication("Vindication"),
-    Whirlwind("Whirlwind");
-    private static final String LOG_TAG = "WoWUSBattlegroups";
+public class WoWUSBattlegroups extends WoWBattlegroup {
+    public enum Name {
+        Aunz_Battle_Group("AU/NZ Battle Group"),
+        Bloodlust("Bloodlust"),
+        Cataclysm("Cataclysm"),
+        Cyclone("Cyclone"),
+        Emberstorm("Emberstorm"),
+        Frenzy("Frenzy"),
+        Nightfall("Nightfall"),
+        Rampage("Rampage"),
+        Reckoning("Reckoning"),
+        Retaliation("Retaliation"),
+        Ruin("Ruin"),
+        Shadowburn("Shadowburn"),
+        Stormstrike("Stormstrike"),
+        Unknown("Unknown"),
+        Vengeance("Vengeance"),
+        Vindication("Vindication"),
+        Whirlwind("Whirlwind");
+        public String name;
 
-    private String mName;
-
-    WoWUSBattlegroups(String name) {
-        mName = name;
+        Name(String name) {
+            this.name = name;
+        }
     }
 
-    public WoWUSBattlegroups newInstanceFromJson(JsonObject object) {
-        if(object.has("name")) return WoWUSBattlegroups.fromString(object.get("name").getAsString());
-        else return WoWUSBattlegroups.Unknown;
-    }
+    private Name mName;
 
     @Override
     public String getRelativeUrl() {
-        if (name().contains("\'")) {
-            return name().toLowerCase().replace("_", "%20");
-        } else {
-            return this.toString().toLowerCase().replace("_", "%20");
-        }
+        return mName.toString().toLowerCase().replace("_", "%20");
     }
 
     /**
@@ -56,39 +49,32 @@ public enum WoWUSBattlegroups implements WoWBattlegroup {
      */
     @Override
     public String getSlug() {
-        return name().toLowerCase().replace('_', '-');
+        return mName.toString().toLowerCase().replace('_', '-');
     }
 
     @Override
     public String toString() {
-        return name();
-    }
-
-    /**
-     * Returns the display name for the current {@link WoWUSBattlegroups} object.
-     *
-     * @return a String representing the battlegroup name
-     */
-    public String getName() {
-        return mName;
+        return mName.name;
     }
 
     /**
      * Attempts to find a matching {@link WoWUSBattlegroups} value for the provided name. If no match
-     * is found, the {@link WoWUSBattlegroups#Unknown} realm is returned as opposed to null.
+     * is found, the {@link WoWUSBattlegroups.Name#Unknown} realm is returned as opposed to null.
      *
      * @param name String version of the battlegroup name
      *
      * @return a WoWUSBattlegroup with the name provided or Unknown if none can be located
      */
     public static WoWUSBattlegroups fromString(String name) {
-        for (WoWUSBattlegroups realm : WoWUSBattlegroups.values()) {
-            if (realm.name().equalsIgnoreCase(name)) {
-                return realm;
+        for (WoWUSBattlegroups.Name battlegroupName : WoWUSBattlegroups.Name.values()) {
+            if (battlegroupName.name.equalsIgnoreCase(name)) {
+                WoWUSBattlegroups usBattlegroup = new WoWUSBattlegroups();
+                usBattlegroup.setName(battlegroupName);
+                return usBattlegroup;
             }
         }
 
-        return Unknown;
+        return new WoWUSBattlegroups();
     }
 
     /**
@@ -116,5 +102,13 @@ public enum WoWUSBattlegroups implements WoWBattlegroup {
         }
 
         return tempArray;
+    }
+
+    public Name getName() {
+        return mName;
+    }
+
+    public void setName(Name name) {
+        mName = name;
     }
 }

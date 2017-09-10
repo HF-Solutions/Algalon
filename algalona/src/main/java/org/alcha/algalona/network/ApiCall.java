@@ -7,7 +7,7 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.alcha.algalona.interfaces.OnTaskCompleted;
+import org.alcha.algalona.interfaces.RequestCallback;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,11 +18,11 @@ import java.net.URL;
 /**
  * <p>Created by Alcha on 8/5/2017.</p>
  */
-public class ApiCall extends AsyncTask<URL, Object, String> {
+public class ApiCall extends AsyncTask<URL, Void, String> {
     private static final String LOG_TAG = "ApiCall";
-    private OnTaskCompleted mListener;
+    private RequestCallback mListener;
 
-    public ApiCall(OnTaskCompleted listener) {
+    public ApiCall(RequestCallback listener) {
         mListener = listener;
     }
 

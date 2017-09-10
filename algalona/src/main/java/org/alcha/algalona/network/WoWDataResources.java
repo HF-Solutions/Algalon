@@ -1,5 +1,7 @@
 package org.alcha.algalona.network;
 
+import org.alcha.algalona.interfaces.APIRequest;
+
 /**
  * <p>Created by Alcha on 8/9/2017.</p>
  */

@@ -1,6 +1,6 @@
 package org.alcha.algalona;
 
-import org.alcha.algalona.models.wow.characters.WoWCharacterField;
+import org.alcha.algalona.models.wow.characters.CharacterField;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
 import org.alcha.algalona.network.WoWCommunityRequest;
 import org.junit.Test;
@@ -48,13 +48,13 @@ public class WoWCommunityRequestURLsTest {
 
     @Test
     public void wowRequest_CorrectCharacterFieldsURL() {
-        WoWCharacterField.Name[] fields = new WoWCharacterField.Name[]{
-                WoWCharacterField.Name.Achievements,
-                WoWCharacterField.Name.Appearance,
-                WoWCharacterField.Name.Feed,
-                WoWCharacterField.Name.Guild,
-                WoWCharacterField.Name.Hunter_Pets,
-                WoWCharacterField.Name.Items
+        CharacterField.Name[] fields = new CharacterField.Name[]{
+                CharacterField.Name.Achievements,
+                CharacterField.Name.Appearance,
+                CharacterField.Name.Feed,
+                CharacterField.Name.Guild,
+                CharacterField.Name.Hunter_Pets,
+                CharacterField.Name.Items
         };
 
         assertEquals(WoWCommunityRequest.getCharacterProfileFields(Alterac_Mountains, "Alcha", fields).getRelativeUrl(),

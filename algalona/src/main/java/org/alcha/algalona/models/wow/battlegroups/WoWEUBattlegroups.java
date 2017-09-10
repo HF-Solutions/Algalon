@@ -9,42 +9,41 @@ import org.alcha.algalona.network.WoWDataResources;
  * <p>Created by Alcha on 8/8/2017.</p>
  */
 
-public enum WoWEUBattlegroups implements WoWBattlegroup {
-    Blackout,
-    Bloodlust,
-    Blutdurst,
-    Cataclysme,
-    Conviction,
-    Crueldad,
-    Cyclone,
-    Ferocite,
-    Glutsturm,
-    Hinterhalt,
-    Misery,
-    Nemesis,
-    Nightfall,
-    Proximamente,
-    Rampage,
-    Raserei,
-    Reckoning,
-    Represailles,
-    Ruin,
-    Schattenbrand,
-    Sturmangriff,
-    Todbringer,
-    Unknown,
-    Vengeance,
-    VerderBnis,
-    Vindication;
-    private static final String LOG_TAG = "WoWEUBattlegroups";
+public class WoWEUBattlegroups extends WoWBattlegroup {
+    public enum Name {
+        Blackout,
+        Bloodlust,
+        Blutdurst,
+        Cataclysme,
+        Conviction,
+        Crueldad,
+        Cyclone,
+        Ferocite,
+        Glutsturm,
+        Hinterhalt,
+        Misery,
+        Nemesis,
+        Nightfall,
+        Proximamente,
+        Rampage,
+        Raserei,
+        Reckoning,
+        Represailles,
+        Ruin,
+        Schattenbrand,
+        Sturmangriff,
+        Todbringer,
+        Unknown,
+        Vengeance,
+        VerderBnis,
+        Vindication;
+    }
+
+    private WoWEUBattlegroups.Name mName;
 
     @Override
     public String getRelativeUrl() {
-        if (name().contains("\'")) {
-            return name().toLowerCase().replace("_", "%20");
-        } else {
-            return this.toString().toLowerCase().replace("_", "%20");
-        }
+        return mName.toString().toLowerCase().replace("_", "%20");
     }
 
     /**
@@ -54,35 +53,32 @@ public enum WoWEUBattlegroups implements WoWBattlegroup {
      */
     @Override
     public String getSlug() {
-        return name().toLowerCase().replace('_', '-');
+        return mName.toString().toLowerCase().replace('_', '-');
     }
 
     @Override
     public String toString() {
-        return name();
-    }
-
-    public WoWEUBattlegroups newInstanceFromJson(JsonObject object) {
-        if(object.has("name")) return WoWEUBattlegroups.fromString(object.get("name").getAsString());
-        else return WoWEUBattlegroups.Unknown;
+        return mName.toString();
     }
 
     /**
      * Attempts to find a matching {@link WoWEUBattlegroups} value for the provided name. If no match
-     * is found, the {@link WoWEUBattlegroups#Unknown} realm is returned as opposed to null.
+     * is found, the {@link WoWEUBattlegroups.Name#Unknown} realm is returned as opposed to null.
      *
-     * @param name
+     * @param name String version of the battlegroup name
      *
-     * @return
+     * @return a WoWUSBattlegroup with the name provided or Unknown if none can be located
      */
     public static WoWEUBattlegroups fromString(String name) {
-        for (WoWEUBattlegroups realm : WoWEUBattlegroups.values()) {
-            if (realm.name().equalsIgnoreCase(name)) {
-                return realm;
+        for (WoWEUBattlegroups.Name battlegroupName : WoWEUBattlegroups.Name.values()) {
+            if (battlegroupName.toString().equalsIgnoreCase(name)) {
+                WoWEUBattlegroups usBattlegroup = new WoWEUBattlegroups();
+                usBattlegroup.setName(battlegroupName);
+                return usBattlegroup;
             }
         }
 
-        return Unknown;
+        return new WoWEUBattlegroups();
     }
 
     /**
@@ -110,5 +106,13 @@ public enum WoWEUBattlegroups implements WoWBattlegroup {
         }
 
         return tempArray;
+    }
+
+    public WoWEUBattlegroups.Name getName() {
+        return mName;
+    }
+
+    public void setName(WoWEUBattlegroups.Name name) {
+        mName = name;
     }
 }

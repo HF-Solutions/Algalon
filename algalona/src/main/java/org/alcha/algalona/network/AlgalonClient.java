@@ -1,5 +1,10 @@
 package org.alcha.algalona.network;
 
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+
+import org.alcha.algalona.interfaces.APIRequest;
+import org.alcha.algalona.interfaces.RequestCallback;
 import org.alcha.algalona.models.wow.Locale;
 import org.alcha.algalona.models.wow.Region;
 
@@ -13,54 +18,46 @@ import java.net.URL;
 public class AlgalonClient {
     private static final String LOG_TAG = "AlgalonClient";
     private static String mApiKey;
-    private static String mClientSecret;
-    private static OAuthToken mAuthToken;
     private static Locale mLocale = Locale.en_US;
     private static Region mRegion = Region.US;
     private static String mBaseUrl = "https://" + mRegion + ".api.battle.net";
+    private HttpUrl.Builder mUrlBuilder;
+    private OkHttpClient mClient;
     private static boolean mInitialized = false;
 
-    private AlgalonClient(String apiKey, String clientSecret, Locale locale, Region region) {
+    private AlgalonClient(String apiKey, Locale locale, Region region) {
         mApiKey = apiKey;
         mLocale = locale;
         mRegion = region;
         mInitialized = true;
+        mUrlBuilder = HttpUrl.parse(mBaseUrl).newBuilder();
+        mClient = new OkHttpClient();
     }
 
-    public static AlgalonClient newInstance(String apiKey, String clientSecret, Locale locale, Region region) {
-        return new AlgalonClient(apiKey, clientSecret, locale, region);
-    }
-
-    public static AlgalonClient newUSInstance(String apiKey, String clientSecret) {
-        return new AlgalonClient(apiKey, clientSecret, Locale.en_US, Region.US);
+    public static AlgalonClient newInstance(String apiKey, Locale locale, Region region) {
+        return new AlgalonClient(apiKey, locale, region);
     }
 
     public static AlgalonClient newUSInstance(String apiKey) {
-        return new AlgalonClient(apiKey, null, Locale.en_US, Region.US);
+        return new AlgalonClient(apiKey, Locale.en_US, Region.US);
     }
 
-    private static String generateOAuthUrl(String apiKey, String clientSecret) {
-        String url = "https://" + mRegion.toString() + ".battle.net/oauth/token";
-        url += "?grant_type=client_credentials&client_id=" + apiKey;
-        url += "&client_secret=" + clientSecret;
-        return url;
-    }
-
-    public void executeRequest(APIRequest request, Callback callback) {
+    public void executeRequest(APIRequest request, RequestCallback requestCallback) {
         if (request instanceof WoWCommunityRequest) {
-            get(getAbsoluteUrl(request.getRelativeUrl()), callback);
+
+            get(getAbsoluteUrl(request.getRelativeUrl()), requestCallback);
         }
     }
 
-    public void executeRequests(APIRequest[] requests, Callback callback) {
+    public void executeRequests(APIRequest[] requests, RequestCallback requestCallback) {
         for (APIRequest request : requests) {
             if (request instanceof WoWCommunityRequest) {
-                get(getAbsoluteUrl(request.getRelativeUrl()), callback);
+                get(getAbsoluteUrl(request.getRelativeUrl()), requestCallback);
             }
         }
     }
 
-    public static void get(String strUrl, Callback callback) {
+    public static void get(String strUrl, RequestCallback requestCallback) {
         URL url = null;
         try {
             url = new URL(strUrl);
@@ -68,7 +65,7 @@ public class AlgalonClient {
             e.printStackTrace();
         }
 
-        new ApiCall(callback).execute(url);
+        new ApiCall(requestCallback).execute(url);
     }
 
     private String getAbsoluteUrl(String relativeUrl) {
