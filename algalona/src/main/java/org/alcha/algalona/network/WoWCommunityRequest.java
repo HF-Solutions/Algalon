@@ -13,9 +13,7 @@ import org.alcha.algalona.models.wow.PvPBrackets;
 import org.alcha.algalona.models.wow.characters.Character;
 import org.alcha.algalona.models.wow.characters.CharacterField;
 import org.alcha.algalona.models.wow.guilds.WoWGuildField;
-import org.alcha.algalona.models.wow.realms.WoWEURealms;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
-import org.alcha.algalona.models.wow.realms.WoWUSRealms;
 
 import static org.alcha.algalona.network.AlgalonClient.get;
 

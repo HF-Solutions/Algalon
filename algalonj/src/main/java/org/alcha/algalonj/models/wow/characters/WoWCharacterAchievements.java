@@ -12,7 +12,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
             mAchievementsCriteria,
             mAchievementCriteriaQuantity;
 
-    private long[] mAchievementsCompletedTimeStamp,
+    private long[] mAchievementsCompletedTimestamp,
             mAchievementsCriteriaCreated;
 
     private WoWCharacterAchievements() {
@@ -25,7 +25,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         achievements.setAchievementsCompleted(parseAchievementsCompleted(object.getAsJsonArray("achievementsCompleted")));
         achievements.setAchievementsCriteria(parseAchievementsCriteria(object.getAsJsonArray("achievementsCriteria")));
         achievements.setAchievementsCriteriaQuantity(parseAchievementCriteriaQuantity(object.getAsJsonArray("achievementCriteriaQuantity")));
-        achievements.setAchievementsCompletedTimeStamp(parseAchievementsCompletedTimeStamp(object.getAsJsonArray("achievementsCompletedTimeStamp")));
+        achievements.setAchievementsCompletedTimestamp(parseAchievementsCompletedTimestamp(object.getAsJsonArray("achievementsCompletedTimestamp")));
         achievements.setAchievementsCriteriaCreated(parseAchievementsCriteriaCreated(object.getAsJsonArray("achievementsCriteriaCreated")));
 
         return achievements;
@@ -50,7 +50,7 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return new int[0];
     }
 
-    public static long[] parseAchievementsCompletedTimeStamp(JsonArray array)  {
+    public static long[] parseAchievementsCompletedTimestamp(JsonArray array)  {
 
         return new long[0];
     }
@@ -67,12 +67,12 @@ public class WoWCharacterAchievements extends WoWCharacterField {
         return mAchievementsCompleted;
     }
 
-    void setAchievementsCompletedTimeStamp(long[] achievementsCompletedTimeStamp) {
-        mAchievementsCompletedTimeStamp = achievementsCompletedTimeStamp;
+    void setAchievementsCompletedTimestamp(long[] achievementsCompletedTimestamp) {
+        mAchievementsCompletedTimestamp = achievementsCompletedTimestamp;
     }
 
-    public long[] getAchievementsCompletedTimeStamp() {
-        return mAchievementsCompletedTimeStamp;
+    public long[] getAchievementsCompletedTimestamp() {
+        return mAchievementsCompletedTimestamp;
     }
 
     void setAchievementsCriteria(int[] achievementsCriteria) {

@@ -1,7 +1,5 @@
 package org.alcha.algalona.models.wow.characters;
 
-import android.util.Log;
-
 import com.google.gson.JsonObject;
 
 import org.alcha.algalona.models.wow.CharacterClass;
@@ -57,11 +55,11 @@ public class Character {
         else character.setName("");
 
         if (characterJson.has("realm"))
-            character.setRealm(WoWRealm.newInstanceFromJson(characterJson.getAsJsonObject("realm")));
+            character.setRealm(WoWRealm.fromString(characterJson.get("realm").getAsString()));
         else character.setRealm(WoWRealm.newInstanceFromJson(new JsonObject()));
 
         if (characterJson.has("battlegroup"))
-            character.setBattlegroup(WoWBattlegroup.newInstanceFromJson(characterJson.getAsJsonObject("battlegroup")));
+            character.setBattlegroup(WoWBattlegroup.fromString(characterJson.get("battlegroup").getAsString()));
         else character.setBattlegroup(WoWBattlegroup.newInstanceFromJson(new JsonObject()));
 
         if (characterJson.has("class"))
@@ -180,7 +178,7 @@ public class Character {
             character.addField(CharacterTitles.newInstanceFromJson(characterJson.getAsJsonArray("titles")));
 
         if (characterJson.has("audit"))
-            Log.d(LOG_TAG, "newInstanceFromJson: audit != null");
+            character.addField(CharacterAudit.newInstanceFromJson(characterJson.getAsJsonObject("audit")));
 
         return character;
     }

@@ -3,9 +3,7 @@ package org.alcha.algalona.models.wow;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.realms.WoWEURealms;
 import org.alcha.algalona.models.wow.realms.WoWRealm;
-import org.alcha.algalona.models.wow.realms.WoWUSRealms;
 
 import static org.alcha.algalona.network.AlgalonClient.getClientRegion;
 
@@ -16,7 +14,7 @@ public class AuctionData {
     private WoWRealm[] wowRealms;
 
     private AuctionData() {
-        ;
+
     }
 
     public static AuctionData newInstanceFromJson(JsonObject jsonObject) {
@@ -31,7 +29,7 @@ public class AuctionData {
         JsonArray realmArray = jsonObject.get("realms").getAsJsonArray();
         Region region = getClientRegion();
 
-        if (region == Region.US) {
+        /*if (region == Region.US) {
             WoWUSRealms[] tempArray = new WoWUSRealms[realmArray.size()];
             for (int x = 0; x < realmArray.size(); x++) {
                 tempArray[x] = WoWUSRealms.fromString(realmArray.get(x).getAsJsonObject().get("name").getAsString());
@@ -45,7 +43,7 @@ public class AuctionData {
             }
 
             return tempArray;
-        }
+        }*/
 
         return new WoWRealm[0];
     }
