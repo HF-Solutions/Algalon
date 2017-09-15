@@ -1,6 +1,11 @@
 package org.alcha.algalona.models.wow;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Created by Alcha on 8/3/2017.</p>
@@ -21,35 +26,44 @@ public class Spell {
     public static Spell newInstanceFromJson(JsonObject jsonObject) {
         Spell spell = new Spell();
 
-        if(jsonObject.has("id"))
+        if (jsonObject.has("id"))
             spell.setId(jsonObject.get("id").getAsInt());
         else spell.setId(-1);
 
-        if(jsonObject.has("name"))
+        if (jsonObject.has("name"))
             spell.setName(jsonObject.get("name").getAsString());
         else spell.setName("");
 
-        if(jsonObject.has("subtext"))
+        if (jsonObject.has("subtext"))
             spell.setSubtext(jsonObject.get("subtext").getAsString());
         else spell.setSubtext("");
 
-        if(jsonObject.has("icon"))
+        if (jsonObject.has("icon"))
             spell.setIcon(jsonObject.get("icon").getAsString());
         else spell.setIcon("");
 
-        if(jsonObject.has("description"))
+        if (jsonObject.has("description"))
             spell.setDescription(jsonObject.get("description").getAsString());
         else spell.setDescription("");
 
-        if(jsonObject.has("castTime"))
+        if (jsonObject.has("castTime"))
             spell.setCastTime(jsonObject.get("castTime").getAsString());
         else spell.setCastTime("");
 
-        if(jsonObject.has("cooldown"))
+        if (jsonObject.has("cooldown"))
             spell.setCooldown(jsonObject.get("cooldown").getAsString());
         else spell.setCooldown("");
 
         return spell;
+    }
+
+    public static List<Spell> parseJsonArray(JsonArray jsonArray) {
+        List<Spell> tempList = new ArrayList<>();
+
+        for (JsonElement element : jsonArray)
+            tempList.add(newInstanceFromJson(element.getAsJsonObject()));
+
+        return tempList;
     }
 
     public int getId() {

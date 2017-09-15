@@ -1,7 +1,7 @@
 package org.alcha.algalona;
 
 import org.alcha.algalona.models.wow.characters.CharacterField;
-import org.alcha.algalona.models.wow.realms.WoWRealm;
+import org.alcha.algalona.models.wow.Realm;
 import org.alcha.algalona.network.WoWCommunityRequest;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class WoWCommunityRequestURLsTest {
     }
 
     /**
-     * Test the {@link WoWCommunityRequest#getAuctionIndexFile(WoWRealm)} method to verify it returns a valid
+     * Test the {@link WoWCommunityRequest#getAuctionIndexFile(Realm)} method to verify it returns a valid
      * URL to execute.
      */
     @Test

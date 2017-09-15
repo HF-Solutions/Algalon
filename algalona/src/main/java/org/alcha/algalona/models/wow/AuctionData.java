@@ -3,15 +3,13 @@ package org.alcha.algalona.models.wow;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.realms.WoWRealm;
-
 import static org.alcha.algalona.network.AlgalonClient.getClientRegion;
 
 /**
  * <p>Created by Alcha on 8/10/2017.</p>
  */
 public class AuctionData {
-    private WoWRealm[] wowRealms;
+    private Realm[] mWowRealms;
 
     private AuctionData() {
 
@@ -25,7 +23,7 @@ public class AuctionData {
         return auctionData;
     }
 
-    private static WoWRealm[] parseWoWRealms(JsonObject jsonObject) {
+    private static Realm[] parseWoWRealms(JsonObject jsonObject) {
         JsonArray realmArray = jsonObject.get("realms").getAsJsonArray();
         Region region = getClientRegion();
 
@@ -45,14 +43,14 @@ public class AuctionData {
             return tempArray;
         }*/
 
-        return new WoWRealm[0];
+        return new Realm[0];
     }
 
-    void setWowRealms(WoWRealm[] realms) {
-        wowRealms = realms;
+    void setWowRealms(Realm[] realms) {
+        mWowRealms = realms;
     }
 
-    public WoWRealm[] getWowRealms() {
-        return wowRealms;
+    public Realm[] getWowRealms() {
+        return mWowRealms;
     }
 }

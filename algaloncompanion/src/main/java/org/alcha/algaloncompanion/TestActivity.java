@@ -6,10 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.gson.JsonObject;
 
 import org.alcha.algalona.interfaces.RequestCallback;
-import org.alcha.algalona.models.wow.characters.Character;
-import org.alcha.algalona.models.wow.characters.CharacterAudit;
-import org.alcha.algalona.models.wow.characters.CharacterField;
-import org.alcha.algalona.models.wow.realms.WoWRealm;
 import org.alcha.algalona.network.AlgalonClient;
 import org.alcha.algalona.network.WoWCommunityRequest;
 
@@ -24,19 +20,10 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         mAlgalon = AlgalonClient.newUSInstance(API_KEY);
-        mAlgalon.executeRequest(
-                WoWCommunityRequest.getCharacterProfileFields(
-                        WoWRealm.fromString("Alterac Mountains"),
-                        "Alcha",
-                        new CharacterField.Name[]{CharacterField.Name.Audit}
-                ), new RequestCallback() {
-                    @Override
-                    public void onTaskCompleted(JsonObject response) {
-                        Character character = Character.newInstanceFromJson(response);
-                        if (character.hasField(CharacterField.Name.Audit)) {
-                            CharacterAudit audit = character.getField(CharacterField.Name.Audit);
-                        }
-                    }
-                });
+        mAlgalon.executeRequest(WoWCommunityRequest.getItem(18803), new RequestCallback() {
+            @Override
+            public void onTaskCompleted(JsonObject response) {
+            }
+        });
     }
 }

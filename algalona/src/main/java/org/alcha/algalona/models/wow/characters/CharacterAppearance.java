@@ -38,7 +38,7 @@ public class CharacterAppearance extends CharacterField {
 
     /**
      * <p>Private constructor for building a {@link CharacterAppearance}. When calling this
-     * constructor, {@link #setFieldName(Name)} is called and the value is set to Achievements.</p>
+     * constructor, {@link #setFieldName(Name)} is called and the value is set to ACHIEVEMENTS.</p>
      *
      * <p>Generally, this is called within the {@link #newInstanceFromJson(JsonObject)} method
      * when setting up an object to be returned.</p>

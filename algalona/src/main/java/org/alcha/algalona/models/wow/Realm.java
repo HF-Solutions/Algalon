@@ -1,12 +1,17 @@
-package org.alcha.algalona.models.wow.realms;
+package org.alcha.algalona.models.wow;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Created by Alcha on 8/8/2017.</p>
  */
 
-public class WoWRealm {
+public class Realm {
     public enum Name {
         Akama("Akama"),
         Altar_of_Storms("Altar of Storms"),
@@ -374,19 +379,26 @@ public class WoWRealm {
         Unknown("Unknown");
 
         public String name;
+        public String slug;
 
         Name(String name) {
             this.name = name;
         }
 
         /**
-         * Returns the slug representation of the given {@link WoWRealm realm name} to be used in
+         * Returns the slug representation of the given {@link Realm realm name} to be used in
          * a url request.
          *
          * @return Server name without spaces or apostrophes
          */
         public String getSlug() {
-            return this.toString().toLowerCase().replace('_', '-');
+            if (slug == null)
+                return this.toString().toLowerCase().replace('_', '-');
+            else return slug;
+        }
+
+        public void setSlug(String slug) {
+            this.slug = slug;
         }
 
         public String getRelativeUrl() {
@@ -397,19 +409,148 @@ public class WoWRealm {
             }
         }
 
+        public String getName() {
+            return name;
+        }
+
         public String toString() {
             return name;
         }
+
+        public static Realm.Name fromString(String name) {
+            for (Realm.Name realm : Realm.Name.values()) {
+                if (realm.getName().equalsIgnoreCase(name)) return realm;
+            }
+
+            return Unknown;
+        }
     }
 
+    public enum Type {
+        PVP,
+        PVE,
+        RP,
+        UNKNOWN;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
+
+        public String getName() {
+            return name().toLowerCase();
+        }
+
+        public static Type fromString(String string) {
+            for (Type type : Type.values())
+                if (type.toString().equalsIgnoreCase(string)) return type;
+
+            return Type.UNKNOWN;
+        }
+    }
+
+    public enum Population {
+        High,
+        Medium,
+        Low,
+        Full,
+        Undefined;
+
+        public static Population fromString(String string) {
+            for (Population population : Population.values()) {
+                if (population.name().equalsIgnoreCase(string)) return population;
+            }
+
+            return Undefined;
+        }
+    }
+
+    private Type mType;
+    private Population mPopulation;
+    private boolean mQueue;
+    private boolean mStatus;
     private Name mName;
+    private String mSlug;
+    private Battlegroup mBattlegroup;
+    private Locale mLocale;
+    private String mTimezone;
+    private List<Realm> mConnectedRealms;
 
-    public String getSlug() {
-        return mName.getSlug();
+    @Override
+    public String toString() {
+        if (getName() != null)
+            return getName().toString();
+        else if (mSlug != null) return mSlug;
+        else if (mLocale != null) return mLocale.toString();
+        else return "Unknown";
     }
 
-    public String getRelativeUrl() {
-        return mName.getRelativeUrl();
+    public static Realm fromString(String name) {
+        Realm realm = new Realm();
+        realm.setName(Name.fromString(name));
+        return realm;
+    }
+
+    public static Realm newInstanceFromJson(JsonObject jsonObject) {
+        Realm realm = new Realm();
+
+        if (jsonObject.has("realm"))
+            realm.setName(Name.fromString(jsonObject.get("realm").getAsString()));
+
+        if (jsonObject.has("name"))
+            realm.setName(Name.fromString(jsonObject.get("name").getAsString()));
+        else realm.setName(Name.Unknown);
+
+        if (jsonObject.has("slug"))
+            realm.setSlug(jsonObject.get("slug").getAsString());
+        else realm.setSlug(null);
+
+        if (jsonObject.has("battlegroup"))
+            realm.setBattlegroup(Battlegroup.fromString(jsonObject.get("battlegroup").getAsString()));
+        else {
+            Battlegroup battlegroup = new Battlegroup();
+            battlegroup.setName(Battlegroup.Name.Unknown);
+            realm.setBattlegroup(battlegroup);
+        }
+
+        if (jsonObject.has("locale"))
+            realm.setLocale(Locale.fromString(jsonObject.get("locale").getAsString()));
+        else realm.setLocale(Locale.fromString(""));
+
+        if (jsonObject.has("connected_realms")) {
+            JsonArray temp = jsonObject.getAsJsonArray("connected_realms");
+            List<Realm> realms = new ArrayList<>();
+
+            for (int x = 0; x < temp.size(); x++) {
+                String tempStr = temp.get(x).getAsString();
+                realms.add(Realm.fromString(tempStr));
+            }
+
+            realm.setConnectedRealms(realms);
+        }
+
+        if (jsonObject.has("population"))
+            realm.setPopulation(Population.fromString(jsonObject.get("population").getAsString()));
+        else realm.setPopulation(Population.Undefined);
+
+        if (jsonObject.has("queue"))
+            realm.setQueue(jsonObject.get("queue").getAsBoolean());
+        else realm.setQueue(false);
+
+        if (jsonObject.has("status"))
+            realm.setStatus(jsonObject.get("status").getAsBoolean());
+        else realm.setStatus(false);
+
+        return realm;
+    }
+
+    public static List<Realm> convertJSONArray(JsonArray array) {
+        List<Realm> tempRealms = new ArrayList<>();
+
+        for (JsonElement element : array)
+            tempRealms.add(Realm.newInstanceFromJson(element.getAsJsonObject()));
+
+        return tempRealms;
     }
 
     public void setName(Name name) {
@@ -420,25 +561,79 @@ public class WoWRealm {
         return mName;
     }
 
-    public static WoWRealm fromString(String name) {
-        for (WoWRealm.Name realm : WoWRealm.Name.values()) {
-            if (realm.name.equalsIgnoreCase(name)) {
-                WoWRealm nrealm = new WoWRealm();
-                nrealm.setName(realm);
-                return nrealm;
-            }
-        }
-
-        return new WoWRealm();
+    public void setSlug(String slug) {
+        mSlug = slug;
     }
 
-    public static WoWRealm newInstanceFromJson(JsonObject jsonObject) {
-        if (jsonObject.has("realm"))
-            return fromString(jsonObject.get("realm").getAsString());
-        else {
-            WoWRealm unknown = new WoWRealm();
-            unknown.setName(Name.Unknown);
-            return unknown;
-        }
+    public String getSlug() {
+        return mSlug;
+    }
+
+    public String getRelativeUrl() {
+        return getName().toString().toLowerCase().replace("_", "%20");
+    }
+
+    public Battlegroup getBattlegroup() {
+        return mBattlegroup;
+    }
+
+    public void setBattlegroup(Battlegroup battlegroup) {
+        mBattlegroup = battlegroup;
+    }
+
+    public Locale getLocale() {
+        return mLocale;
+    }
+
+    public void setLocale(Locale locale) {
+        mLocale = locale;
+    }
+
+    public String getTimezone() {
+        return mTimezone;
+    }
+
+    public void setTimezone(String timezone) {
+        mTimezone = timezone;
+    }
+
+    public List<Realm> getConnectedRealms() {
+        return mConnectedRealms;
+    }
+
+    public void setConnectedRealms(List<Realm> connectedRealms) {
+        mConnectedRealms = connectedRealms;
+    }
+
+    public Type getType() {
+        return mType;
+    }
+
+    public void setType(Type type) {
+        mType = type;
+    }
+
+    public Population getPopulation() {
+        return mPopulation;
+    }
+
+    public void setPopulation(Population population) {
+        mPopulation = population;
+    }
+
+    public boolean isQueue() {
+        return mQueue;
+    }
+
+    public void setQueue(boolean queue) {
+        mQueue = queue;
+    }
+
+    public boolean isStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(boolean status) {
+        mStatus = status;
     }
 }

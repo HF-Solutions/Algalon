@@ -2,6 +2,7 @@ package org.alcha.algalona.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
+import org.alcha.algalona.models.wow.Realm;
 import org.alcha.algalona.models.wow.guilds.Guild;
 
 /**
@@ -11,6 +12,14 @@ import org.alcha.algalona.models.wow.guilds.Guild;
  */
 public class CharacterGuild extends CharacterField {
     private static final String LOG_TAG = "CharacterGuild";
+
+    /** Used for the /wow/guild/:realm/:guildname members field */
+    private String mGuildName;
+
+    /** Used for the /wow/guild/:realm/:guildname members field */
+    private Realm mGuildRealm;
+
+    /** Stores the {@link org.alcha.algalona.models.wow.guilds.Guild} object for this CharacterGuild.*/
     private Guild mGuild;
 
     public CharacterGuild() {
@@ -37,5 +46,21 @@ public class CharacterGuild extends CharacterField {
 
     public void setGuild(Guild guild) {
         mGuild = guild;
+    }
+
+    public String getGuildName() {
+        return mGuildName;
+    }
+
+    public void setGuildName(String guildName) {
+        mGuildName = guildName;
+    }
+
+    public Realm getGuildRealm() {
+        return mGuildRealm;
+    }
+
+    public void setGuildRealm(Realm guildRealm) {
+        mGuildRealm = guildRealm;
     }
 }

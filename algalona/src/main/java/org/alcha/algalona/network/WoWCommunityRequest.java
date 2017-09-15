@@ -10,10 +10,10 @@ import org.alcha.algalona.models.wow.Achievement;
 import org.alcha.algalona.models.wow.AuctionData;
 import org.alcha.algalona.models.wow.AuctionIndex;
 import org.alcha.algalona.models.wow.PvPBrackets;
+import org.alcha.algalona.models.wow.Realm;
 import org.alcha.algalona.models.wow.characters.Character;
 import org.alcha.algalona.models.wow.characters.CharacterField;
-import org.alcha.algalona.models.wow.guilds.WoWGuildField;
-import org.alcha.algalona.models.wow.realms.WoWRealm;
+import org.alcha.algalona.models.wow.guilds.GuildField;
 
 import static org.alcha.algalona.network.AlgalonClient.get;
 
@@ -142,7 +142,7 @@ public class WoWCommunityRequest implements APIRequest {
     }
 
     /**
-     * <p>Gets the auction index file for the provided {@link WoWRealm}. The index file contains the
+     * <p>Gets the auction index file for the provided {@link Realm}. The index file contains the
      * url to the file that contains the latest auction data in JSON.</p>
      *
      * <p>In order to obtain the actual auction data for the realm of interest, you must execute this
@@ -150,11 +150,11 @@ public class WoWCommunityRequest implements APIRequest {
      * getAuctionData(JSONObject, RequestCallback) method will return the auction data as an instance of
      * {@link AuctionData}.</p>
      *
-     * @param realm WoWRealm you wish to retrieve the index file for
+     * @param realm Realm you wish to retrieve the index file for
      *
      * @return A WoWCommunityRequest to be executed for a realms auction data index file
      */
-    public static WoWCommunityRequest getAuctionIndexFile(WoWRealm realm) {
+    public static WoWCommunityRequest getAuctionIndexFile(Realm realm) {
         return new WoWCommunityRequest()
                 .appendParameter("auction")
                 .appendParameter("data")
@@ -171,7 +171,7 @@ public class WoWCommunityRequest implements APIRequest {
      *
      * TODO: Parse the JSON Object for the proper URL and execute it
      *
-     * @param auctionIndex result of executing {@link #getAuctionIndexFile(WoWRealm)}
+     * @param auctionIndex result of executing {@link #getAuctionIndexFile(Realm)}
      */
     public static void getAuctionData(AuctionIndex auctionIndex, RequestCallback requestCallback) {
         get(auctionIndex.getUrl(), requestCallback);
@@ -202,10 +202,10 @@ public class WoWCommunityRequest implements APIRequest {
     }
 
     /**
-     * <p>Gets a basic dataset for a {@link Character} on the provided {@link WoWRealm}.</p>
+     * <p>Gets a basic dataset for a {@link Character} on the provided {@link Realm}.</p>
      *
      * <p>To access further information about a character, utilize the
-     * {@link #getCharacterProfileFields(WoWRealm, String, CharacterField.Name[])
+     * {@link #getCharacterProfileFields(Realm, String, CharacterField.Name[])
      * getCharacterProfileFields()} method and provide the an array of
      * {@link CharacterField.Name} for the fields you want to retrieve.</p>
      *
@@ -214,14 +214,14 @@ public class WoWCommunityRequest implements APIRequest {
      *
      * @return A WoWCommunityRequest to be executed for a characters profile
      */
-    public static WoWCommunityRequest getCharacterProfile(WoWRealm realm, String characterName) {
+    public static WoWCommunityRequest getCharacterProfile(Realm realm, String characterName) {
         return new WoWCommunityRequest()
                 .appendParameter("character")
                 .appendParameter(realm.getRelativeUrl())
                 .appendParameter(characterName);
     }
 
-    public static WoWCommunityRequest getCharacterProfileFields(WoWRealm realm, String characterName, CharacterField.Name[] fieldNames) {
+    public static WoWCommunityRequest getCharacterProfileFields(Realm realm, String characterName, CharacterField.Name[] fieldNames) {
         WoWCommunityRequest request = WoWCommunityRequest.getCharacterProfile(realm, characterName);
 
         System.out.println("RelativeUrl A = " + request.getRelativeUrl());
@@ -235,14 +235,14 @@ public class WoWCommunityRequest implements APIRequest {
         return request;
     }
 
-    public static WoWCommunityRequest getGuildProfile(WoWRealm realm, String guildName) {
+    public static WoWCommunityRequest getGuildProfile(Realm realm, String guildName) {
         return new WoWCommunityRequest()
                 .appendParameter("guild")
                 .appendParameter(realm.getRelativeUrl())
                 .appendParameter(guildName);
     }
 
-    public static WoWCommunityRequest getGuildProfileFields(WoWRealm realm, String guildName, WoWGuildField.Name[] fieldNames) {
+    public static WoWCommunityRequest getGuildProfileFields(Realm realm, String guildName, GuildField.Name[] fieldNames) {
         WoWCommunityRequest request = getGuildProfile(realm, guildName);
 
         for (FieldName fieldName : fieldNames) {

@@ -1,4 +1,4 @@
-package org.alcha.algalona.models.wow.battlegroups;
+package org.alcha.algalona.models.wow;
 
 import com.google.gson.JsonObject;
 
@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
  * belongs where, this interface is the middleman for {@link WoWUSBattlegroups} and
  * {@link WoWEUBattlegroups}.
  */
-public class WoWBattlegroup {
+public class Battlegroup {
     public enum Name {
         Aunz_Battle_Group("AU/NZ Battle Group"),
         Cataclysm("Cataclysm"),
@@ -65,20 +65,25 @@ public class WoWBattlegroup {
         return mName.toString().toLowerCase().replace("_", "%20");
     }
 
-    public static WoWBattlegroup newInstanceFromJson(JsonObject jsonObject) {
-        return fromString(jsonObject.get("realm").getAsString());
+    public static Battlegroup newInstanceFromJson(JsonObject jsonObject) {
+        if (jsonObject.has("battlegroup"))
+            return fromString(jsonObject.get("battlegroup").getAsString());
+        else return fromString("");
     }
 
-    public static WoWBattlegroup fromString(String name) {
-        for (WoWBattlegroup.Name battlegroupName : WoWBattlegroup.Name.values()) {
+    public static Battlegroup fromString(String name) {
+        for (Battlegroup.Name battlegroupName : Battlegroup.Name.values()) {
             if (battlegroupName.name.equalsIgnoreCase(name)) {
-                WoWBattlegroup usBattlegroup = new WoWBattlegroup();
+                Battlegroup usBattlegroup = new Battlegroup();
                 usBattlegroup.setName(battlegroupName);
                 return usBattlegroup;
             }
         }
 
-        return new WoWBattlegroup();
+        Battlegroup battlegroup = new Battlegroup();
+        battlegroup.setName(Name.Unknown);
+
+        return battlegroup;
     }
 
     public void setName(Name name) {

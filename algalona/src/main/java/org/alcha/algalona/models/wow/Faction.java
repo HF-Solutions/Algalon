@@ -44,4 +44,12 @@ public enum Faction {
 
         return Faction.UNKNOWN;
     }
+
+    public static Faction fromString(String name) {
+        for (Faction faction : Faction.values()) {
+            if (faction.name().equalsIgnoreCase(name)) return faction;
+        }
+
+        return Faction.UNKNOWN;
+    }
 }

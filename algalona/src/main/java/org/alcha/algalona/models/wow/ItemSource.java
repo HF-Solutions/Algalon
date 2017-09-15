@@ -14,7 +14,7 @@ public class ItemSource {
 
     }
 
-    private ItemSource newInstanceFromJson(JsonObject jsonObject) {
+    public static ItemSource newInstanceFromJson(JsonObject jsonObject) {
         ItemSource source = new ItemSource();
 
         if(jsonObject.has("sourceId"))

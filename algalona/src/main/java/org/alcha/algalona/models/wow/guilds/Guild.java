@@ -1,10 +1,14 @@
 package org.alcha.algalona.models.wow.guilds;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.battlegroups.WoWBattlegroup;
+import org.alcha.algalona.models.wow.Battlegroup;
+import org.alcha.algalona.models.wow.Realm;
 import org.alcha.algalona.models.wow.characters.CharacterField;
-import org.alcha.algalona.models.wow.realms.WoWRealm;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
@@ -25,11 +29,11 @@ public class Guild {
     /** Stores the name of the guild **/
     private String mName;
 
-    /** Stores the WoWRealm where the guild is located **/
-    private WoWRealm mRealm;
+    /** Stores the Realm where the guild is located **/
+    private Realm mRealm;
 
-    /** Stores the WoWBattlegroup where the guild realm is located **/
-    private WoWBattlegroup mBattlegroup;
+    /** Stores the Battlegroup where the guild realm is located **/
+    private Battlegroup mBattlegroup;
 
     /** Stores the guilds custom emblem information **/
     private GuildEmblem mEmblem;
@@ -43,7 +47,10 @@ public class Guild {
     /** Stores the amount of achievement points the guild has earned **/
     private int mAchievementPoints;
 
-    private Guild() {
+    private Map<GuildField.Name, GuildField> mFieldMap;
+
+    public Guild() {
+        mFieldMap = new TreeMap<>();
     }
 
     public static Guild newInstanceFromJson(JsonObject jsonObject) {
@@ -58,12 +65,12 @@ public class Guild {
         else guild.setName("");
 
         if (jsonObject.has("realm"))
-            guild.setRealm(WoWRealm.newInstanceFromJson(jsonObject));
-        else guild.setRealm(WoWRealm.newInstanceFromJson(new JsonObject()));
+            guild.setRealm(Realm.newInstanceFromJson(jsonObject));
+        else guild.setRealm(Realm.newInstanceFromJson(new JsonObject()));
 
         if (jsonObject.has("battlegroup"))
-            guild.setBattleGroup(WoWBattlegroup.newInstanceFromJson(jsonObject));
-        else guild.setBattleGroup(WoWBattlegroup.newInstanceFromJson(new JsonObject()));
+            guild.setBattleGroup(Battlegroup.newInstanceFromJson(jsonObject));
+        else guild.setBattleGroup(Battlegroup.newInstanceFromJson(new JsonObject()));
 
         if (jsonObject.has("side"))
             guild.setSide(jsonObject.get("side").getAsInt());
@@ -76,6 +83,25 @@ public class Guild {
         if (jsonObject.has("emblem"))
             guild.setEmblem(GuildEmblem.newInstanceFromJson(jsonObject.getAsJsonObject("emblem")));
         else guild.setEmblem(GuildEmblem.newInstanceFromJson(new JsonObject()));
+
+        guild = parseOptionalFields(guild, jsonObject);
+
+        return guild;
+    }
+
+    public static Guild parseOptionalFields(Guild guild, JsonObject jsonObject) {
+
+        if (jsonObject.has("members") && jsonObject.get("members") instanceof JsonArray)
+            guild.addField(GuildMembers.newInstanceFromJson(jsonObject.getAsJsonArray("members")));
+
+        if (jsonObject.has("achievements"))
+            guild.addField(GuildAchievements.newInstanceFromJson(jsonObject.getAsJsonObject("achievements")));
+
+        if (jsonObject.has("news"))
+            guild.addField(GuildNews.newInstanceFromJson(jsonObject.getAsJsonArray("news")));
+
+        if (jsonObject.has("challenge"))
+            guild.addField(GuildChallenges.newInstanceFromJson(jsonObject.getAsJsonArray("challenge")));
 
         return guild;
     }
@@ -96,11 +122,11 @@ public class Guild {
         mName = name;
     }
 
-    public WoWRealm getRealm() {
+    public Realm getRealm() {
         return mRealm;
     }
 
-    public void setRealm(WoWRealm realm) {
+    public void setRealm(Realm realm) {
         mRealm = realm;
     }
 
@@ -128,11 +154,11 @@ public class Guild {
         mAchievementPoints = achievementPoints;
     }
 
-    public WoWBattlegroup getBattleGroup() {
+    public Battlegroup getBattleGroup() {
         return mBattlegroup;
     }
 
-    public void setBattleGroup(WoWBattlegroup battleGroup) {
+    public void setBattleGroup(Battlegroup battleGroup) {
         mBattlegroup = battleGroup;
     }
 
@@ -142,5 +168,21 @@ public class Guild {
 
     public void setEmblem(GuildEmblem emblem) {
         mEmblem = emblem;
+    }
+
+    public Map<GuildField.Name, GuildField> getFieldMap() {
+        return mFieldMap;
+    }
+
+    public void setFieldMap(Map<GuildField.Name, GuildField> fieldMap) {
+        mFieldMap = fieldMap;
+    }
+
+    public void addField(GuildField field) {
+        mFieldMap.put(field.getFieldName(), field);
+    }
+
+    public <T extends GuildField> T getField(GuildField.Name fieldName) {
+        return (T) mFieldMap.get(fieldName);
     }
 }

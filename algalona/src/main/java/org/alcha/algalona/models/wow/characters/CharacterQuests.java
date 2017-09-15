@@ -20,7 +20,7 @@ public class CharacterQuests extends CharacterField {
     public static CharacterQuests newInstanceFromJson(JsonObject jsonObject) {
         CharacterQuests quests = new CharacterQuests();
 
-        quests.setQuests(JsonAid.jsonArrayToIntList(jsonObject.getAsJsonArray()));
+        quests.setQuests(JsonAid.jsonArrayToListInt(jsonObject.getAsJsonArray()));
 
         return quests;
     }

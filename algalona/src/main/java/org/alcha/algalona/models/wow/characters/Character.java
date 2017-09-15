@@ -2,12 +2,12 @@ package org.alcha.algalona.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
+import org.alcha.algalona.models.wow.Battlegroup;
 import org.alcha.algalona.models.wow.CharacterClass;
 import org.alcha.algalona.models.wow.Faction;
 import org.alcha.algalona.models.wow.Race;
-import org.alcha.algalona.models.wow.battlegroups.WoWBattlegroup;
+import org.alcha.algalona.models.wow.Realm;
 import org.alcha.algalona.models.wow.guilds.Guild;
-import org.alcha.algalona.models.wow.realms.WoWRealm;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -20,8 +20,8 @@ public class Character {
     private static final String LOG_TAG = "Character";
     private int mLastModified;
     private String mName;
-    private WoWRealm mRealm;
-    private WoWBattlegroup mBattlegroup;
+    private Realm mRealm;
+    private Battlegroup mBattlegroup;
     private CharacterClass mCharacterClass;
     private Race mRace;
     private int mGender;
@@ -55,12 +55,12 @@ public class Character {
         else character.setName("");
 
         if (characterJson.has("realm"))
-            character.setRealm(WoWRealm.fromString(characterJson.get("realm").getAsString()));
-        else character.setRealm(WoWRealm.newInstanceFromJson(new JsonObject()));
+            character.setRealm(Realm.fromString(characterJson.get("realm").getAsString()));
+        else character.setRealm(Realm.newInstanceFromJson(new JsonObject()));
 
         if (characterJson.has("battlegroup"))
-            character.setBattlegroup(WoWBattlegroup.fromString(characterJson.get("battlegroup").getAsString()));
-        else character.setBattlegroup(WoWBattlegroup.newInstanceFromJson(new JsonObject()));
+            character.setBattlegroup(Battlegroup.fromString(characterJson.get("battlegroup").getAsString()));
+        else character.setBattlegroup(Battlegroup.fromString(""));
 
         if (characterJson.has("class"))
             character.setCharacterClass(CharacterClass.fromId(characterJson.get("class").getAsInt()));
@@ -132,8 +132,15 @@ public class Character {
         if (characterJson.has("feed"))
             character.addField(CharacterFeed.newInstanceFromJson(characterJson.getAsJsonArray("feed")));
 
-        if (characterJson.has("guild"))
+        if (characterJson.has("guild") && characterJson.get("guild") instanceof JsonObject)
             character.addField(CharacterGuild.newInstanceFromJson(characterJson.getAsJsonObject("guild")));
+        else if (characterJson.has("guild") && characterJson.has("guildRealm")) {
+            // Most likely a response from the /wow/guild/:realm/:guildname endpoint
+            CharacterGuild guild = new CharacterGuild();
+            guild.setGuildName(characterJson.get("guild").getAsString());
+            guild.setGuildRealm(Realm.fromString(characterJson.get("guildRealm").getAsString()));
+            character.addField(guild);
+        }
 
         if (characterJson.has("hunterPets"))
             character.addField(CharacterHunterPets.newInstanceFromJson(characterJson.getAsJsonObject("hunterPets")));
@@ -199,19 +206,19 @@ public class Character {
         mName = name;
     }
 
-    public WoWRealm getRealm() {
+    public Realm getRealm() {
         return mRealm;
     }
 
-    public void setRealm(WoWRealm realm) {
+    public void setRealm(Realm realm) {
         mRealm = realm;
     }
 
-    public WoWBattlegroup getBattlegroup() {
+    public Battlegroup getBattlegroup() {
         return mBattlegroup;
     }
 
-    public void setBattlegroup(WoWBattlegroup battlegroup) {
+    public void setBattlegroup(Battlegroup battlegroup) {
         mBattlegroup = battlegroup;
     }
 

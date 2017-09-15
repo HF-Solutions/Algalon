@@ -27,7 +27,7 @@ public class Achievement implements Comparable<Achievement> {
     private boolean mAccountWide;
     private Faction mFaction;
 
-    private Achievement() {
+    public Achievement() {
 
     }
 
