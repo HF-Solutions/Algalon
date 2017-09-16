@@ -35,14 +35,14 @@ dependencies {
 }
 
 task deleteJar(type: Delete) {
-    delete 'libs/algalon.jar'
+    delete 'libs/algalon-' + version + '.jar'
 }
 
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release')
     into('libs/')
     include('classes.jar')
-    rename('classes.jar', 'algalon.jar')
+    rename('classes.jar', 'algalon-' + version + '.jar')
 }
 
 createJar.dependsOn(deleteJar, build)
