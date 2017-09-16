@@ -303,7 +303,9 @@ public class WoWCommunityRequest implements APIRequest {
     }
 
     public static WoWCommunityRequest getPvPLeaderboards(PvPBrackets bracket) {
-        return new WoWCommunityRequest().appendParameter(bracket.getName());
+        return new WoWCommunityRequest()
+                .appendParameter("leaderboard")
+                .appendParameter(bracket.getName());
     }
 
     public static WoWCommunityRequest getQuest(int questId) {
