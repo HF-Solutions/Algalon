@@ -114,6 +114,14 @@ public class WoWCommunityRequest implements APIRequest {
         return this;
     }
 
+    public WoWCommunityRequest appendField(String fieldName, String value) {
+        if (mRelativeUrl.contains("?"))
+            mRelativeUrl += "&" + fieldName + "=" + value;
+        else mRelativeUrl += "?" + fieldName + "=" + value;
+
+        return this;
+    }
+
     /**
      * <p>Appends the provided String to the end of the current relative URL. The parameter will
      * have any spaces replaced with %20, and commas with %2C so they're safe for use in a URL.</p>
