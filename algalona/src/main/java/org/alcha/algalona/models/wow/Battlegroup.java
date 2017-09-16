@@ -1,6 +1,11 @@
 package org.alcha.algalona.models.wow;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Created by Alcha on 8/8/2017.</p>
@@ -46,18 +51,31 @@ public class Battlegroup {
         Vengeance("Vengeance"),
         VerderBnis("VerderBnis");
 
-        public String name;
+        private String name;
 
         Name(String name) {
             this.name = name;
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public static Name fromString(String string) {
+            for (Name name : Name.values())
+                if (name.getName().equalsIgnoreCase(string)) return name;
+
+            return Name.Unknown;
+        }
     }
 
     private Name mName;
+    private String mSlug;
 
     /** Returns the slug to be used for URL request fields **/
     public String getSlug() {
-        return mName.toString().toLowerCase().replace('_', '-');
+        if (mSlug == null) return mName.toString().toLowerCase().replace('_', '-');
+        else return mSlug;
     }
 
     /** Returns the relative URL to be used for URL request parameters **/
@@ -68,7 +86,16 @@ public class Battlegroup {
     public static Battlegroup newInstanceFromJson(JsonObject jsonObject) {
         if (jsonObject.has("battlegroup"))
             return fromString(jsonObject.get("battlegroup").getAsString());
-        else return fromString("");
+        else if (jsonObject.has("name") && jsonObject.has("slug")) {
+            Battlegroup battlegroup = new Battlegroup();
+            battlegroup.setName(Name.fromString(jsonObject.get("name").getAsString()));
+            battlegroup.setSlug(jsonObject.get("slug").getAsString());
+            return battlegroup;
+        } else return fromString(jsonObject.getAsString());
+    }
+
+    public void setSlug(String slug) {
+        mSlug = slug;
     }
 
     public static Battlegroup fromString(String name) {
@@ -84,6 +111,33 @@ public class Battlegroup {
         battlegroup.setName(Name.Unknown);
 
         return battlegroup;
+    }
+
+    public static Battlegroup fromString(String name, String slug) {
+        for (Battlegroup.Name battlegroupName : Battlegroup.Name.values()) {
+            if (battlegroupName.name.equalsIgnoreCase(name)) {
+                Battlegroup usBattlegroup = new Battlegroup();
+                usBattlegroup.setName(battlegroupName);
+                usBattlegroup.setSlug(slug);
+                return usBattlegroup;
+            }
+        }
+
+        Battlegroup battlegroup = new Battlegroup();
+        battlegroup.setName(Name.Unknown);
+        battlegroup.setSlug(null);
+
+        return battlegroup;
+    }
+
+
+    public static List<Battlegroup> parseJsonArray(JsonArray jsonArray) {
+        List<Battlegroup> battlegroups = new ArrayList<>();
+
+        for (JsonElement element : jsonArray)
+            battlegroups.add(newInstanceFromJson(element.getAsJsonObject()));
+
+        return battlegroups;
     }
 
     public void setName(Name name) {

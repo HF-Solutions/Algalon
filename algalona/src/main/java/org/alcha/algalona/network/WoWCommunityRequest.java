@@ -6,7 +6,6 @@ import com.squareup.okhttp.Request;
 import org.alcha.algalona.interfaces.APIRequest;
 import org.alcha.algalona.interfaces.FieldName;
 import org.alcha.algalona.interfaces.RequestCallback;
-import org.alcha.algalona.models.wow.Achievement;
 import org.alcha.algalona.models.wow.AuctionData;
 import org.alcha.algalona.models.wow.AuctionIndex;
 import org.alcha.algalona.models.wow.PvPBrackets;
@@ -68,12 +67,6 @@ public class WoWCommunityRequest implements APIRequest {
     @Override
     public String getRelativeUrl() {
         return mRelativeUrl;
-    }
-
-    public Achievement getAchievement() {
-        Achievement achievement = Achievement.newInstanceFromJson(new JsonObject());
-
-        return achievement;
     }
 
 
@@ -342,5 +335,71 @@ public class WoWCommunityRequest implements APIRequest {
                 .appendParameter(String.valueOf(zoneId));
     }
 
+    public static WoWCommunityRequest getBattlegroupsData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("battlegroups/");
+    }
 
+    public static WoWCommunityRequest getCharacterRacesData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("character")
+                .appendParameter("races");
+    }
+
+    public static WoWCommunityRequest getCharacterClassesData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("character")
+                .appendParameter("classes");
+    }
+
+    public static WoWCommunityRequest getCharacterAchievementsData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("character")
+                .appendParameter("achievements");
+    }
+
+    public static WoWCommunityRequest getGuildRewardsData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("guild")
+                .appendParameter("rewards");
+    }
+
+    public static WoWCommunityRequest getGuildPerksData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("guild")
+                .appendParameter("perks");
+    }
+
+    public static WoWCommunityRequest getGuildAchievementsData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("guild")
+                .appendParameter("achievements");
+    }
+
+    public static WoWCommunityRequest getItemClassesData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("item")
+                .appendParameter("classes");
+    }
+
+    public static WoWCommunityRequest getTalentsData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("talents");
+    }
+
+    public static WoWCommunityRequest getPetTypesData() {
+        return new WoWCommunityRequest()
+                .appendParameter("data")
+                .appendParameter("pet")
+                .appendParameter("types");
+    }
 }

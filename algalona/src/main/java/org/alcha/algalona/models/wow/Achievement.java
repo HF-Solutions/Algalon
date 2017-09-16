@@ -2,6 +2,8 @@ package org.alcha.algalona.models.wow;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -55,52 +57,61 @@ public class Achievement implements Comparable<Achievement> {
      * <p>Accepts a {@link JsonObject} that is the response from <code>/wow/achievement/:id</code> and
      * populates the available fields.</p>
      *
-     * @param json <code>/wow/achievement/:id</code> response
+     * @param jsonObject <code>/wow/achievement/:id</code> response
      */
-    public static Achievement newInstanceFromJson(JsonObject json) {
+    public static Achievement newInstanceFromJson(JsonObject jsonObject) {
         Achievement achievement = new Achievement();
 
-        if (json.has("id"))
-            achievement.setId(json.get("id").getAsInt());
+        if (jsonObject.has("id"))
+            achievement.setId(jsonObject.get("id").getAsInt());
         else achievement.setId(-1);
 
-        if (json.has("title"))
-            achievement.setTitle(json.get("title").getAsString());
+        if (jsonObject.has("title"))
+            achievement.setTitle(jsonObject.get("title").getAsString());
         else achievement.setTitle("");
 
-        if (json.has("points"))
-            achievement.setPoints(json.get("points").getAsInt());
+        if (jsonObject.has("points"))
+            achievement.setPoints(jsonObject.get("points").getAsInt());
         else achievement.setPoints(-1);
 
-        if (json.has("description"))
-            achievement.setDescription(json.get("description").getAsString());
+        if (jsonObject.has("description"))
+            achievement.setDescription(jsonObject.get("description").getAsString());
         else achievement.setDescription("");
 
-        if (json.has("reward"))
-            achievement.setReward(json.get("reward").getAsString());
+        if (jsonObject.has("reward"))
+            achievement.setReward(jsonObject.get("reward").getAsString());
         else achievement.setReward("");
 
-        if (json.has("rewardItems"))
-            achievement.setRewardItems(RewardItem.parseRewardItems(json.getAsJsonArray("rewardItems")));
+        if (jsonObject.has("rewardItems"))
+            achievement.setRewardItems(RewardItem.parseRewardItems(jsonObject.getAsJsonArray("rewardItems")));
         else achievement.setRewardItems(new ArrayList<RewardItem>());
 
-        if (json.has("icon"))
-            achievement.setIcon(json.get("icon").getAsString());
+        if (jsonObject.has("icon"))
+            achievement.setIcon(jsonObject.get("icon").getAsString());
         else achievement.setIcon("");
 
-        if (json.has("criteria"))
-            achievement.setCriteria(Criteria.parseJsonArray(json.getAsJsonArray("criteria")));
+        if (jsonObject.has("criteria"))
+            achievement.setCriteria(Criteria.parseJsonArray(jsonObject.getAsJsonArray("criteria")));
         else achievement.setCriteria(new ArrayList<Criteria>());
 
-        if (json.has("accountWide"))
-            achievement.setAccountWide(json.get("accountWide").getAsBoolean());
+        if (jsonObject.has("accountWide"))
+            achievement.setAccountWide(jsonObject.get("accountWide").getAsBoolean());
         else achievement.setAccountWide(false);
 
-        if (json.has("factionId"))
-            achievement.setFaction(json.get("factionId").getAsInt());
+        if (jsonObject.has("factionId"))
+            achievement.setFaction(jsonObject.get("factionId").getAsInt());
         else achievement.setFaction(-1);
 
         return achievement;
+    }
+
+    public static List<Achievement> parseJsonArray(JsonArray jsonArray) {
+        List<Achievement> achievements = new ArrayList<>();
+
+        for (JsonElement element : jsonArray)
+            achievements.add(newInstanceFromJson(element.getAsJsonObject()));
+
+        return achievements;
     }
 
     /**

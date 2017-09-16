@@ -1,75 +1,152 @@
 package org.alcha.algalona.models.wow;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>Created by Alcha on 8/3/2017.</p>
  * Represents the various races within WoW and stores their id as well as faction affiliation. The
  * faction is stored using the {@link Faction} type and the id is an int.
  */
-public enum Race {
-    Human(1, Faction.ALLIANCE),
-    Orc(2, Faction.HORDE),
-    Dwarf(3, Faction.ALLIANCE),
-    Night_Elf(4, Faction.ALLIANCE),
-    Undead(5, Faction.HORDE),
-    Tauren(6, Faction.HORDE),
-    Gnome(7, Faction.ALLIANCE),
-    Troll(8, Faction.HORDE),
-    Goblin(9, Faction.HORDE),
-    Blood_Elf(10, Faction.HORDE),
-    Draenei(11, Faction.ALLIANCE),
-    Worgen(22, Faction.ALLIANCE),
-    PandarenN(24, Faction.NEUTRAL),
-    PandarenA(25, Faction.ALLIANCE),
-    PandarenH(26, Faction.HORDE),
-    Unknown(42, Faction.NEUTRAL);
+public class Race {
+    private int mId;
+    private int mMask;
+    private Faction mSide;
+    private Name mName;
 
-    int mId;
-    Faction mFaction;
+    public static Race newInstanceFromJson(JsonObject jsonObject) {
+        Race race = new Race();
 
-    /**
-     * Public constructor for the {@link Race} enum type. Accepts the id and {@link Faction}
-     * as the only two required parameters.
-     *
-     * @param id      int representation of the race
-     * @param faction faction the race is a part of
-     */
-    Race(int id, Faction faction) {
-        mId = id;
-        mFaction = faction;
+        if (jsonObject.has("id"))
+            race.setId(jsonObject.get("id").getAsInt());
+        else race.setId(-1);
+
+        if (jsonObject.has("mask"))
+            race.setMask(jsonObject.get("mask").getAsInt());
+        else race.setMask(-1);
+
+        if (jsonObject.has("side"))
+            race.setSide(Faction.fromString(jsonObject.get("side").getAsString()));
+        else race.setSide(Faction.UNKNOWN);
+
+        if (jsonObject.has("name"))
+            race.setName(Name.fromString(jsonObject.get("name").getAsString()));
+        else race.setName(Name.Unknown);
+
+        return race;
     }
 
-    /**
-     * At the cost of a minor performance penalty (having to parse all the {@link Race} values),
-     * allows you to instantiate a Race using just the id.
-     *
-     * @param id    int representation of the race
-     * @return  Race the int represents
-     */
-    public static Race fromId(int id) {
-        for (Race race : Race.values()) {
-            if (race.mId == id) return race;
+    public static Race fromId(int idIn) {
+        Race race = new Race();
+        race.setName(Name.fromId(idIn));
+
+        return race;
+    }
+
+    public static List<Race> parseJsonArray(JsonArray jsonArray) {
+        List<Race> races = new ArrayList<>();
+
+        for (JsonElement element : jsonArray)
+            races.add(newInstanceFromJson(element.getAsJsonObject()));
+
+        return races;
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
+    }
+
+    public int getMask() {
+        return mMask;
+    }
+
+    public void setMask(int mask) {
+        mMask = mask;
+    }
+
+    public Faction getSide() {
+        return mSide;
+    }
+
+    public void setSide(Faction side) {
+        mSide = side;
+    }
+
+    public Name getName() {
+        return mName;
+    }
+
+    public void setName(Name name) {
+        mName = name;
+    }
+
+    public enum Name {
+        Human(1, "Human"),
+        Orc(2, "Orc"),
+        Dwarf(3, "Dwarf"),
+        Night_Elf(4, "Night Elf"),
+        Undead(5, "Undead"),
+        Tauren(6, "Tauren"),
+        Gnome(7, "Gnome"),
+        Troll(8, "Troll"),
+        Goblin(9, "Goblin"),
+        Blood_Elf(10, "Blood Elf"),
+        Draenei(11, "Draenei"),
+        Worgen(22, "Worgen"),
+        PandarenN(24, "Pandaren"),
+        PandarenA(25, "Pandaren"),
+        PandarenH(26, "Pandaren"),
+        Unknown(42, "Unknown");
+
+        private String name;
+        private int id;
+
+        Name(int id, String string) {
+            this.id = id;
+            this.name = string;
         }
 
-        return Unknown;
-    }
+        @Override
+        public String toString() {
+            return getName();
+        }
 
-    /**
-     * I override the <code>toString()</code> method for two reasons regarding the display of the
-     * race names:
-     * <ol><li>
-     * There are three Pandaren races, Neutral, Alliance, and Horde. Their enum name is
-     * PandarenN, PandarenA, and PandarenH, respectively. If either of these are selected
-     * and the toString() method is called, <code>"Pandaren"</code> is returned.
-     * </li><li>
-     * As with almost all of the enums in this library, the underscore present in the type
-     * name is replaced with a space when output to a String.
-     * </li></ol>
-     *
-     * @return String representation of the enum type name
-     */
-    @Override
-    public String toString() {
-        if (mId == 24 || mId == 25 || mId == 26) return "Pandaren";
-        else return super.toString().replace('_', ' ');
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public static Name fromString(String nameIn) {
+            for (Name name : Name.values())
+                if (name.getName().equalsIgnoreCase(nameIn)) return name;
+
+            return Unknown;
+        }
+
+        public static Name fromId(int id) {
+            for (Name name : Name.values())
+                if (name.getId() == id) return name;
+
+            return Unknown;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
     }
 }

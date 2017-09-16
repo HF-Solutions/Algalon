@@ -3,7 +3,7 @@ package org.alcha.algalona.models.wow.characters;
 import com.google.gson.JsonObject;
 
 import org.alcha.algalona.models.wow.Battlegroup;
-import org.alcha.algalona.models.wow.CharacterClass;
+import org.alcha.algalona.models.wow.dataResources.CharacterClass;
 import org.alcha.algalona.models.wow.Faction;
 import org.alcha.algalona.models.wow.Race;
 import org.alcha.algalona.models.wow.Realm;

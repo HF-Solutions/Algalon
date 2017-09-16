@@ -19,6 +19,13 @@ public class Talent {
     private Talent() {
     }
 
+    @Override
+    public String toString() {
+        return "Tier=" + mTier + "; " +
+                "Column=" + mColumn + "; " +
+                "Spell=" + mSpell;
+    }
+
     public static Talent newInstanceFromJson(JsonObject jsonObject) {
         Talent talent = new Talent();
 
@@ -44,7 +51,7 @@ public class Talent {
     public static List<Talent> parseJsonArray(JsonArray jsonArray) {
         List<Talent> talents = new ArrayList<>();
 
-        for(int x = 0; x < jsonArray.size(); x++) {
+        for (int x = 0; x < jsonArray.size(); x++) {
             talents.add(Talent.newInstanceFromJson(jsonArray.get(x).getAsJsonObject()));
         }
 

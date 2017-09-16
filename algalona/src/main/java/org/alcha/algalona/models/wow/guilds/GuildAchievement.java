@@ -1,9 +1,14 @@
 package org.alcha.algalona.models.wow.guilds;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.alcha.algalona.models.wow.Achievement;
 import org.alcha.algalona.util.JsonAid;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Created by Alcha on Sep 15, 2017 @ 07:23.</p>
@@ -44,6 +49,15 @@ public class GuildAchievement extends GuildNewsEntry {
             achievement.setAchievement(Achievement.newInstanceFromJson(jsonObject.getAsJsonObject("achievement")));
 
         return achievement;
+    }
+
+    public static List<GuildAchievement> parseJsonArray(JsonArray jsonArray) {
+        List<GuildAchievement> achievements = new ArrayList<>();
+
+        for (JsonElement element : jsonArray)
+            achievements.add(newInstanceFromJson(element.getAsJsonObject()));
+
+        return achievements;
     }
 
     public Achievement getAchievement() {

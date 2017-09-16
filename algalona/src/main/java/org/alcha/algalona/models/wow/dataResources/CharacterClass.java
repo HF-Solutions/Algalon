@@ -1,4 +1,11 @@
-package org.alcha.algalona.models.wow;
+package org.alcha.algalona.models.wow.dataResources;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>
@@ -28,9 +35,13 @@ public enum CharacterClass {
         mPowerType = powerType;
     }
 
+    public String getName() {
+        return name().replace('_', ' ');
+    }
+
     public static CharacterClass fromId(int id) {
         for (CharacterClass characterClass : CharacterClass.values()) {
-            if(characterClass.getId() == id) {
+            if (characterClass.getId() == id) {
                 return characterClass;
             }
         }
@@ -49,5 +60,21 @@ public enum CharacterClass {
 
     public String getPowerType() {
         return mPowerType;
+    }
+
+    public static CharacterClass newInstanceFromJson(JsonObject jsonObject) {
+        if (jsonObject.has("id"))
+            return CharacterClass.fromId(jsonObject.get("id").getAsInt());
+
+        return CharacterClass.Unknown;
+    }
+
+    public static List<CharacterClass> parseJsonArray(JsonArray jsonArray) {
+        List<CharacterClass> classes = new ArrayList<>();
+
+        for (JsonElement element : jsonArray)
+            classes.add(newInstanceFromJson(element.getAsJsonObject()));
+
+        return classes;
     }
 }

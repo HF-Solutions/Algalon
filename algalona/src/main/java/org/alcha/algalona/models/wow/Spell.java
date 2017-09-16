@@ -22,7 +22,14 @@ public class Spell {
     private String mCastTime;
     private String mCooldown;
 
-    private Spell() {
+    public Spell() {
+    }
+
+    @Override
+    public String toString() {
+        return "Id=" + mId + "; " +
+                "Name=" + mName + "; " +
+                "Description=" + mDescription + ";";
     }
 
     public static Spell newInstanceFromJson(JsonObject jsonObject) {

@@ -52,7 +52,7 @@ public class PvPLeaderboards {
 
         if (jsonObject.has("raceId"))
             leaderboards.setRace(Race.fromId(jsonObject.get("raceId").getAsInt()));
-        else leaderboards.setRace(Race.Unknown);
+        else leaderboards.setRace(Race.fromId(42));
 
         if (jsonObject.has("ranking"))
             leaderboards.setRanking(jsonObject.get("ranking").getAsInt());
