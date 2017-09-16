@@ -1,5 +1,7 @@
-package org.alcha.algalona.models.wow;
+package org.alcha.algalona.models.wow.pets;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -20,6 +22,17 @@ public class PetStat {
 
     public PetStat() {
 
+    }
+
+    @Override
+    public String toString() {
+        return "SpeciesId=" + mSpeciesId + ";" +
+                "BreedId=" + mBreedId + ";" +
+                "PetQualityId=" + mPetQualityId + ";" +
+                "Level=" + mLevel + ";" +
+                "Health=" + mHealth + ";" +
+                "Power=" + mPower + ";" +
+                "Speed=" + mSpeed + ";";
     }
 
     public static PetStat newInstanceFromJson(JsonObject jsonObject) {
@@ -56,10 +69,11 @@ public class PetStat {
         return stat;
     }
 
-    public static List<PetStat> parseJsonObject(JsonObject jsonObject) {
+    public static List<PetStat> parseJsonArray(JsonArray jsonArray) {
         List<PetStat> tempList = new ArrayList<>();
 
-        // TODO: Finish parsing JsonObject
+        for (JsonElement element : jsonArray)
+            tempList.add(newInstanceFromJson(element.getAsJsonObject()));
 
         return tempList;
     }

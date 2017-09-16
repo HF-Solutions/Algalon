@@ -1,4 +1,4 @@
-package org.alcha.algalona.models.wow;
+package org.alcha.algalona.models.wow.pets;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
