@@ -1,6 +1,7 @@
 package org.alcha.algalona.models.wow;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -75,9 +76,8 @@ public class Mount {
     public static List<Mount> parseJsonArray(JsonArray jsonArray) {
         List<Mount> tempList = new ArrayList<>();
 
-        for (int x = 0; x < jsonArray.size(); x++) {
-            tempList.add(Mount.newInstanceFromJson(jsonArray.get(x).getAsJsonObject()));
-        }
+        for (JsonElement element : jsonArray)
+            tempList.add(Mount.newInstanceFromJson(element.getAsJsonObject()));
 
         return tempList;
     }

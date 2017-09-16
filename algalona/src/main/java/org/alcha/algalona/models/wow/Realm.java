@@ -393,7 +393,7 @@ public class Realm {
          */
         public String getSlug() {
             if (slug == null)
-                return this.toString().toLowerCase().replace('_', '-');
+                return this.toString().toLowerCase().replace('_', '-').replace("\'", "");
             else return slug;
         }
 
@@ -419,7 +419,8 @@ public class Realm {
 
         public static Realm.Name fromString(String name) {
             for (Realm.Name realm : Realm.Name.values()) {
-                if (realm.getName().equalsIgnoreCase(name)) return realm;
+                if (realm.getSlug().equalsIgnoreCase(name) || realm.getName().equalsIgnoreCase(name))
+                    return realm;
             }
 
             return Unknown;
@@ -544,7 +545,7 @@ public class Realm {
         return realm;
     }
 
-    public static List<Realm> convertJSONArray(JsonArray array) {
+    public static List<Realm> parseJsonArray(JsonArray array) {
         List<Realm> tempRealms = new ArrayList<>();
 
         for (JsonElement element : array)
