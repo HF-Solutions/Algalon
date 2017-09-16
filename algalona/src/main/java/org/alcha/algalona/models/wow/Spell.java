@@ -17,6 +17,8 @@ public class Spell {
     private String mSubtext;
     private String mIcon;
     private String mDescription;
+    private String mRange;
+    private String mPowerCost;
     private String mCastTime;
     private String mCooldown;
 
@@ -45,6 +47,14 @@ public class Spell {
         if (jsonObject.has("description"))
             spell.setDescription(jsonObject.get("description").getAsString());
         else spell.setDescription("");
+
+        if (jsonObject.has("range"))
+            spell.setRange(jsonObject.get("range").getAsString());
+        else spell.setRange("");
+
+        if (jsonObject.has("powerCost"))
+            spell.setPowerCost(jsonObject.get("powerCost").getAsString());
+        else spell.setPowerCost("");
 
         if (jsonObject.has("castTime"))
             spell.setCastTime(jsonObject.get("castTime").getAsString());
@@ -104,6 +114,22 @@ public class Spell {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public String getRange() {
+        return mRange;
+    }
+
+    public void setRange(String range) {
+        mRange = range;
+    }
+
+    public String getPowerCost() {
+        return mPowerCost;
+    }
+
+    public void setPowerCost(String powerCost) {
+        mPowerCost = powerCost;
     }
 
     public String getCastTime() {
