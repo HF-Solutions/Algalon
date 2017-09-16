@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import com.squareup.okhttp.Request;
 
 import org.alcha.algalona.interfaces.APIRequest;
-import org.alcha.algalona.interfaces.RequestCallback;
 import org.alcha.algalona.interfaces.FieldName;
+import org.alcha.algalona.interfaces.RequestCallback;
 import org.alcha.algalona.models.wow.Achievement;
 import org.alcha.algalona.models.wow.AuctionData;
 import org.alcha.algalona.models.wow.AuctionIndex;
