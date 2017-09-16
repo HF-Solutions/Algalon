@@ -27,7 +27,7 @@ objects. It is also used to convert the Java objects to their JSON form if the u
 - [ ] Finish adding support for WoW API Calls
     - [x] Add network calls to WoWRequest for AlgalonA
     - [ ] Add network calls to WoWRequest for AlgalonJ
-    - [ ] Add data models for API responses for AlgalonA
+    - [x] Add data models for API responses for AlgalonA
     - [ ] Add data models for API responses for AlgalonJ
 - [ ] Add support for SC2 API calls
     - [ ] Add network calls to SC2Request for AlgalonA
