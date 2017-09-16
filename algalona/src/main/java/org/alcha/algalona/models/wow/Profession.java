@@ -48,7 +48,7 @@ public class Profession {
         else profession.setMax(-1);
 
         if (jsonObject.has("recipes"))
-            profession.setRecipes(JsonAid.jsonArrayToIntList(jsonObject.getAsJsonArray("recipes")));
+            profession.setRecipes(JsonAid.jsonArrayToListInt(jsonObject.getAsJsonArray("recipes")));
         else profession.setRecipes(new ArrayList<Integer>());
 
         return profession;

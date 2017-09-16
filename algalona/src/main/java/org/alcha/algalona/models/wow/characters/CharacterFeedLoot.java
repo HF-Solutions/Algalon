@@ -33,7 +33,7 @@ public class CharacterFeedLoot extends CharacterFeedEntry {
         else feedLoot.setContext("");
 
         if (jsonObject.has("bonusLists"))
-            feedLoot.setBonusLists(JsonAid.jsonArrayToIntArray(jsonObject.getAsJsonArray("bonusLists")));
+            feedLoot.setBonusLists(JsonAid.jsonArrayToArrayInt(jsonObject.getAsJsonArray("bonusLists")));
         else feedLoot.setBonusLists(new int[0]);
 
         return feedLoot;

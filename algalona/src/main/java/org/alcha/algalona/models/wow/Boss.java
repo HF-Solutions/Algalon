@@ -1,11 +1,11 @@
 package org.alcha.algalona.models.wow;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.alcha.algalona.models.wow.NPC.parseJsonArray;
 
 /**
  * <p>Created by Alcha on 8/12/2017.</p>
@@ -96,10 +96,19 @@ public class Boss {
         else boss.setJournalId(-1);
 
         if (jsonObject.has("npcs"))
-            boss.setNPCs(parseJsonArray(jsonObject.getAsJsonArray("npcs")));
+            boss.setNPCs(NPC.parseJsonArray(jsonObject.getAsJsonArray("npcs")));
         else boss.setNPCs(new ArrayList<NPC>());
 
         return boss;
+    }
+
+    public static List<Boss> parseJsonArray(JsonArray jsonArray) {
+        List<Boss> bosses = new ArrayList<>();
+
+        for (JsonElement element : jsonArray)
+            bosses.add(newInstanceFromJson(element.getAsJsonObject()));
+
+        return bosses;
     }
 
     public int getId() {

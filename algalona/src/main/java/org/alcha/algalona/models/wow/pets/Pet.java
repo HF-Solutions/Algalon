@@ -1,7 +1,9 @@
-package org.alcha.algalona.models.wow;
+package org.alcha.algalona.models.wow.pets;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import org.alcha.algalona.util.JsonAid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,9 @@ public class Pet {
     private boolean isThirdAbilitySlotSelected;
     private String mCreatureName;
     private boolean mCanBattle;
+    private String mFamily;
+    private String[] mStrongAgainst;
+    private String[] mWeakAgainst;
 
     public Pet() {
 
@@ -33,61 +38,73 @@ public class Pet {
     public static Pet newInstanceFromJson(JsonObject jsonObject) {
         Pet pet = new Pet();
 
-        if(jsonObject.has("name"))
+        if (jsonObject.has("name"))
             pet.setName(jsonObject.get("name").getAsString());
         else pet.setName("");
 
-        if(jsonObject.has("spellId"))
+        if (jsonObject.has("spellId"))
             pet.setSpellId(jsonObject.get("spellId").getAsInt());
         else pet.setSpellId(-1);
 
-        if(jsonObject.has("creatureId"))
+        if (jsonObject.has("creatureId"))
             pet.setCreatureId(jsonObject.get("creatureId").getAsInt());
         else pet.setCreatureId(-1);
 
-        if(jsonObject.has("itemId"))
+        if (jsonObject.has("itemId"))
             pet.setItemId(jsonObject.get("itemId").getAsInt());
         else pet.setItemId(-1);
 
-        if(jsonObject.has("qualityId"))
+        if (jsonObject.has("qualityId"))
             pet.setQualityId(jsonObject.get("qualityId").getAsInt());
         else pet.setQualityId(-1);
 
-        if(jsonObject.has("icon"))
+        if (jsonObject.has("icon"))
             pet.setIcon(jsonObject.get("icon").getAsString());
         else pet.setIcon("");
 
-        if(jsonObject.has("stats"))
-            pet.setStats(PetStat.parseJsonObject(jsonObject.getAsJsonObject("stats")));
+        if (jsonObject.has("stats"))
+            pet.setStats(PetStat.parseJsonArray(jsonObject.getAsJsonArray("stats")));
         else pet.setStats(new ArrayList<PetStat>());
 
-        if(jsonObject.has("battlePetGuid"))
+        if (jsonObject.has("battlePetGuid"))
             pet.setBattlePetGuid(jsonObject.get("battlePetGuid").getAsString());
         else pet.setBattlePetGuid("");
 
-        if(jsonObject.has("isFavorite"))
+        if (jsonObject.has("isFavorite"))
             pet.setFavorite(jsonObject.get("isFavorite").getAsBoolean());
         else pet.setFavorite(false);
 
-        if(jsonObject.has("isFirstAbilitySlotSelected"))
+        if (jsonObject.has("isFirstAbilitySlotSelected"))
             pet.setFirstAbilitySlotSelected(jsonObject.get("isFirstAbilitySlotSelected").getAsBoolean());
         else pet.setFirstAbilitySlotSelected(false);
 
-        if(jsonObject.has("isSecondAbilitySlotSelected"))
+        if (jsonObject.has("isSecondAbilitySlotSelected"))
             pet.setSecondAbilitySlotSelected(jsonObject.get("isSecondAbilitySlotSelected").getAsBoolean());
         else pet.setSecondAbilitySlotSelected(false);
 
-        if(jsonObject.has("isThirdAbilitySlotSelected"))
+        if (jsonObject.has("isThirdAbilitySlotSelected"))
             pet.setThirdAbilitySlotSelected(jsonObject.get("isThirdAbilitySlotSelected").getAsBoolean());
         else pet.setThirdAbilitySlotSelected(false);
 
-        if(jsonObject.has("creatureName"))
+        if (jsonObject.has("creatureName"))
             pet.setCreatureName(jsonObject.get("creatureName").getAsString());
         else pet.setCreatureName("");
 
-        if(jsonObject.has("canBattle"))
+        if (jsonObject.has("canBattle"))
             pet.setCanBattle(jsonObject.get("canBattle").getAsBoolean());
         else pet.setCanBattle(false);
+
+        if (jsonObject.has("family"))
+            pet.setFamily(jsonObject.get("family").getAsString());
+        else pet.setFamily("");
+
+        if (jsonObject.has("strongAgainst"))
+            pet.setStrongAgainst(JsonAid.jsonArrayToArrayStr(jsonObject.getAsJsonArray("strongAgainst")));
+        else pet.setStrongAgainst(new String[0]);
+
+        if (jsonObject.has("weakAgainst"))
+            pet.setWeakAgainst(JsonAid.jsonArrayToArrayStr(jsonObject.getAsJsonArray("weakAgainst")));
+        else pet.setWeakAgainst(new String[0]);
 
         return pet;
     }
@@ -212,5 +229,29 @@ public class Pet {
 
     public void setCanBattle(boolean canBattle) {
         mCanBattle = canBattle;
+    }
+
+    public String getFamily() {
+        return mFamily;
+    }
+
+    public void setFamily(String family) {
+        mFamily = family;
+    }
+
+    public String[] getStrongAgainst() {
+        return mStrongAgainst;
+    }
+
+    public void setStrongAgainst(String[] strongAgainst) {
+        mStrongAgainst = strongAgainst;
+    }
+
+    public String[] getWeakAgainst() {
+        return mWeakAgainst;
+    }
+
+    public void setWeakAgainst(String[] weakAgainst) {
+        mWeakAgainst = weakAgainst;
     }
 }

@@ -3,6 +3,8 @@ package org.alcha.algalona.models.wow.characters;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.alcha.algalona.util.JsonAid;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +26,7 @@ public class CharacterAchievements extends CharacterField {
 
     @Override
     public String toString() {
-        String tempStr = "Achievements Completed = ";
-
-        for (int achievementId : mAchievementsCompleted) {
-            tempStr += "; " + achievementId;
-        }
-
-        return tempStr;
+        return "ACHIEVEMENTS Completed = " + mAchievementsCompleted.size();
     }
 
     public static CharacterAchievements newInstanceFromJson(JsonObject object) {
@@ -64,57 +60,23 @@ public class CharacterAchievements extends CharacterField {
     }
 
     public static List<Long> parseAchievementsCriteriaCreated(JsonArray criteriaCreated) {
-        List<Long> tempList = new ArrayList<>();
-
-        for (int x = 0; x < criteriaCreated.size(); x++) {
-            tempList.add(criteriaCreated.get(x).getAsLong());
-        }
-
-        return tempList;
+        return JsonAid.jsonArrayToListLong(criteriaCreated);
     }
 
     public static List<Integer> parseAchievementCriteriaQuantity(JsonArray criteriaQuantity) {
-        List<Integer> tempList = new ArrayList<>();
-
-        for (int x = 0; x < criteriaQuantity.size(); x++) {
-            tempList.add(criteriaQuantity.get(x).getAsInt());
-        }
-
-        return tempList;
+        return JsonAid.jsonArrayToListInt(criteriaQuantity);
     }
 
     public static List<Integer> parseAchievementsCriteria(JsonArray criteria) {
-        List<Integer> tempList = new ArrayList<>();
-
-        for (int x = 0; x < criteria.size(); x++) {
-            tempList.add(criteria.get(x).getAsInt());
-        }
-
-        return tempList;
+        return JsonAid.jsonArrayToListInt(criteria);
     }
 
     public static List<Integer> parseAchievementsCompleted(JsonArray completed) {
-        List<Integer> tempList = new ArrayList<>();
-
-        for (int x = 0; x < completed.size(); x++) {
-            tempList.add(completed.get(x).getAsInt());
-        }
-
-        return tempList;
+        return JsonAid.jsonArrayToListInt(completed);
     }
 
     public static List<Long> parseAchievementsCompletedTimestamp(JsonArray completedTimestamp) {
-        List<Long> tempList = new ArrayList<>();
-
-        for (int x = 0; x < completedTimestamp.size(); x++) {
-            tempList.add(completedTimestamp.get(x).getAsLong());
-        }
-
-        return tempList;
-    }
-
-    public static CharacterAchievements newInstanceFromJson() {
-        return new CharacterAchievements();
+        return JsonAid.jsonArrayToListLong(completedTimestamp);
     }
 
     public void setAchievementsCompleted(List<Integer> achievementsCompleted) {

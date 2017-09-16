@@ -1,4 +1,4 @@
-package org.alcha.algalona.models.wow;
+package org.alcha.algalona.models.wow.pets;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -43,7 +43,7 @@ public class PetSlot {
         else petSlot.setLocked(false);
 
         if (jsonObject.has("abilities"))
-            petSlot.setAbilities(JsonAid.jsonArrayToIntArray(jsonObject.getAsJsonArray("abilities")));
+            petSlot.setAbilities(JsonAid.jsonArrayToArrayInt(jsonObject.getAsJsonArray("abilities")));
         else petSlot.setAbilities(new int[0]);
 
         return petSlot;

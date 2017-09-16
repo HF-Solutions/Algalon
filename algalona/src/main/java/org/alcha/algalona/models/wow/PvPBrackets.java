@@ -20,6 +20,10 @@ public enum PvPBrackets {
         return this.name;
     }
 
+    public String getSlug() {
+        return this.name().toLowerCase();
+    }
+
     @Override
     public String toString() {
         return name().replace('_', ' ');

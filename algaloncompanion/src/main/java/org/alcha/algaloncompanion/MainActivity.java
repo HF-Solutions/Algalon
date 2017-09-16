@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 switch (mAdapter.getChild(groupPosition, childPosition).toString()) {
-                    case "Achievements":
+                    case "ACHIEVEMENTS":
                         startActivity(new Intent(getApplicationContext(), AchievementActivity.class));
                         break;
                     case "Auction":
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mListHeaders.add("Starcraft 2");
 
         List<String> wow = new ArrayList<>();
-        wow.add("Achievements");
+        wow.add("ACHIEVEMENTS");
         wow.add("Auction");
         wow.add("Boss");
         wow.add("Character Profile");

@@ -37,27 +37,35 @@ public class GuildEmblem {
 
         if (jsonObject.has("iconColor"))
             emblem.setIconColor(jsonObject.get("iconColor").getAsString());
+        else emblem.setIconColor("");
 
         if (jsonObject.has("borderColor"))
             emblem.setBorderColor(jsonObject.get("borderColor").getAsString());
+        else emblem.setBorderColor("");
 
         if (jsonObject.has("backgroundColor"))
             emblem.setBackgroundColor(jsonObject.get("backgroundColor").getAsString());
+        else emblem.setBackgroundColor("");
 
         if (jsonObject.has("icon"))
             emblem.setIcon(jsonObject.get("icon").getAsInt());
+        else emblem.setIcon(-1);
 
         if (jsonObject.has("iconColorId"))
             emblem.setIconId(jsonObject.get("iconColorId").getAsInt());
+        else emblem.setIconId(-1);
 
         if (jsonObject.has("border"))
             emblem.setBorder(jsonObject.get("border").getAsInt());
+        else emblem.setBorder(-1);
 
         if (jsonObject.has("borderColorId"))
             emblem.setBorderColorId(jsonObject.get("borderColorId").getAsInt());
+        else emblem.setBorderColorId(-1);
 
         if (jsonObject.has("backgroundColorId"))
             emblem.setBackgroundColorId(jsonObject.get("backgroundColorId").getAsInt());
+        else emblem.setBackgroundColorId(-1);
 
         return emblem;
     }

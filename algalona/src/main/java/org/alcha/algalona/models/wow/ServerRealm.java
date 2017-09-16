@@ -57,22 +57,21 @@ public class ServerRealm {
     public static ServerRealm[] convertJSONArray(JsonArray array) {
         ServerRealm[] tempRealms = new ServerRealm[array.size()];
 
-            for (int x = 0; x < array.size(); x++) {
-                JsonObject realmObj = array.get(x).getAsJsonObject();
-                ServerRealm realm = new ServerRealm(realmObj.get("name").getAsString());
+        for (int x = 0; x < array.size(); x++) {
+            JsonObject realmObj = array.get(x).getAsJsonObject();
+            ServerRealm realm = new ServerRealm(realmObj.get("name").getAsString());
 
-                realm.setBattlegroup(realmObj.get("battlegroup").getAsString());
-                realm.setType(realmObj.get("type").getAsString());
-                realm.setQueue(Boolean.getBoolean(realmObj.get("queue").getAsString()));
-                realm.setStatus(Boolean.getBoolean(realmObj.get("status").getAsString()));
-                realm.setLocale(realmObj.get("locale").getAsString());
-                realm.setConnectedRealms(realmObj.getAsJsonArray("connected_realms"));
-                realm.setPopulation(realmObj.get("population").getAsString());
-                realm.setTimezone(TimeZone.getTimeZone(realmObj.get("timezone").getAsString()));
+            realm.setBattlegroup(realmObj.get("battlegroup").getAsString());
+            realm.setType(realmObj.get("type").getAsString());
+            realm.setQueue(Boolean.getBoolean(realmObj.get("queue").getAsString()));
+            realm.setStatus(Boolean.getBoolean(realmObj.get("status").getAsString()));
+            realm.setLocale(realmObj.get("locale").getAsString());
+            realm.setConnectedRealms(realmObj.getAsJsonArray("connected_realms"));
+            realm.setPopulation(realmObj.get("population").getAsString());
+            realm.setTimezone(TimeZone.getTimeZone(realmObj.get("timezone").getAsString()));
 
-                tempRealms[x] = realm;
-            }
-
+            tempRealms[x] = realm;
+        }
 
         return tempRealms;
     }
@@ -91,7 +90,7 @@ public class ServerRealm {
         return mConnectedRealms;
     }
 
-    void setConnectedRealms(JsonArray array) {
+    public void setConnectedRealms(JsonArray array) {
         mConnectedRealms = new String[array.size()];
 
         for (int x = 0; x < array.size(); x++) {
@@ -102,7 +101,7 @@ public class ServerRealm {
         }
     }
 
-    void setConnectedRealms(String[] connectedRealms) {
+    public void setConnectedRealms(String[] connectedRealms) {
         if (connectedRealms != null) {
             mConnectedRealms = connectedRealms;
         }
@@ -128,7 +127,7 @@ public class ServerRealm {
         return mBattlegroup;
     }
 
-    void setBattlegroup(String battlegroup) {
+    public void setBattlegroup(String battlegroup) {
         mBattlegroup = battlegroup;
     }
 
@@ -136,7 +135,7 @@ public class ServerRealm {
         return mPopulation;
     }
 
-    void setPopulation(String population) {
+    public void setPopulation(String population) {
         switch (population.toLowerCase()) {
             case "low": {
                 mPopulation = Population.Low;
@@ -169,7 +168,7 @@ public class ServerRealm {
         return mTimezone;
     }
 
-    void setTimezone(TimeZone timezone) {
+    public void setTimezone(TimeZone timezone) {
         mTimezone = timezone;
     }
 
@@ -177,15 +176,15 @@ public class ServerRealm {
         return mStatus;
     }
 
-    void setStatus(boolean status) {
+    public void setStatus(boolean status) {
         mStatus = status;
     }
 
-    public boolean ismQueue() {
+    public boolean isQueue() {
         return mQueue;
     }
 
-    void setQueue(boolean queue) {
+    public void setQueue(boolean queue) {
         mQueue = queue;
     }
 
@@ -193,7 +192,7 @@ public class ServerRealm {
         return mLocale;
     }
 
-    void setLocale(String locale) {
+    public void setLocale(String locale) {
         mLocale = locale;
     }
 
@@ -201,7 +200,7 @@ public class ServerRealm {
         return mServerName;
     }
 
-    void setServerName(String serverName) {
+    public void setServerName(String serverName) {
         mServerName = serverName;
     }
 
@@ -209,7 +208,7 @@ public class ServerRealm {
         return mType;
     }
 
-    void setType(String type) {
+    public void setType(String type) {
         mType = type;
     }
 }
