@@ -8,5 +8,10 @@ public enum Region {
     US,
     EU,
     KR,
-    TW
+    TW;
+
+    @Override
+    public String toString() {
+        return name().toLowerCase();
+    }
 }

@@ -1,8 +1,11 @@
 apply plugin: 'java'
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    // https://mvnrepository.com/artifact/com.google.gson/json
     compile 'com.google.code.gson:gson:2.8.1'
 }
 

@@ -18,5 +18,13 @@ public enum Locale {
     it_IT,
     pl_PL,
     pt_PT,
-    ru_RU
+    ru_RU;
+
+    public static Locale fromString(String name) {
+        for (Locale locale : Locale.values()) {
+            if (locale.name().equalsIgnoreCase(name)) return locale;
+        }
+
+        return Locale.en_US;
+    }
 }

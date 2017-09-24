@@ -1,14 +1,17 @@
 package org.alcha.algalonj.network;
 
+import org.alcha.algalona.interfaces.APIRequest;
+
 /**
  * <p>Created by Alcha on 8/9/2017.</p>
  */
 
-public class WoWDataResources implements GameRequest {
+public class WoWDataResources implements APIRequest {
     private static final String LOG_TAG = "WoWDataResources";
     private String relativeUrl = "/wow/data";
 
-    private WoWDataResources() {}
+    private WoWDataResources() {
+    }
 
     @Override
     public String getRelativeUrl() {
@@ -21,64 +24,64 @@ public class WoWDataResources implements GameRequest {
      *
      * @param parameter String typed parameter
      *
-     * @return The current WoWRequest object with the provided parameter appended
+     * @return The current WoWCommunityRequest object with the provided parameter appended
      */
     public WoWDataResources appendParameter(String parameter) {
         relativeUrl += "/" + parameter.replace(" ", "%20").replace(",", "%2C");
         return this;
     }
 
-    public WoWDataResources getBattlegroups() {
-        return new WoWDataResources().appendParameter("battlegroups");
+    public static WoWDataResources getBattlegroups() {
+        return new WoWDataResources().appendParameter("battlegroups/");
     }
 
-    public WoWDataResources getCharacterRaces() {
+    public static WoWDataResources getCharacterRaces() {
         return new WoWDataResources()
                 .appendParameter("character")
                 .appendParameter("races");
     }
 
-    public WoWDataResources getCharacterClasses() {
+    public static WoWDataResources getCharacterClasses() {
         return new WoWDataResources()
                 .appendParameter("character")
                 .appendParameter("classes");
     }
 
-    public WoWDataResources getCharacterAchievements() {
+    public static WoWDataResources getCharacterAchievements() {
         return new WoWDataResources()
                 .appendParameter("character")
                 .appendParameter("achievements");
     }
 
-    public WoWDataResources getGuildRewards() {
+    public static WoWDataResources getGuildRewards() {
         return new WoWDataResources()
                 .appendParameter("guild")
                 .appendParameter("rewards");
     }
 
-    public WoWDataResources getGuildPerks() {
+    public static WoWDataResources getGuildPerks() {
         return new WoWDataResources()
                 .appendParameter("guild")
                 .appendParameter("perks");
     }
 
-    public WoWDataResources getGuildAchievements() {
+    public static WoWDataResources getGuildAchievements() {
         return new WoWDataResources()
                 .appendParameter("guild")
                 .appendParameter("achievements");
     }
 
-    public WoWDataResources getItemClasses() {
+    public static WoWDataResources getItemClasses() {
         return new WoWDataResources()
                 .appendParameter("item")
                 .appendParameter("classes");
     }
 
-    public WoWDataResources getTalents() {
+    public static WoWDataResources getTalents() {
         return new WoWDataResources().appendParameter("talents");
     }
 
-    public WoWDataResources getPetTypes() {
+    public static WoWDataResources getPetTypes() {
         return new WoWDataResources()
                 .appendParameter("pet")
                 .appendParameter("types");
