@@ -1,15 +1,20 @@
 package org.alcha.algalonj.network;
 
-import org.alcha.algalona.interfaces.APIRequest;
-import org.alcha.algalona.interfaces.RequestCallback;
-import org.alcha.algalona.models.wow.Locale;
-import org.alcha.algalona.models.wow.Region;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import org.alcha.algalonj.interfaces.APIRequest;
+import org.alcha.algalonj.interfaces.RequestCallback;
+import org.alcha.algalonj.models.wow.Locale;
+import org.alcha.algalonj.models.wow.Region;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -17,20 +22,18 @@ import okhttp3.OkHttpClient;
  */
 public class AlgalonClient {
     private static final String LOG_TAG = "AlgalonClient";
-    private static String mApiKey;
-    private static Locale mLocale = Locale.en_US;
-    private static Region mRegion = Region.US;
-    private static String mBaseUrl = "https://" + mRegion + ".api.battle.net";
-    private HttpUrl.Builder mUrlBuilder;
-    private OkHttpClient mClient;
-    private static boolean mInitialized = false;
+    private String mApiKey;
+    private Locale mLocale = Locale.en_US;
+    private Region mRegion = Region.US;
+    private String mBaseUrl = "https://" + mRegion + ".api.battle.net";
+    private boolean mInitialized = false;
+    private ExecutorService mExecutor = Executors.newSingleThreadExecutor();
 
     private AlgalonClient(String apiKey, Locale locale, Region region) {
         mApiKey = apiKey;
         mLocale = locale;
         mRegion = region;
         mInitialized = true;
-        mClient = new OkHttpClient();
     }
 
     public static AlgalonClient newInstance(String apiKey, Locale locale, Region region) {
@@ -43,7 +46,6 @@ public class AlgalonClient {
 
     public void executeRequest(APIRequest request, RequestCallback requestCallback) {
         if (request instanceof WoWCommunityRequest) {
-
             get(getAbsoluteUrl(request.getRelativeUrl()), requestCallback);
         }
     }
@@ -56,15 +58,80 @@ public class AlgalonClient {
         }
     }
 
-    public static void get(String strUrl, RequestCallback requestCallback) {
-        URL url = null;
+    public void get(final String strUrl, final RequestCallback requestCallback) {
+        mExecutor.submit(new Runnable() {
+            @Override
+            public void run() {
+                URL url = getUrl(strUrl);
+                StringBuilder resultBuilder = new StringBuilder();
+
+                // TODO: Properly handle response, determine if an error occurred
+
+                if (url != null) {
+                    try {
+                        // Read all the text returned by the server
+                        InputStreamReader reader = new InputStreamReader(url.openStream());
+                        BufferedReader in = new BufferedReader(reader);
+                        String resultPiece;
+                        while ((resultPiece = in.readLine()) != null) {
+                            resultBuilder.append(resultPiece);
+                        }
+                        in.close();
+                    } catch (MalformedURLException e) {
+                        System.out.println("MalformedURLException...");
+                        System.out.println(e.getLocalizedMessage());
+                    } catch (IOException e) {
+                        System.out.println("IOException...");
+                        System.out.println(e.getLocalizedMessage());
+                    }
+                }
+
+                requestCallback.onResult(parseStringToJson(resultBuilder.toString()));
+            }
+        });
+    }
+
+    private static JsonObject parseStringToJson(String text) {
+        JsonParser parser = new JsonParser();
+
+        if (parser.parse(text) instanceof JsonObject)
+            return (parser.parse(text)).getAsJsonObject();
+        else return new JsonObject();
+    }
+
+    private static URL getUrl(String strUrl) {
         try {
-            url = new URL(strUrl);
+            return new URL(strUrl);
         } catch (MalformedURLException e) {
+            System.out.println("MalformedURLException...");
+            System.out.println(e.getLocalizedMessage());
             e.printStackTrace();
         }
 
-        new ApiCall(requestCallback).execute(url);
+        return null;
+    }
+
+    private String performRequest(URL url) {
+        StringBuilder resultBuilder = new StringBuilder();
+
+        try {
+            // Read all the text returned by the server
+            InputStreamReader reader = new InputStreamReader(url.openStream());
+            BufferedReader in = new BufferedReader(reader);
+            String resultPiece;
+            while ((resultPiece = in.readLine()) != null) {
+                resultBuilder.append(resultPiece);
+            }
+            in.close();
+        } catch (MalformedURLException e) {
+            System.out.println("MalformedURLException...");
+            System.out.println(e.getLocalizedMessage());
+        } catch (IOException e) {
+            System.out.println("IOException...");
+            System.out.println(e.getLocalizedMessage());
+        }
+
+        return resultBuilder.toString();
     }
 
     private String getAbsoluteUrl(String relativeUrl) {
@@ -74,7 +141,7 @@ public class AlgalonClient {
             return mBaseUrl + relativeUrl + "?locale=" + mLocale + "&apikey=" + mApiKey;
     }
 
-    public static Region getClientRegion() {
+    public Region getClientRegion() {
         return mRegion;
     }
 

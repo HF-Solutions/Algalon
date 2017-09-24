@@ -1,6 +1,6 @@
 package org.alcha.algalonj.models.wow.guilds;
 
-import org.alcha.algalona.interfaces.FieldName;
+import org.alcha.algalonj.interfaces.FieldName;
 
 /**
  * <p>Created by Alcha on Sep 15, 2017 @ 06:38.</p>

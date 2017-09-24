@@ -1,7 +1,5 @@
 package org.alcha.algalonj.models.wow;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -37,17 +35,17 @@ public class Achievement implements Comparable<Achievement> {
     public String toString() {
         return "id = " + mId + ";" +
                 "title = " + mTitle + ";" +
-                "points = " + mPoints + ";\n" +
+                "points = " + mPoints + ";" +
                 "description = " + mDescription + ";" +
                 "reward = " + mReward + "; " +
-                "icon = " + mIcon + ";\n" +
+                "icon = " + mIcon + ";" +
                 "criteria.size() = " + mCriteria.size() + ";" +
                 "accountWide = " + mAccountWide + ";" +
                 "faction = " + mFaction.toString() + ";";
     }
 
     @Override
-    public int compareTo(@NonNull Achievement achievement) {
+    public int compareTo(Achievement achievement) {
         if (achievement.getId() > mId) return 1;
         else if (achievement.getId() < mId) return -1;
         else return 0;

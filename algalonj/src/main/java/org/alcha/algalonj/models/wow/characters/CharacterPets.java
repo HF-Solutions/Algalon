@@ -3,7 +3,7 @@ package org.alcha.algalonj.models.wow.characters;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.pets.Pet;
+import org.alcha.algalonj.models.wow.pets.Pet;
 
 import java.util.List;
 

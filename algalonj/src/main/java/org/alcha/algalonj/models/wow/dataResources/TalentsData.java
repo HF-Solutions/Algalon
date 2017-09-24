@@ -4,8 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Spec;
-import org.alcha.algalona.models.wow.Talent;
+import org.alcha.algalonj.models.wow.Spec;
+import org.alcha.algalonj.models.wow.Talent;
 
 import java.util.ArrayList;
 import java.util.List;

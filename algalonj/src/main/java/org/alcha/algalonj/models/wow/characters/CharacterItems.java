@@ -2,9 +2,9 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Item;
-import org.alcha.algalona.models.wow.Stat;
-import org.alcha.algalona.models.wow.TooltipParam;
+import org.alcha.algalonj.models.wow.Item;
+import org.alcha.algalonj.models.wow.Stat;
+import org.alcha.algalonj.models.wow.TooltipParam;
 
 import java.lang.*;
 import java.util.ArrayList;

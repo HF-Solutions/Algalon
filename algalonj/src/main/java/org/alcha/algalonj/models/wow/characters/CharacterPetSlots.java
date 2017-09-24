@@ -2,7 +2,7 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.pets.PetSlot;
+import org.alcha.algalonj.models.wow.pets.PetSlot;
 
 import java.util.List;
 

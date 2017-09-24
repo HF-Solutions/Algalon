@@ -1,6 +1,6 @@
 ![Algalon_Icon](./Algalon_Icon-100x100.jpg "Algalon")
 
-| [Home](./README.md) | [How to Use](./HowToUse.md) | [License](./LICENSE.md) |
+| [Home](./README.md) | [How to Use](./HowToUse.md) | [License](./LICENSE) |
 
 # Purpose
 
@@ -47,4 +47,4 @@ Algalon is shared under the [MIT License](https://choosealicense.com/licenses/mi
 only requirement for using the code or packaged artifacts is to attribute credit to the original
 developers [Paranoid Devs](https://paranoiddevs.com).
 
-Full licensing information is available in [LICENSE.md](./LICENSE.md).
+Full licensing information is available in [LICENSE.md](./LICENSE).

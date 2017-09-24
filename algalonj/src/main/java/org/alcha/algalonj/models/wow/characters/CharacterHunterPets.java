@@ -2,7 +2,7 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import static org.alcha.algalona.models.wow.characters.CharacterField.Name.Hunter_Pets;
+import static org.alcha.algalonj.models.wow.characters.CharacterField.Name.Hunter_Pets;
 
 /**
  * <p>Created by Alcha on Aug 18, 2017 @ 22:02.</p>

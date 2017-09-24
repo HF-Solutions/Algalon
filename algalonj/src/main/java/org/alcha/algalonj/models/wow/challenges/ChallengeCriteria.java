@@ -2,7 +2,7 @@ package org.alcha.algalonj.models.wow.challenges;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Time;
+import org.alcha.algalonj.models.wow.Time;
 
 /**
  * <p>Created by Alcha on Sep 15, 2017 @ 09:17.</p>

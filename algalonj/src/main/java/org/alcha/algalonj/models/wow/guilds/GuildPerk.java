@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Spell;
+import org.alcha.algalonj.models.wow.Spell;
 
 import java.util.ArrayList;
 import java.util.List;

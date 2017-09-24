@@ -3,10 +3,10 @@ package org.alcha.algalonj.models.wow.challenges;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Faction;
-import org.alcha.algalona.models.wow.Time;
-import org.alcha.algalona.models.wow.characters.Character;
-import org.alcha.algalona.models.wow.guilds.Guild;
+import org.alcha.algalonj.models.wow.Faction;
+import org.alcha.algalonj.models.wow.Time;
+import org.alcha.algalonj.models.wow.characters.Character;
+import org.alcha.algalonj.models.wow.guilds.Guild;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * <p>Contains a static method {@link #newInstanceFromJson(JsonObject)} for creating a new object
  * using a {@link JsonObject}. This is usually obtained from the Battle.net API using a {@link
- * org.alcha.algalona.network.WoWCommunityRequest}.</p>
+ * org.alcha.algalonj.network.WoWCommunityRequest}.</p>
  */
 public class ChallengeGroup {
     /** Ranking of the group (1, 2, 3) */

@@ -1,21 +1,12 @@
 package org.alcha.algalonj.network;
 
-import com.google.gson.JsonObject;
-
-import org.alcha.algalona.interfaces.APIRequest;
-import org.alcha.algalona.interfaces.FieldName;
-import org.alcha.algalona.interfaces.RequestCallback;
-import org.alcha.algalona.models.wow.AuctionData;
-import org.alcha.algalona.models.wow.AuctionIndex;
-import org.alcha.algalona.models.wow.PvPBrackets;
-import org.alcha.algalona.models.wow.Realm;
-import org.alcha.algalona.models.wow.characters.Character;
-import org.alcha.algalona.models.wow.characters.CharacterField;
-import org.alcha.algalona.models.wow.guilds.GuildField;
-
-import okhttp3.Request;
-
-import static org.alcha.algalona.network.AlgalonClient.get;
+import org.alcha.algalonj.interfaces.APIRequest;
+import org.alcha.algalonj.interfaces.FieldName;
+import org.alcha.algalonj.models.wow.PvPBrackets;
+import org.alcha.algalonj.models.wow.Realm;
+import org.alcha.algalonj.models.wow.characters.Character;
+import org.alcha.algalonj.models.wow.characters.CharacterField;
+import org.alcha.algalonj.models.wow.guilds.GuildField;
 
 /**
  * <p>Created by Alcha on 8/7/2017.</p>
@@ -23,7 +14,6 @@ import static org.alcha.algalona.network.AlgalonClient.get;
 public class WoWCommunityRequest implements APIRequest {
     private static final String LOG_TAG = "WoWCommunityRequest";
     private String mRelativeUrl = "/wow";
-    private Request mRequest;
 
     /**
      * <p>Empty constructor used for building a custom {@link WoWCommunityRequest}.</p>
@@ -36,8 +26,7 @@ public class WoWCommunityRequest implements APIRequest {
      *
      * <p>To build your own request, instantiate a {@link WoWCommunityRequest} and add the parameters and/or
      * fields you wish to add. For example, if you wish to find a character on a realm that isn't
-     * currently in the {@link WoWUSRealms} or {@link WoWEURealms} enum objects, you would want to
-     * do something like the so:</p>
+     * currently in the {@link Realm} enum object, you would want to do something like the so:</p>
      *
      * <code>
      * AlgalonClient algalon = AlgalonClient.newUSInstance("Secret Blizzard Key");<br/><br/>
@@ -55,7 +44,7 @@ public class WoWCommunityRequest implements APIRequest {
      * });
      * </code>
      */
-    private WoWCommunityRequest() {
+    public WoWCommunityRequest() {
     }
 
     /**
@@ -141,42 +130,6 @@ public class WoWCommunityRequest implements APIRequest {
         WoWCommunityRequest request = new WoWCommunityRequest();
         request.appendParameter("achievement").appendParameter(String.valueOf(achievementId));
         return request;
-    }
-
-    /**
-     * <p>Gets the auction index file for the provided {@link Realm}. The index file contains the
-     * url to the file that contains the latest auction data in JSON.</p>
-     *
-     * <p>In order to obtain the actual auction data for the realm of interest, you must execute this
-     * request and pass the response to {@link #getAuctionData(AuctionIndex, RequestCallback)}. The
-     * getAuctionData(JSONObject, RequestCallback) method will return the auction data as an instance of
-     * {@link AuctionData}.</p>
-     *
-     * @param realm Realm you wish to retrieve the index file for
-     *
-     * @return A WoWCommunityRequest to be executed for a realms auction data index file
-     */
-    public static WoWCommunityRequest getAuctionIndexFile(Realm realm) {
-        return new WoWCommunityRequest()
-                .appendParameter("auction")
-                .appendParameter("data")
-                .appendParameter(realm.getRelativeUrl());
-    }
-
-    public static void getAuctionDataFile(AuctionIndex auctionIndex, RequestCallback requestCallback) {
-        get(auctionIndex.getUrl(), requestCallback);
-    }
-
-    /**
-     * <p>Uses the provided {@link JsonObject} to retrieve the latest auction index file which contains
-     * the latest auctions available on the queried realm and connected realms.</p>
-     *
-     * TODO: Parse the JSON Object for the proper URL and execute it
-     *
-     * @param auctionIndex result of executing {@link #getAuctionIndexFile(Realm)}
-     */
-    public static void getAuctionData(AuctionIndex auctionIndex, RequestCallback requestCallback) {
-        get(auctionIndex.getUrl(), requestCallback);
     }
 
     /**

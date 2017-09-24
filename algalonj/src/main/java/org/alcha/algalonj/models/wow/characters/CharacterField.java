@@ -1,6 +1,6 @@
 package org.alcha.algalonj.models.wow.characters;
 
-import org.alcha.algalona.interfaces.FieldName;
+import org.alcha.algalonj.interfaces.FieldName;
 
 import java.lang.*;
 

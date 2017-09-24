@@ -1,7 +1,7 @@
 package org.alcha.algalonj.models.wow.guilds;
 
-import org.alcha.algalona.interfaces.FieldName;
-import org.alcha.algalona.network.WoWCommunityRequest;
+import org.alcha.algalonj.interfaces.FieldName;
+import org.alcha.algalonj.network.WoWCommunityRequest;
 
 /**
  * <p>Created by Alcha on 8/8/2017.</p>

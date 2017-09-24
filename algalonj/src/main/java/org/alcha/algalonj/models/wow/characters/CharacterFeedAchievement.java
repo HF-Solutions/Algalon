@@ -2,9 +2,9 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Criteria;
-import org.alcha.algalona.models.wow.Faction;
-import org.alcha.algalona.models.wow.RewardItem;
+import org.alcha.algalonj.models.wow.Criteria;
+import org.alcha.algalonj.models.wow.Faction;
+import org.alcha.algalonj.models.wow.RewardItem;
 
 import java.util.ArrayList;
 import java.util.List;

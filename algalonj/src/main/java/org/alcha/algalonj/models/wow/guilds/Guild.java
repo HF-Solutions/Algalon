@@ -3,9 +3,9 @@ package org.alcha.algalonj.models.wow.guilds;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Battlegroup;
-import org.alcha.algalona.models.wow.Realm;
-import org.alcha.algalona.models.wow.characters.CharacterField;
+import org.alcha.algalonj.models.wow.Battlegroup;
+import org.alcha.algalonj.models.wow.Realm;
+import org.alcha.algalonj.models.wow.characters.CharacterField;
 
 import java.util.Map;
 import java.util.TreeMap;

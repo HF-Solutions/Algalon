@@ -2,8 +2,8 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Achievement;
-import org.alcha.algalona.models.wow.Criteria;
+import org.alcha.algalonj.models.wow.Achievement;
+import org.alcha.algalonj.models.wow.Criteria;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>

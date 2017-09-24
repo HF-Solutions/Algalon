@@ -7,5 +7,6 @@ import com.google.gson.JsonObject;
  */
 
 public interface RequestCallback {
-    void onTaskCompleted(JsonObject response);
+    void onResult(JsonObject response);
+    void onError(JsonObject response);
 }

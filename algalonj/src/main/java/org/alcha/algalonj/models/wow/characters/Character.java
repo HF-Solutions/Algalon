@@ -2,12 +2,12 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Battlegroup;
-import org.alcha.algalona.models.wow.dataResources.CharacterClass;
-import org.alcha.algalona.models.wow.Faction;
-import org.alcha.algalona.models.wow.Race;
-import org.alcha.algalona.models.wow.Realm;
-import org.alcha.algalona.models.wow.guilds.Guild;
+import org.alcha.algalonj.models.wow.Battlegroup;
+import org.alcha.algalonj.models.wow.dataResources.CharacterClass;
+import org.alcha.algalonj.models.wow.Faction;
+import org.alcha.algalonj.models.wow.Race;
+import org.alcha.algalonj.models.wow.Realm;
+import org.alcha.algalonj.models.wow.guilds.Guild;
 
 import java.util.Map;
 import java.util.TreeMap;

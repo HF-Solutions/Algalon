@@ -3,8 +3,6 @@ package org.alcha.algalonj.models.wow;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import static org.alcha.algalona.network.AlgalonClient.getClientRegion;
-
 /**
  * <p>Created by Alcha on 8/10/2017.</p>
  */
@@ -25,7 +23,6 @@ public class AuctionData {
 
     private static Realm[] parseWoWRealms(JsonObject jsonObject) {
         JsonArray realmArray = jsonObject.get("realms").getAsJsonArray();
-        Region region = getClientRegion();
 
         /*if (region == Region.US) {
             WoWUSRealms[] tempArray = new WoWUSRealms[realmArray.size()];

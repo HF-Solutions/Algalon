@@ -1,7 +1,5 @@
 package org.alcha.algalonj.models.wow;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -51,7 +49,7 @@ public class Criteria implements Comparable<Criteria> {
      * @return 1, -1, or 0.
      */
     @Override
-    public int compareTo(@NonNull Criteria criteria) {
+    public int compareTo(Criteria criteria) {
         if (criteria.getOrderIndex() > mOrderIndex) return 1;
         else if (criteria.getOrderIndex() < mOrderIndex) return -1;
         else return 0;

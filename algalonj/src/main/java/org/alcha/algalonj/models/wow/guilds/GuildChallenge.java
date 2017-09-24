@@ -2,9 +2,9 @@ package org.alcha.algalonj.models.wow.guilds;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Realm;
-import org.alcha.algalona.models.wow.challenges.ChallengeGroups;
-import org.alcha.algalona.models.wow.challenges.ChallengeMap;
+import org.alcha.algalonj.models.wow.Realm;
+import org.alcha.algalonj.models.wow.challenges.ChallengeGroups;
+import org.alcha.algalonj.models.wow.challenges.ChallengeMap;
 
 /**
  * <p>Created by Alcha on Sep 15, 2017 @ 08:37.</p>

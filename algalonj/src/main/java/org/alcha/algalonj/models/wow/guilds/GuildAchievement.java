@@ -4,8 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Achievement;
-import org.alcha.algalona.util.JsonAid;
+import org.alcha.algalonj.models.wow.Achievement;
+import org.alcha.algalonj.util.JsonAid;
 
 import java.util.ArrayList;
 import java.util.List;

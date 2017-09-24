@@ -1,7 +1,5 @@
 package org.alcha.algalonj.models.wow;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,7 +7,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.alcha.algalona.models.wow.Stat.parseJsonArray;
+import static org.alcha.algalonj.models.wow.Stat.parseJsonArray;
 
 /**
  * <p>Created by Alcha on 8/1/2017.</p>
@@ -34,7 +32,7 @@ public class RewardItem extends Item implements Comparable<RewardItem> {
     }
 
     @Override
-    public int compareTo(@NonNull RewardItem rewardItem) {
+    public int compareTo(RewardItem rewardItem) {
         if (rewardItem.getId() > getId()) return 1;
         else if (rewardItem.getId() < getId()) return -1;
         else return 0;

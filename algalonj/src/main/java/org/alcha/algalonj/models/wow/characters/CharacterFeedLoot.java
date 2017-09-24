@@ -2,7 +2,7 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.util.JsonAid;
+import org.alcha.algalonj.util.JsonAid;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>

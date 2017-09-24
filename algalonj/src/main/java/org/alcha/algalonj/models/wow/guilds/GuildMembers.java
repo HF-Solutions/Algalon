@@ -2,7 +2,7 @@ package org.alcha.algalonj.models.wow.guilds;
 
 import com.google.gson.JsonArray;
 
-import org.alcha.algalona.models.wow.characters.Character;
+import org.alcha.algalonj.models.wow.characters.Character;
 
 import java.util.Map;
 import java.util.TreeMap;

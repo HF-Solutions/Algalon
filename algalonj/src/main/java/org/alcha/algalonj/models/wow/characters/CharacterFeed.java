@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.alcha.algalona.models.wow.characters.CharacterField.Name.Feed;
+import static org.alcha.algalonj.models.wow.characters.CharacterField.Name.Feed;
 
 /**
  * <p>Created by Alcha on 8/4/2017.</p>

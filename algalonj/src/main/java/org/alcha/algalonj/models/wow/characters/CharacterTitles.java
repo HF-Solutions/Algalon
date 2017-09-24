@@ -2,7 +2,7 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonArray;
 
-import org.alcha.algalona.models.wow.Title;
+import org.alcha.algalonj.models.wow.Title;
 
 import java.util.List;
 

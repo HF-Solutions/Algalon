@@ -2,8 +2,8 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Realm;
-import org.alcha.algalona.models.wow.guilds.Guild;
+import org.alcha.algalonj.models.wow.Realm;
+import org.alcha.algalonj.models.wow.guilds.Guild;
 
 import java.lang.*;
 
@@ -21,7 +21,7 @@ public class CharacterGuild extends CharacterField {
     /** Used for the /wow/guild/:realm/:guildname members field */
     private Realm mGuildRealm;
 
-    /** Stores the {@link org.alcha.algalona.models.wow.guilds.Guild} object for this CharacterGuild.*/
+    /** Stores the {@link org.alcha.algalonj.models.wow.guilds.Guild} object for this CharacterGuild.*/
     private Guild mGuild;
 
     public CharacterGuild() {

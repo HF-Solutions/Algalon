@@ -2,7 +2,7 @@ package org.alcha.algalonj.models.wow.characters;
 
 import com.google.gson.JsonObject;
 
-import org.alcha.algalona.models.wow.Profession;
+import org.alcha.algalonj.models.wow.Profession;
 
 /**
  * <p>Created by Alcha on Aug 24, 2017 @ 12:29.</p>
