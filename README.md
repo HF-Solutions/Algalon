@@ -1,6 +1,6 @@
-![Algalon_Icon](./Algalon_Icon-100x100.jpg "Algalon")
+[![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
-| [Home](./README.md) |
+![Algalon_Icon](./Algalon_Icon-100x100.jpg "Algalon")
 
 # Purpose
 
