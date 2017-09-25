@@ -1,3 +1,5 @@
+[![Dependency Status](https://www.versioneye.com/user/projects/59c8a0552de28c0061fe97ad/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59c8a0552de28c0061fe97ad)
+
 [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
 ![Algalon_Icon](./Algalon_Icon-100x100.jpg "Algalon")
