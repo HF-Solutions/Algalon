@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="algalon">
+    <output-path>$PROJECT_DIR$/out/artifacts/algalon</output-path>
+    <root id="archive" name="algalon.jar">
+      <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.8.1" />
+      <element id="module-output" name="algalon" />
+    </root>
+  </artifact>
+</component>
